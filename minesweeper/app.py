@@ -37,32 +37,19 @@ class App:
 			self.minefield.reveal(realPos)
 		elif event.button == 3:
 			if not activeSpace.isFlagged():
-				self.minefield.placeFlag
+				self.minefield.toggleFlag(realPos)
 
 def main():	
 	app = App()
 
-	
-
-	screen.fill(BLACK)
-
-	done = False
-	while not done:
+	exit = False
+	while not exit:
 		for event in pygame.event.get():
 			# Quit Event 
 			if event.type == pygame.QUIT:
-				done = True
-
-			
+				exit = True
 			elif event.type == pygame.MOUSEBUTTONDOWN:
-				pos = event.pos()
-				realPos = (pos[0]/WIDTH, pos[1]/HEIGHT)
-				if event.button == 1:
-					minefield.reveal(realPos)
-				elif event.button == 3:
-					minefield.placeFlag
-
-		screen.fill(BLACK)
+				app.onClick(event)
 
 		pygame.display.flip()
 
