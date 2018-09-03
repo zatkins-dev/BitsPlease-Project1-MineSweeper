@@ -34,10 +34,12 @@ class App:
 			pass
 		elif event.button == 1:
 			if self.minefield.reveal(realPos[0],realPos[1]):
-				self.screen.fill(Color('red'))
+				self.render()
+				return True
 		elif event.button == 3:
 			if not activeSpace.isFlagged:
 				self.minefield.toggleFlag(realPos[0],realPos[1])
+		return False
 
 	def render(self):
 		for y in range(self.minefield.y_size):
@@ -57,15 +59,17 @@ def main():
 	app = App()
 
 	exit = False
+	rerender = True
 	while not exit:
 		for event in pygame.event.get():
 			# Quit Event 
 			if event.type == pygame.QUIT:
 				exit = True
 			elif event.type == pygame.MOUSEBUTTONDOWN:
-				app.onClick(event)
+				if app.onClick(event):
+					rerender = False
 
-		app.render()
+		if rerender: app.render()
 
 		app.clock.tick(60)
 	
