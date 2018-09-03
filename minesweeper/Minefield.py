@@ -19,7 +19,6 @@ class Minefield:
 			self.minefield[y] = []
 			for x in range(self.x_size):
 				self.minefield[y][x] = Space(x, y)
-<<<<<<< HEAD
 		
 		#set mines in the minefield
 		setMines()
@@ -28,14 +27,7 @@ class Minefield:
 		for y in range(self.y_size):
 			for x in range(self.x_size):
 				checkNeighbors(x, y)
-	
-=======
 
-		#set mines in the minefield
-
-		#initialize surrounding mine numbers
-
->>>>>>> 2ef98f2602dfe44fa2471fe6366f44da7855a7e6
 	def setMines(self):
 
 		currentMines = 0
@@ -43,26 +35,28 @@ class Minefield:
 
 		while currentMines <= numMines:
 			mine_x, mine_y = randrange(self.x_size), randrange(self.y)
-<<<<<<< HEAD
 			thisSpace = self.getSpace(mine_x, mine_y)
 			
 			if not thisSpace.is_Mine:
 				thisSpace.isMine = True
 				currentMines += 1
 	
-=======
-
-
->>>>>>> 2ef98f2602dfe44fa2471fe6366f44da7855a7e6
     def checkNeighbors(self, x, y):
 		pass
 	def checkFlags(self):
-		pass
+        isComplete = True
+        for y in range(self.y_size):
+            for x in range(self.x_size):
+                if getSpace(x, y).isFlagged != getSpace(x,y).isBomb
+                    isComplete = False
+        return isComplete
     def placeFlag(self, x, y):
-		pass
+        getSpace(x, y).isFlagged = True
+
     def reveal(self, x, y):
 		pass
     def removeFlag(self, x, y):
-		pass
+        getSpace(x, y).isFlagged = False
+
     def getSpace(self, x, y):
-		pass
+        return minefield[y][x]
