@@ -54,6 +54,7 @@ class Minefield:
         getSpace(x, y).isFlagged = True
 
     def reveal(self, x, y):
+<<<<<<< HEAD
 		thisSpace = getSpace(x, y)
 		thisSpace.isRevealed = True
 		if thisSpace.isMine:
@@ -69,6 +70,11 @@ class Minefield:
 				
     def removeFlag(self, x, y):
         getSpace(x, y).isFlagged = False
+=======
+		pass
+
+
+>>>>>>> 59f5e4627cecff3eab13fffa0cdf02ca0d2074d6
 
     def getSpace(self, x, y):
         return minefield[y][x]
