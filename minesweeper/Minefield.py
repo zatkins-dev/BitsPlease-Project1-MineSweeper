@@ -37,7 +37,7 @@ class Minefield:
 			mine_x, mine_y = random.randrange(self.x_size), random.randrange(self.y_size)
 			thisSpace = self.getSpace(mine_x, mine_y)
 
-			if not thisSpace.is_Mine:
+			if not thisSpace.isMine:
 				thisSpace.isMine = True
 				currentMines += 1
 
@@ -61,102 +61,102 @@ class Minefield:
 		count = 0
 		#Check the edge cases first. Start with 0,0 on the top left corner
 		if(x == 0 and y == 0):
-			if(self.getSpace(1, 0).is_Mine):
+			if(self.getSpace(1, 0).isMine):
 				count = count + 1
-			if(self.getSpace(1, 1).is_Mine):
+			if(self.getSpace(1, 1).isMine):
 				count = count + 1
-			if(self.getSpace(0, 1).is_Mine):
+			if(self.getSpace(0, 1).isMine):
 				count = count + 1
 		#Now look at size - 1, 0 bottom left corner
 		elif(x == 0 and y == self.y_size - 1): 
-			if(self.getSpace(1, self.y_size - 1).is_Mine):
+			if(self.getSpace(1, self.y_size - 1).isMine):
 				count = count + 1
-			if(self.getSpace(1, self.y_size - 2).is_Mine):
+			if(self.getSpace(1, self.y_size - 2).isMine):
 				count = count + 1
-			if(self.getSpace(0, self.y_size - 2).is_Mine):
+			if(self.getSpace(0, self.y_size - 2).isMine):
 				count = count + 1
 		#Look at bottom right hand corner
 		elif(x == self.x_size - 1 and y == self.y_size - 1):
-			if(self.getSpace(self.x_size - 2, self.y_size - 1).is_Mine):
+			if(self.getSpace(self.x_size - 2, self.y_size - 1).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 2, self.y_size - 2).is_Mine):
+			if(self.getSpace(self.x_size - 2, self.y_size - 2).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 1, self.y_size - 2).is_Mine):
+			if(self.getSpace(self.x_size - 1, self.y_size - 2).isMine):
 				count = count + 1
 		#Top Right Corner
 		elif(x == self.x_size - 1 and y == 0):
-			if(self.getSpace(self.x_size - 1, 1).is_Mine):
+			if(self.getSpace(self.x_size - 1, 1).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 2, 1).is_Mine):
+			if(self.getSpace(self.x_size - 2, 1).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 2, 0).is_Mine):
+			if(self.getSpace(self.x_size - 2, 0).isMine):
 				count = count + 1
 		#Boundary Cases Next
 		#Left hand Side
 		elif(x == 0):
-			if(self.getSpace(0, y - 1).is_Mine):
+			if(self.getSpace(0, y - 1).isMine):
 				count = count + 1
-			if(self.getSpace(0, y + 1).is_Mine):
+			if(self.getSpace(0, y + 1).isMine):
 				count = count + 1
-			if(self.getSpace(1, y - 1).is_Mine):
+			if(self.getSpace(1, y - 1).isMine):
 				count = count + 1
-			if(self.getSpace(1, y).is_Mine):
+			if(self.getSpace(1, y).isMine):
 				count = count + 1
-			if(self.getSpace(1, y + 1).is_Mine):
+			if(self.getSpace(1, y + 1).isMine):
 				count = count + 1
 		#Right Hand Side
 		elif(x == self.x_size - 1):
-			if(self.getSpace(self.x_size - 1, y - 1).is_Mine):
+			if(self.getSpace(self.x_size - 1, y - 1).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 1, y + 1).is_Mine):
+			if(self.getSpace(self.x_size - 1, y + 1).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 2, y - 1).is_Mine):
+			if(self.getSpace(self.x_size - 2, y - 1).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 2, y).is_Mine):
+			if(self.getSpace(self.x_size - 2, y).isMine):
 				count = count + 1
-			if(self.getSpace(self.x_size - 2, y + 1).is_Mine):
+			if(self.getSpace(self.x_size - 2, y + 1).isMine):
 				count = count + 1
 		#Top
 		elif(y == 0):
-			if(self.getSpace(x - 1, 0).is_Mine):
+			if(self.getSpace(x - 1, 0).isMine):
 				count = count + 1
-			if(self.getSpace(x + 1, 0).is_Mine):
+			if(self.getSpace(x + 1, 0).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, 1).is_Mine):
+			if(self.getSpace(x - 1, 1).isMine):
 				count = count + 1
-			if(self.getSpace(x, 1).is_Mine):
+			if(self.getSpace(x, 1).isMine):
 				count = count + 1
-			if(self.getSpace(x + 1, 1).is_Mine):
+			if(self.getSpace(x + 1, 1).isMine):
 				count = count + 1
 		#Bottom
 		elif(y == self.y_size - 1):
-			if(self.getSpace(x - 1, self.y_size - 1).is_Mine):
+			if(self.getSpace(x - 1, self.y_size - 1).isMine):
 				count = count + 1
-			if(self.getSpace(x + 1, self.y_size - 1).is_Mine):
+			if(self.getSpace(x + 1, self.y_size - 1).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, self.y_size - 2).is_Mine):
+			if(self.getSpace(x - 1, self.y_size - 2).isMine):
 				count = count + 1
-			if(self.getSpace(x, self.y_size - 2).is_Mine):
+			if(self.getSpace(x, self.y_size - 2).isMine):
 				count = count + 1
-			if(self.getSpace(x + 1, self.y_size - 2).is_Mine):
+			if(self.getSpace(x + 1, self.y_size - 2).isMine):
 				count = count + 1
 		#Finally in the middle
 		else:
-			if(self.getSpace(x + 1, y + 1).is_Mine):
+			if(self.getSpace(x + 1, y + 1).isMine):
 				count = count + 1
-			if(self.getSpace(x, y + 1).is_Mine):
+			if(self.getSpace(x, y + 1).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, y + 1).is_Mine):
+			if(self.getSpace(x - 1, y + 1).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, y).is_Mine):
+			if(self.getSpace(x - 1, y).isMine):
 				count = count + 1
-			if(self.getSpace(x + 1, y).is_Mine):
+			if(self.getSpace(x + 1, y).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, y - 1).is_Mine):
+			if(self.getSpace(x - 1, y - 1).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, y).is_Mine):
+			if(self.getSpace(x - 1, y).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, y + 1).is_Mine):
+			if(self.getSpace(x - 1, y + 1).isMine):
 				count = count + 1
 
 		self.getSpace(x, y).numOfSurroundingMines = count
