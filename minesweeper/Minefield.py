@@ -2,6 +2,15 @@ from Space import Space
 import random
 
 class Minefield:
+        """Minefield manages the internal game logic. The backend of the game board.
+        
+        Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.
+        
+        Variables:
+            x_size: Integer x size of board
+            y_size: Integer y size of board
+            numMines: Integer number of mines
+            minefield: 2D array to track where the mines are located."""
 
 	x_size = 0
 	y_size = 0
@@ -31,6 +40,16 @@ class Minefield:
 				self.checkNeighbors(x, y)
 
 	def setMines(self):
+            """setMines randomly places the mines around the board.
+            
+            Preconditions:
+                Spaces are created and stored.
+                
+            Postconditions:
+                isMine altered in numMines spaces
+                
+            Returns:
+                Nothing"""
 
 		currentMines = 0
 		random.seed()

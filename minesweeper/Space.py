@@ -1,7 +1,7 @@
 class Space:
     """The Space class stores all of the information relevant to a specific space on the board.
     
-    Attributes:
+    Variables:
         x_loc = Integer location on the board. 0 is the left hand side.
         y_loc = Integer location on the board. 0 is the top of the board.
         isMine = Boolean that logs if the space has a mine. True if it does, false otherwise.
