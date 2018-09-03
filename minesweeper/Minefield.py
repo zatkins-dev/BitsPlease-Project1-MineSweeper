@@ -9,30 +9,30 @@ class Minefield:
     minefield = []
 
     def __init__(self, x_size, y_size, numMines):
-		
+
 		self.x_size = x_size
 		self.y_size = y_size
 		self.numMines = numMines
-	
+
 		#initialize minefield array
 		for y in range(self.y_size):
 			self.minefield[y] = []
 			for x in range(self.x_size):
 				self.minefield[y][x] = Space(x, y)
-				
+
 		#set mines in the minefield
-		
+
 		#initialize surrounding mine numbers
-	
+
 	def setMines(self):
-		
+
 		currentMines = 0
 		random.seed()
-		
+
 		while currentMines <= numMines:
 			mine_x, mine_y = randrange(self.x_size), randrange(self.y)
-			
-	
+
+
     def checkNeighbors(self, x, y):
         """Determines the number of mines that are directly around a certain space.
                 
@@ -63,12 +63,19 @@ class Minefield:
         elif(x == 0 and y == self.ysize - 1): 
 
 	def checkFlags(self):
-		pass
+        isComplete = True
+        for y in range(self.y_size):
+            for x in range(self.x_size):
+                if getSpace(x, y).isFlagged != getSpace(x,y).isBomb
+                    isComplete = False
+        return isComplete
     def placeFlag(self, x, y):
-		pass
+        getSpace(x, y).isFlagged = True
+
     def reveal(self, x, y):
 		pass
     def removeFlag(self, x, y):
-		pass
+        getSpace(x, y).isFlagged = False
+
     def getSpace(self, x, y):
-		pass
+        return minefield[y][x]
