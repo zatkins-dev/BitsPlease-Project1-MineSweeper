@@ -15,10 +15,12 @@ class Minefield:
 		self.numMines = numMines
 
 		#initialize minefield array
-		for y in range(self.y_size):
-			self.minefield[y] = []
-			for x in range(self.x_size):
-				self.minefield[y][x] = Space(x, y)
+		self.minefield = [[Space(x,y) for x in range(x_size)] for y in range(y_size)]
+
+		# for y in range(self.y_size):
+		# 	self.minefield[y] = []
+		# 	for x in range(self.x_size):
+		# 		self.minefield[y][x] = Space(x, y)
 
 		#set mines in the minefield
 		self.setMines()
