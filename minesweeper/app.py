@@ -22,7 +22,7 @@ class App:
 		self.screen.fill(Color('black'))
 
 		pygame.display.set_caption("BitSweeper")
-		clock = pygame.time.Clock()
+		self.clock = pygame.time.Clock()
 		
 	def onClick(self, event):
 		pos = event.pos()
@@ -53,7 +53,7 @@ def main():
 
 		pygame.display.flip()
 
-		clock.tick(60)
+		app.clock.tick(60)
 	
 	pygame.quit()
 
