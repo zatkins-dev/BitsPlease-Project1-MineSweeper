@@ -34,7 +34,34 @@ class Minefield:
 			
 	
     def checkNeighbors(self, x, y):
-		pass
+        """Determines the number of mines that are directly around a certain space.
+                
+            Args:
+                self: refers to the game board itself to access all the other spaces.
+                x: the x coordinate of the space (start at 0)
+                y: the y coordinate of the space (start at 0)
+                    
+            Preconditions:
+                The mines must already be placed in the grid, spaces must exist
+
+            Postconditions:
+                numOfSurroundingMines in space(x, y) will be altered to the number of surrounding mines.
+
+            Returns:
+                Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space."""
+        #Using the count variable to monitor the number of surrounding mines 
+        count = 0;
+        #Check the edge cases first. Start with 0,0
+        if(x == 0 and y == 0):
+            if(getSpace(0, 1).is_Mine):
+                count = count + 1
+            if(getSpace(1, 1).is_Mine):
+                count = count + 1
+            if(getSpace(1, 0).is_Mine):
+                count = count + 1
+        #Now look at size - 1, 0
+        elif(x == 0 and y == self.ysize - 1): 
+
 	def checkFlags(self):
 		pass
     def placeFlag(self, x, y):
