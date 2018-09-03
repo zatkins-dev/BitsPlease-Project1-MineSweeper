@@ -8,7 +8,7 @@ class App:
 	def __init__(self):
 		x_dim = 5
 		y_dim = 5
-		n_mines = 1
+		n_mines = 2
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
@@ -36,8 +36,22 @@ class App:
 			if self.minefield.reveal(realPos[0],realPos[1]):
 				self.screen.fill(Color('red'))
 		elif event.button == 3:
-			if not activeSpace.isFlagged():
+			if not activeSpace.isFlagged:
 				self.minefield.toggleFlag(realPos[0],realPos[1])
+
+	def render(self):
+		for y in range(self.minefield.y_size):
+			for space in self.grid[y]:
+				color = Color('black')
+				if space.isRevealed:
+					if space.isMine:
+						color = Color('red')
+					else:
+						color = Color('grey')
+				elif space.isFlagged:
+					color = Color('blue')
+				pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
+		pygame.display.flip()
 
 def main():	
 	app = App()
@@ -51,7 +65,7 @@ def main():
 			elif event.type == pygame.MOUSEBUTTONDOWN:
 				app.onClick(event)
 
-		pygame.display.flip()
+		app.render()
 
 		app.clock.tick(60)
 	
