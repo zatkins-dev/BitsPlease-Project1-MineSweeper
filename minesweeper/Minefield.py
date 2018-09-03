@@ -54,7 +54,19 @@ class Minefield:
         getSpace(x, y).isFlagged = True
 
     def reveal(self, x, y):
-		pass
+		thisSpace = getSpace(x, y)
+		thisSpace.isRevealed = True
+		if thisSpace.isMine:
+			return True
+		else:
+			if thisSpace.numOfSurroundingMines == 0:
+				x_range, y_range = range(x - 1, x + 1), range(y - 1, y + 1)
+				for y_curr in y_range:
+					for x_curr in x_range:
+						if x_curr >= 0 and y_curr >= 0 and x_curr < self.x_size and y_curr < self.y_size and not (x_curr == x and y_curr == y):
+							self.reveal(x_curr, y_curr)
+			return False
+				
     def removeFlag(self, x, y):
         getSpace(x, y).isFlagged = False
 
