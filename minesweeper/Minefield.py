@@ -36,8 +36,12 @@ class Minefield:
     def checkNeighbors(self, x, y):
 		pass
 	def checkFlags(self):
-
-		pass
+        isComplete = True
+        for y in range(self.y_size):
+            for x in range(self.x_size):
+                if getSpace(x, y).isFlagged != getSpace(x,y).isBomb
+                    isComplete = False
+        return isComplete
     def placeFlag(self, x, y):
         getSpace(x, y).isFlagged = True
 
