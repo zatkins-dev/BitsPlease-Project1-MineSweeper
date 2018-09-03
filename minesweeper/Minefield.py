@@ -1,5 +1,6 @@
-from Space import Space
-import random
+if __name__ == "__main__":
+    from Space import Space
+    import random
 
 class Minefield:
 
