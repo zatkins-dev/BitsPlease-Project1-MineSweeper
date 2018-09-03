@@ -36,14 +36,15 @@ class Minefield:
     def checkNeighbors(self, x, y):
 		pass
 	def checkFlags(self):
+
 		pass
     def placeFlag(self, x, y):
         getSpace(x, y).isFlagged = True
-		pass
+
     def reveal(self, x, y):
 		pass
     def removeFlag(self, x, y):
         getSpace(x, y).isFlagged = False
-		pass
+
     def getSpace(self, x, y):
         return minefield[y][x]
