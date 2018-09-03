@@ -2,12 +2,13 @@
 import pygame
 from pygame.locals import *
 from Minefield import *
+import math
 
 class App:
 	def __init__(self):
 		x_dim = 5
 		y_dim = 5
-		n_mines = 10
+		n_mines = 1
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
@@ -25,19 +26,18 @@ class App:
 		self.clock = pygame.time.Clock()
 		
 	def onClick(self, event):
-		pos = event.pos()
-		realPos = (pos[0]/self.WIDTH, pos[1]/self.HEIGHT)
-		try:
-			activeSpace = self.minefield.getSpace(realPos)
-		except:
-			pass
+		pos = event.pos
+		realPos = (math.floor(pos[0]/self.SPACE_WIDTH), math.floor(pos[1]/self.SPACE_HEIGHT))
+		print(realPos)
+		activeSpace = self.minefield.getSpace(realPos[0],realPos[1])
 		if activeSpace.isRevealed:
 			pass
 		elif event.button == 1:
-			self.minefield.reveal(realPos)
+			if self.minefield.reveal(realPos[0],realPos[1]):
+				self.screen.fill(Color('red'))
 		elif event.button == 3:
 			if not activeSpace.isFlagged():
-				self.minefield.toggleFlag(realPos)
+				self.minefield.toggleFlag(realPos[0],realPos[1])
 
 def main():	
 	app = App()
