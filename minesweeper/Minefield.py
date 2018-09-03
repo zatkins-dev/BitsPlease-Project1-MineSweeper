@@ -34,13 +34,14 @@ class Minefield:
 			
 	
     def checkNeighbors(self, x, y):
-	
+		pass
 	def checkFlags(self):
-
+		pass
     def placeFlag(self, x, y):
-
+		pass
     def reveal(self, x, y):
-
+		pass
     def removeFlag(self, x, y):
-
+		pass
     def getSpace(self, x, y):
+		pass
