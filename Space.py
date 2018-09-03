@@ -3,8 +3,8 @@ class Space:
         self.x_loc = x_loc
         self.y_loc = y_loc
         self.is_Mine = is_Mine
-        self.isFlagged = false
-        self.isRevealed = false
+        self.isFlagged = False
+        self.isRevealed = False
         self.numOfSurroundingMines = 0
 
 
