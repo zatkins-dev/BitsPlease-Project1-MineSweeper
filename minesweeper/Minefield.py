@@ -31,17 +31,19 @@ class Minefield:
 
 		while currentMines <= numMines:
 			mine_x, mine_y = randrange(self.x_size), randrange(self.y)
-			
+
 
     def checkNeighbors(self, x, y):
 		pass
 	def checkFlags(self):
 		pass
     def placeFlag(self, x, y):
+        getSpace(x, y).isFlagged = True
 		pass
     def reveal(self, x, y):
 		pass
     def removeFlag(self, x, y):
+        getSpace(x, y).isFlagged = False
 		pass
     def getSpace(self, x, y):
         return minefield[y][x]
