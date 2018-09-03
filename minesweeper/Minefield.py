@@ -35,7 +35,7 @@ class Minefield:
 		currentMines = 0
 		random.seed()
 
-		while currentMines <= self.numMines:
+		while currentMines < self.numMines:
 			mine_x, mine_y = random.randrange(self.x_size), random.randrange(self.y_size)
 			thisSpace = self.getSpace(mine_x, mine_y)
 
