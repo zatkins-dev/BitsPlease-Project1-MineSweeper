@@ -19,10 +19,14 @@ class Minefield:
 			self.minefield[y] = []
 			for x in range(self.x_size):
 				self.minefield[y][x] = Space(x, y)
-
+		
 		#set mines in the minefield
-
+		setMines()
+		
 		#initialize surrounding mine numbers
+		for y in range(self.y_size):
+			for x in range(self.x_size):
+				checkNeighbors(x, y)
 
 	def setMines(self):
 
@@ -31,8 +35,12 @@ class Minefield:
 
 		while currentMines <= numMines:
 			mine_x, mine_y = randrange(self.x_size), randrange(self.y)
-
-
+			thisSpace = self.getSpace(mine_x, mine_y)
+			
+			if not thisSpace.is_Mine:
+				thisSpace.isMine = True
+				currentMines += 1
+	
     def checkNeighbors(self, x, y):
         """Determines the number of mines that are directly around a certain space.
                 
