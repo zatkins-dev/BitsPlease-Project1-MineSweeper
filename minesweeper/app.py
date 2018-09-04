@@ -54,7 +54,7 @@ class App:
 				pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
 
 				if space.isRevealed:
-					font = pygame.font.SysFont('comicsansms', 10)
+					font = pygame.font.SysFont('comicsansms', 20)
 					text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
 					x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
 					y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
