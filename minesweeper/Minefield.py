@@ -175,9 +175,9 @@ class Minefield:
 				count = count + 1
 			if(self.getSpace(x - 1, y - 1).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, y).isMine):
+			if(self.getSpace(x, y - 1).isMine):
 				count = count + 1
-			if(self.getSpace(x - 1, y + 1).isMine):
+			if(self.getSpace(x + 1, y - 1).isMine):
 				count = count + 1
 
 		self.getSpace(x, y).numOfSurroundingMines = count
@@ -197,11 +197,12 @@ class Minefield:
 			return True
 		else:
 			if thisSpace.numOfSurroundingMines == 0:
-				x_range, y_range = range(x - 1, x + 1), range(y - 1, y + 1)
+				x_range, y_range = range(x - 1, x + 2), range(y - 1, y + 2)
 				for y_curr in y_range:
 					for x_curr in x_range:
-						if x_curr >= 0 and y_curr >= 0 and x_curr < self.x_size and y_curr < self.y_size and not (x_curr == x and y_curr == y):
-							self.reveal(x_curr, y_curr)
+						if (x_curr >= 0 and y_curr >= 0) and (x_curr < self.x_size and y_curr < self.y_size) and not (x_curr == x and y_curr == y):
+							if not self.getSpace(x_curr, y_curr).isRevealed:
+								self.reveal(x_curr, y_curr)
 			return False
 
 	def toggleFlag(self, x, y):

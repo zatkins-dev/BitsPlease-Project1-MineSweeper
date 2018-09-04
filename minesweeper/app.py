@@ -19,6 +19,7 @@ class App:
 		self.grid = self.minefield.minefield
 
 		pygame.init()
+		pygame.font.init()
 		self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 		self.screen.fill(Color('black'))
 
@@ -53,6 +54,13 @@ class App:
 				elif space.isFlagged:
 					color = Color('blue')
 				pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
+
+				if space.isRevealed:
+					font = pygame.font.SysFont('comicsansms', 20)
+					text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
+					x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
+					y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
+					self.screen.blit(text, (x_text_pos, y_text_pos))
 		pygame.display.flip()
 
 def main():	
