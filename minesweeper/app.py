@@ -6,9 +6,9 @@ import math
 
 class App:
 	def __init__(self):
-		x_dim = 5
-		y_dim = 5
-		n_mines = 2
+		x_dim = 20
+		y_dim = 10
+		n_mines = 10
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
@@ -56,6 +56,8 @@ class App:
 				pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
 
 				if space.isRevealed:
+					if not space.numOfSurroundingMines or space.isMine:
+						continue
 					font = pygame.font.SysFont('comicsansms', 20)
 					text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
 					x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
