@@ -1,5 +1,5 @@
 from Space import Space
-import random, math
+import random
 
 class Minefield:
 	"""Minefield manages the internal game logic. The backend of the game board.
