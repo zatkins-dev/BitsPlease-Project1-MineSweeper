@@ -1,5 +1,5 @@
 from Space import Space
-import random
+import random, math
 
 class Minefield:
 	"""Minefield manages the internal game logic. The backend of the game board.
@@ -80,106 +80,17 @@ class Minefield:
 				Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space."""
 		#Using the count variable to monitor the number of surrounding mines 
 		count = 0
-		#Check the edge cases first. Start with 0,0 on the top left corner
-		if(x == 0 and y == 0):
-			if(self.getSpace(1, 0).isMine):
-				count = count + 1
-			if(self.getSpace(1, 1).isMine):
-				count = count + 1
-			if(self.getSpace(0, 1).isMine):
-				count = count + 1
-		#Now look at size - 1, 0 bottom left corner
-		elif(x == 0 and y == self.y_size - 1): 
-			if(self.getSpace(1, self.y_size - 1).isMine):
-				count = count + 1
-			if(self.getSpace(1, self.y_size - 2).isMine):
-				count = count + 1
-			if(self.getSpace(0, self.y_size - 2).isMine):
-				count = count + 1
-		#Look at bottom right hand corner
-		elif(x == self.x_size - 1 and y == self.y_size - 1):
-			if(self.getSpace(self.x_size - 2, self.y_size - 1).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 2, self.y_size - 2).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 1, self.y_size - 2).isMine):
-				count = count + 1
-		#Top Right Corner
-		elif(x == self.x_size - 1 and y == 0):
-			if(self.getSpace(self.x_size - 1, 1).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 2, 1).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 2, 0).isMine):
-				count = count + 1
-		#Boundary Cases Next
-		#Left hand Side
-		elif(x == 0):
-			if(self.getSpace(0, y - 1).isMine):
-				count = count + 1
-			if(self.getSpace(0, y + 1).isMine):
-				count = count + 1
-			if(self.getSpace(1, y - 1).isMine):
-				count = count + 1
-			if(self.getSpace(1, y).isMine):
-				count = count + 1
-			if(self.getSpace(1, y + 1).isMine):
-				count = count + 1
-		#Right Hand Side
-		elif(x == self.x_size - 1):
-			if(self.getSpace(self.x_size - 1, y - 1).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 1, y + 1).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 2, y - 1).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 2, y).isMine):
-				count = count + 1
-			if(self.getSpace(self.x_size - 2, y + 1).isMine):
-				count = count + 1
-		#Top
-		elif(y == 0):
-			if(self.getSpace(x - 1, 0).isMine):
-				count = count + 1
-			if(self.getSpace(x + 1, 0).isMine):
-				count = count + 1
-			if(self.getSpace(x - 1, 1).isMine):
-				count = count + 1
-			if(self.getSpace(x, 1).isMine):
-				count = count + 1
-			if(self.getSpace(x + 1, 1).isMine):
-				count = count + 1
-		#Bottom
-		elif(y == self.y_size - 1):
-			if(self.getSpace(x - 1, self.y_size - 1).isMine):
-				count = count + 1
-			if(self.getSpace(x + 1, self.y_size - 1).isMine):
-				count = count + 1
-			if(self.getSpace(x - 1, self.y_size - 2).isMine):
-				count = count + 1
-			if(self.getSpace(x, self.y_size - 2).isMine):
-				count = count + 1
-			if(self.getSpace(x + 1, self.y_size - 2).isMine):
-				count = count + 1
-		#Finally in the middle
-		else:
-			if(self.getSpace(x + 1, y + 1).isMine):
-				count = count + 1
-			if(self.getSpace(x, y + 1).isMine):
-				count = count + 1
-			if(self.getSpace(x - 1, y + 1).isMine):
-				count = count + 1
-			if(self.getSpace(x - 1, y).isMine):
-				count = count + 1
-			if(self.getSpace(x + 1, y).isMine):
-				count = count + 1
-			if(self.getSpace(x - 1, y - 1).isMine):
-				count = count + 1
-			if(self.getSpace(x, y - 1).isMine):
-				count = count + 1
-			if(self.getSpace(x + 1, y - 1).isMine):
-				count = count + 1
+		leftX = 0 if x == 0 else x-1
+		rightX = self.x_size-1 if x == self.x_size-1 else x+1
+		leftY = 0 if y == 0 else y-1
+		rightY = self.y_size-1 if y == self.y_size-1 else y+1
 
+		checkCoordinates = [(xCoord, yCoord) for xCoord in range(leftX, rightX+1) for yCoord in range(leftY, rightY+1) if not (xCoord, yCoord) == (x,y)]
+		print(checkCoordinates)
+		for gridPoint in checkCoordinates:
+			if (self.getSpace(gridPoint[0],gridPoint[1]).isMine): 
+				count += 1
+		
 		self.getSpace(x, y).numOfSurroundingMines = count
 
 	def checkFlags(self):
