@@ -29,7 +29,6 @@ class App:
 	def onClick(self, event):
 		pos = event.pos
 		realPos = (math.floor(pos[0]/self.SPACE_WIDTH), math.floor(pos[1]/self.SPACE_HEIGHT))
-		print(realPos)
 		activeSpace = self.minefield.getSpace(realPos[0],realPos[1])
 		if activeSpace.isRevealed:
 			pass

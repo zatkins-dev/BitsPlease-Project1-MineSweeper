@@ -86,7 +86,6 @@ class Minefield:
 		rightY = self.y_size-1 if y == self.y_size-1 else y+1
 
 		checkCoordinates = [(xCoord, yCoord) for xCoord in range(leftX, rightX+1) for yCoord in range(leftY, rightY+1) if not (xCoord, yCoord) == (x,y)]
-		print(checkCoordinates)
 		for gridPoint in checkCoordinates:
 			if (self.getSpace(gridPoint[0],gridPoint[1]).isMine): 
 				count += 1
