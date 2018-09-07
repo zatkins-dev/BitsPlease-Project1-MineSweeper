@@ -10,18 +10,8 @@ class App:
 		y_dim = 10
 		n_mines = 10
 
-		self.SPACE_WIDTH = 32
-		self.SPACE_HEIGHT = 32
-		self.WIDTH = self.SPACE_WIDTH*x_dim
-		self.HEIGHT = self.SPACE_HEIGHT*y_dim
-
 		self.minefield = Minefield(x_dim, y_dim, n_mines)
 		self.grid = self.minefield.minefield
-
-		pygame.init()
-		pygame.font.init()
-		self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
-		self.screen.fill(Color('black'))
 
 		pygame.display.set_caption("BitSweeper")
 		self.clock = pygame.time.Clock()
