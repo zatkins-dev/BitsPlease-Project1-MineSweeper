@@ -37,7 +37,7 @@ class App:
 				self.render()
 				return True
 		elif event.button == 3:
-			if not activeSpace.isFlagged:
+			if not activeSpace.isRevealed:
 				self.minefield.toggleFlag(realPos[0],realPos[1])
 		return False
 
