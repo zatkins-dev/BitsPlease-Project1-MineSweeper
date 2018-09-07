@@ -47,6 +47,8 @@ class App:
 		elif event.button == 3:
 			if not activeSpace.isRevealed:
 				if not activeSpace.isFlagged:
+					if self.flagCounter == 0:
+						return
 					self.flagCounter = self.flagCounter - 1
 					if self.flagCounter == 0:
 						isDone = self.minefield.checkFlags
