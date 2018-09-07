@@ -21,7 +21,7 @@ class App:
 		self.grid = self.minefield.minefield
 
 		#Images
-		self.imageRevealed = pygame.image.load("..\\assets\\space_empty_green.png")
+		self.imageRevealed = pygame.image.load("..\\assets\\gridSpace_revealed.png")
 		self.imageUnrevealed = pygame.image.load("..\\assets\\gridSpace.png")
 		self.imageFlag = pygame.image.load("..\\assets\\gridSpaceFlag.png")
 		self.imageMine = pygame.image.load("..\\assets\\space_empty_rose-gold.png")
