@@ -70,24 +70,29 @@ class App:
 
 	def renderSpace(self, space):
 		image = self.imageUnrevealed
-		if space.isRevealed:
-			if space.isMine:
-				image = self.imageMine
-			else:
-				image = self.imageRevealed
-		elif space.isFlagged:
-			image = self.imageFlag
-		self.screen.blit(image, (space.x_loc*self.window.SPACE_PIXELS, space.y_loc*self.window.SPACE_PIXELS))
+		space_x = space.x_loc*self.SPACE_WIDTH
+		space_y = space.y_loc*self.SPACE_HEIGHT
 		#pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
+		
 
+		#Draw revealed space background
 		if space.isRevealed:
-			if not space.numOfSurroundingMines or space.isMine:
-				return
-			font = pygame.font.SysFont('comicsansms', 20)
-			text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
-			x_text_pos = (space.x_loc * self.window.SPACE_PIXELS) + (self.window.SPACE_PIXELS / 2) - (text.get_width() / 2)
-			y_text_pos = (space.y_loc * self.window.SPACE_PIXELS) + (self.window.SPACE_PIXELS / 2) - (text.get_height() / 2)
-			self.screen.blit(text, (x_text_pos, y_text_pos))
+			self.screen.blit(self.imageRevealed, (space_x, space_y))
+			#Draw either a mine, or text ontop of background
+			if space.isMine:
+				self.screen.blit(self.imageMine, (space_x, space_y))
+			elif space.numOfSurroundingMines != 0:
+				#Draw Text
+				font = pygame.font.SysFont('lucidaconsole', 20)
+				text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
+				x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
+				y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
+				self.screen.blit(text, (x_text_pos, y_text_pos))
+		else:
+			self.screen.blit(self.imageUnrevealed, (space_x, space_y))
+			#Draw a flag if the space is flagged
+			if space.isFlagged:
+				self.screen.blit(self.imageFlag, (space_x, space_y))	
 
 	def reset(self):
 		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
