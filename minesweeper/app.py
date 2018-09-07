@@ -11,7 +11,7 @@ class App:
 		n_mines = 10
 
 		self.flagCounter = n_mines
-		self.gameTimer = 0
+	
 		self.timeOfLastReset =0
 
 		self.SPACE_WIDTH = 32
@@ -47,8 +47,7 @@ class App:
 					if self.flagCounter == 0:
 						isDone = self.minefield.checkFlags
 						if isDone == True:
-							#TODO: what happens when they win?
-							pygame.quit()
+							self.reset()
 						else:
 							pass
 							# do nothing
@@ -87,7 +86,7 @@ class App:
 		self.minefield = Minefield(x_dim, y_dim, n_mines)
 		self.flagCounter = n_mines
 		self.timeOfLastReset = pygame.time.get_ticks
-		self.gameTimer = 0
+	
 
     
 	def getTime(self):
