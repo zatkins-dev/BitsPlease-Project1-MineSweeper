@@ -23,8 +23,8 @@ class App:
 		#Images
 		self.imageRevealed = pygame.image.load("..\\assets\\gridSpace_revealed.png")
 		self.imageUnrevealed = pygame.image.load("..\\assets\\gridSpace.png")
-		self.imageFlag = pygame.image.load("..\\assets\\gridSpaceFlag.png")
-		self.imageMine = pygame.image.load("..\\assets\\space_empty_rose-gold.png")
+		self.imageFlag = pygame.image.load("..\\assets\\flag.png")
+		self.imageMine = pygame.image.load("..\\assets\\mine.png")
 
 		pygame.init()
 		pygame.font.init()
@@ -68,25 +68,27 @@ class App:
 		pygame.display.flip()
 
 	def renderSpace(self, space):
-		image = self.imageUnrevealed
-		if space.isRevealed:
-			if space.isMine:
-				image = self.imageMine
-			else:
-				image = self.imageRevealed
-		elif space.isFlagged:
-			image = self.imageFlag
-		self.screen.blit(image, (space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT))
-		#pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
+		space_x = space.x_loc*self.SPACE_WIDTH
+		space_y = space.y_loc*self.SPACE_HEIGHT
 
+		#Draw revealed space background
 		if space.isRevealed:
-			if not space.numOfSurroundingMines or space.isMine:
-				return
-			font = pygame.font.SysFont('comicsansms', 20)
-			text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
-			x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
-			y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
-			self.screen.blit(text, (x_text_pos, y_text_pos))
+			self.screen.blit(self.imageRevealed, (space_x, space_y))
+			#Draw either a mine, or text ontop of background
+			if space.isMine:
+				self.screen.blit(self.imageMine, (space_x, space_y))
+			elif space.numOfSurroundingMines != 0:
+				#Draw Text
+				font = pygame.font.SysFont('lucidaconsole', 20)
+				text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
+				x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
+				y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
+				self.screen.blit(text, (x_text_pos, y_text_pos))
+		else:
+			self.screen.blit(self.imageUnrevealed, (space_x, space_y))
+			#Draw a flag if the space is flagged
+			if space.isFlagged:
+				self.screen.blit(self.imageFlag, (space_x, space_y))	
 
 	def reset():
 		self.minefield = Minefield(x_dim, y_dim, n_mines)
