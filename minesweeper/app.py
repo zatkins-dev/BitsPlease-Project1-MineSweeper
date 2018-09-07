@@ -11,6 +11,8 @@ class App:
 		n_mines = 10
 
 		self.flagCounter = n_mines
+		self.gameTimer = 0
+		self.timeOfLastReset =0
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
@@ -84,10 +86,12 @@ class App:
 	def reset():
 		self.minefield = Minefield(x_dim, y_dim, n_mines)
 		self.flagCounter = n_mines
+		self.timeOfLastReset = pygame.time.get_ticks
+		self.gameTimer = 0
 
     
 	def getTime(self):
-		return pygame.time.get_ticks / 1000
+		return (pygame.time.get_ticks - self.timeOfLastReset) / 1000; 
 
 
 def main():	
