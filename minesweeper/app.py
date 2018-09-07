@@ -85,6 +85,11 @@ class App:
 		self.minefield = Minefield(x_dim, y_dim, n_mines)
 		self.flagCounter = n_mines
 
+    
+	def getTime(self):
+		return pygame.time.get_ticks / 1000
+
+
 def main():	
 	app = App()
 
