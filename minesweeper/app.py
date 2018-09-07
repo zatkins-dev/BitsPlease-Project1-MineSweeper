@@ -2,23 +2,25 @@
 import pygame
 from pygame.locals import *
 from Minefield import *
+from Window import Window
 import math
 
 class App:
 	def __init__(self):
 		x_dim = 20
 		y_dim = 10
-		n_mines = 10
+		n_mines = 25
 
 		self.minefield = Minefield(x_dim, y_dim, n_mines)
 		self.grid = self.minefield.minefield
 
-		pygame.display.set_caption("BitSweeper")
-		self.clock = pygame.time.Clock()
+		self.window = Window(x_dim, y_dim)
+		self.screen = self.window.gameScreen
 		
 	def onClick(self, event):
 		pos = event.pos
-		realPos = (math.floor(pos[0]/self.SPACE_WIDTH), math.floor(pos[1]/self.SPACE_HEIGHT))
+		realPos = (math.floor((pos[0]-self.window.MARGIN)/self.window.SPACE_PIXELS), 
+			math.floor((pos[1]-self.window.MARGIN-self.window.HEADER_BAR)/self.window.SPACE_PIXELS))
 		activeSpace = self.minefield.getSpace(realPos[0],realPos[1])
 		if activeSpace.isRevealed:
 			pass
@@ -46,15 +48,15 @@ class App:
 				color = Color('grey')
 		elif space.isFlagged:
 			color = Color('blue')
-		pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
+		pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.window.SPACE_PIXELS, space.y_loc*self.window.SPACE_PIXELS, self.window.SPACE_PIXELS, self.window.SPACE_PIXELS))
 
 		if space.isRevealed:
 			if not space.numOfSurroundingMines or space.isMine:
 				return
 			font = pygame.font.SysFont('comicsansms', 20)
 			text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
-			x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
-			y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
+			x_text_pos = (space.x_loc * self.window.SPACE_PIXELS) + (self.window.SPACE_PIXELS / 2) - (text.get_width() / 2)
+			y_text_pos = (space.y_loc * self.window.SPACE_PIXELS) + (self.window.SPACE_PIXELS / 2) - (text.get_height() / 2)
 			self.screen.blit(text, (x_text_pos, y_text_pos))
 
 def main():	
@@ -73,7 +75,7 @@ def main():
 
 		if rerender: app.render()
 
-		app.clock.tick(60)
+		app.window.clock.tick(60)
 	
 	pygame.quit()
 
