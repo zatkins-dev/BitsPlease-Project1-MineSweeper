@@ -12,7 +12,7 @@ class App:
 		self.y_dim = 10
 		self.n_mines = 10
 
-		self.flagCounter = n_mines
+		self.flagCounter = self.n_mines
 		self.gameTimer = 0
 		self.timeOfLastReset =0
 
