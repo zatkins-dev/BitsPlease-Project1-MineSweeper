@@ -44,25 +44,28 @@ class App:
 	def render(self):
 		for y in range(self.minefield.y_size):
 			for space in self.grid[y]:
-				color = Color('black')
-				if space.isRevealed:
-					if space.isMine:
-						color = Color('red')
-					else:
-						color = Color('grey')
-				elif space.isFlagged:
-					color = Color('blue')
-				pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
-
-				if space.isRevealed:
-					if not space.numOfSurroundingMines or space.isMine:
-						continue
-					font = pygame.font.SysFont('comicsansms', 20)
-					text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
-					x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
-					y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
-					self.screen.blit(text, (x_text_pos, y_text_pos))
+				self.renderSpace(space)
 		pygame.display.flip()
+
+	def renderSpace(self, space):
+		color = Color('black')
+		if space.isRevealed:
+			if space.isMine:
+				color = Color('red')
+			else:
+				color = Color('grey')
+		elif space.isFlagged:
+			color = Color('blue')
+		pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
+
+		if space.isRevealed:
+			if not space.numOfSurroundingMines or space.isMine:
+				return
+			font = pygame.font.SysFont('comicsansms', 20)
+			text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
+			x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
+			y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
+			self.screen.blit(text, (x_text_pos, y_text_pos))
 
 def main():	
 	app = App()
