@@ -78,7 +78,7 @@ class App:
 			y_text_pos = (space.y_loc * self.window.SPACE_PIXELS) + (self.window.SPACE_PIXELS / 2) - (text.get_height() / 2)
 			self.screen.blit(text, (x_text_pos, y_text_pos))
 
-	def reset():
+	def reset(self):
 		self.minefield = Minefield(x_dim, y_dim, n_mines)
 		self.flagCounter = n_mines
 
