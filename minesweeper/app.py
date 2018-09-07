@@ -22,8 +22,8 @@ class App:
 
 		#Images
 		self.imageRevealed = pygame.image.load("..\\assets\\space_empty_green.png")
-		self.imageUnrevealed = pygame.image.load("..\\assets\\space_empty.png")
-		self.imageFlag = pygame.image.load("..\\assets\\space_flagged_green.png")
+		self.imageUnrevealed = pygame.image.load("..\\assets\\gridSpace.png")
+		self.imageFlag = pygame.image.load("..\\assets\\gridSpaceFlag.png")
 		self.imageMine = pygame.image.load("..\\assets\\space_empty_rose-gold.png")
 
 		pygame.init()
@@ -47,14 +47,14 @@ class App:
 		elif event.button == 3:
 			if not activeSpace.isRevealed:
 				if not activeSpace.isFlagged:
-					flagCounter = flagCounter - 1
-					if flagCounter == 0:
+					self.flagCounter = self.flagCounter - 1
+					if self.flagCounter == 0:
 						isDone = self.minefield.checkFlags
 						if isDone == True:
 							#TODO: what happens when they win?
 							pygame.quit()
 				else:
-					flagCounter = flagCounter + 1
+					self.flagCounter = self.flagCounter + 1
 				self.minefield.toggleFlag(realPos[0],realPos[1])
 		return False
 
