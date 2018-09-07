@@ -134,6 +134,7 @@ class Minefield:
 					True if space is revealed, false otherwise
 		"""
 		thisSpace = self.getSpace(x, y)
+		
 		thisSpace.isRevealed = True
 		if thisSpace.isMine:
 			return True
@@ -143,7 +144,7 @@ class Minefield:
 				for y_curr in y_range:
 					for x_curr in x_range:
 						if (x_curr >= 0 and y_curr >= 0) and (x_curr < self.x_size and y_curr < self.y_size) and not (x_curr == x and y_curr == y):
-							if not self.getSpace(x_curr, y_curr).isRevealed:
+							if (not self.getSpace(x_curr, y_curr).isRevealed) and (not self.getSpace(x_curr, y_curr).isFlagged):
 								self.reveal(x_curr, y_curr)
 			return False
 
@@ -156,3 +157,4 @@ class Minefield:
 
 	def getSpace(self, x, y):
 		return self.minefield[y][x]
+
