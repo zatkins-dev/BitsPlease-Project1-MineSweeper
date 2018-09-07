@@ -94,20 +94,20 @@ class Minefield:
 		self.getSpace(x, y).numOfSurroundingMines = count
 
 	def checkFlags(self):
-                """Checks to see all of mined spaces have flags
+		"""Checks to see all of mined spaces have flags
 
-                    Args:
-                            None.
+			Args:
+					None.
 
-                    Preconditions:
-                            The mines must already be placed in grid, spaces must exist
+			Preconditions:
+					The mines must already be placed in grid, spaces must exist
 
-                    Postconditions:
-                            None.
+			Postconditions:
+					None.
 
-                    Returns:
-                            True if all the mines have a flag on them, false otherwise
-                """
+			Returns:
+					True if all the mines have a flag on them, false otherwise
+		"""
 		isComplete = True
 		for y in range(self.y_size):
 			for x in range(self.x_size):
@@ -116,24 +116,24 @@ class Minefield:
 		return isComplete
 
 	def reveal(self, x, y):
-                """Determines whether or not to reveal a space.
+		"""Determines whether or not to reveal a space.
 
-                    Specifically, it reveals a space when it is clicked, as well as all empty spaces around the clicked space.
-                    It also reveals the board if a mine is clicked.
+			Specifically, it reveals a space when it is clicked, as well as all empty spaces around the clicked space.
+			It also reveals the board if a mine is clicked.
 
-                    Args:
-                            x: x-coordinate of the space (starts at 0)
-                            y: y-coordinate of the space (starts at 0)
+			Args:
+					x: x-coordinate of the space (starts at 0)
+					y: y-coordinate of the space (starts at 0)
 
-                    Preconditions:
-                            x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0 <= y < self.ysize)
+			Preconditions:
+					x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0 <= y < self.ysize)
 
-                    Postconditions:
-                            Set Revealed to True if space is to be revealed
+			Postconditions:
+					Set Revealed to True if space is to be revealed
 
-                    Return:
-                            True if space is revealed, false otherwise
-                """
+			Return:
+					True if space is revealed, false otherwise
+		"""
 		thisSpace = self.getSpace(x, y)
 		thisSpace.isRevealed = True
 		if thisSpace.isMine:
