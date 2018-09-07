@@ -7,21 +7,21 @@ import math
 
 class App:
 	def __init__(self):
-		x_dim = 20
-		y_dim = 10
-		n_mines = 10
+		self.x_dim = 20
+		self.y_dim = 10
+		self.n_mines = 10
 
-		self.flagCounter = n_mines
+		self.flagCounter = self.n_mines
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
-		self.WIDTH = self.SPACE_WIDTH*x_dim
-		self.HEIGHT = self.SPACE_HEIGHT*y_dim
+		self.WIDTH = self.SPACE_WIDTH*self.x_dim
+		self.HEIGHT = self.SPACE_HEIGHT*self.y_dim
 
-		self.minefield = Minefield(x_dim, y_dim, n_mines)
+		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
 		self.grid = self.minefield.minefield
 
-		self.window = Window(x_dim, y_dim)
+		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
 		
 	def onClick(self, event):
@@ -40,11 +40,12 @@ class App:
 				if not activeSpace.isFlagged:
 					self.flagCounter = self.flagCounter - 1
 					if self.flagCounter == 0:
-						isDone = self.minefield.checkFlags
-						if isDone == True:
+						if self.minefield.checkFlags:
 							#TODO: what happens when they win?
+							print('checked flags - true')
 							pygame.quit()
 						else:
+							print('checked flags - false')
 							pass
 							# do nothing
 				else:
@@ -79,8 +80,8 @@ class App:
 			self.screen.blit(text, (x_text_pos, y_text_pos))
 
 	def reset(self):
-		self.minefield = Minefield(x_dim, y_dim, n_mines)
-		self.flagCounter = n_mines
+		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
+		self.flagCounter = self.n_mines
 
 def main():	
 	app = App()
