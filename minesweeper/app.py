@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 from Minefield import *
 from Window import Window
+import os
 import math
 
 class App:
@@ -24,10 +25,10 @@ class App:
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
 		#Images
-		self.imageRevealed = pygame.image.load("..\\assets\\space_empty_green.png")
-		self.imageUnrevealed = pygame.image.load("..\\assets\\gridSpace.png")
-		self.imageFlag = pygame.image.load("..\\assets\\gridSpaceFlag.png")
-		self.imageMine = pygame.image.load("..\\assets\\space_empty_rose-gold.png")
+		self.imageRevealed = pygame.image.load('./assets/space_empty_green.png').convert()
+		self.imageUnrevealed = pygame.image.load("./assets/gridSpace.png").convert()
+		self.imageFlag = pygame.image.load("./assets/gridSpaceFlag.png").convert()
+		self.imageMine = pygame.image.load("./assets/space_empty_rose-gold.png").convert()
 		
 	def onClick(self, event):
 		pos = event.pos
