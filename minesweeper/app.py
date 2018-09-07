@@ -10,6 +10,8 @@ class App:
 		y_dim = 10
 		n_mines = 10
 
+		self.flagCounter = n_mines
+
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
 		self.WIDTH = self.SPACE_WIDTH*x_dim
@@ -38,6 +40,17 @@ class App:
 				return True
 		elif event.button == 3:
 			if not activeSpace.isRevealed:
+				if not activeSpace.isFlagged:
+					flagCounter = flagCounter - 1
+					if flagCounter == 0:
+						isDone = self.minefield.checkFlags
+						if isDone == True:
+							#TODO: what happens when they win?
+							pygame.quit()
+						else:
+							# do nothing
+				else
+					flagCounter = flagCounter + 1
 				self.minefield.toggleFlag(realPos[0],realPos[1])
 		return False
 
