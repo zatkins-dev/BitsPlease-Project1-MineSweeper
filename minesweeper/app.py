@@ -31,14 +31,15 @@ class App:
 		self.imageMine = pygame.image.load("./assets/space_empty_rose-gold.png").convert()
 		
 	def onClick(self, event):
-		pos = event.pos
-		realPos = (math.floor((pos[0]-self.window.MARGIN)/self.window.SPACE_PIXELS), 
-			math.floor((pos[1]-self.window.MARGIN-self.window.HEADER_BAR)/self.window.SPACE_PIXELS))
-		activeSpace = self.minefield.getSpace(realPos[0],realPos[1])
+		newEvent = self.window.onClick(event)
+		if newEvent == True:
+			return 
+		print(newEvent.pos)
+		activeSpace = self.minefield.getSpace(newEvent.pos[0],newEvent.pos[1])
 		if activeSpace.isRevealed:
 			pass
 		elif event.button == 1:
-			if self.minefield.reveal(realPos[0],realPos[1]):
+			if self.minefield.reveal(newEvent.pos[0],newEvent.pos[1]):
 				self.render()
 				return True
 		elif event.button == 3:
@@ -56,7 +57,7 @@ class App:
 							# do nothing
 				else:
 					self.flagCounter = self.flagCounter + 1
-				self.minefield.toggleFlag(realPos[0],realPos[1])
+				self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
 		return False
 
 	def render(self):
