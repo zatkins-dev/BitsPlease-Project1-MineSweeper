@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+
 import pygame
 from pygame.locals import *
 from Minefield import *
@@ -53,6 +53,9 @@ class App:
 						if isDone == True:
 							#TODO: what happens when they win?
 							pygame.quit()
+						else:
+							pass
+							# do nothing
 				else:
 					self.flagCounter = self.flagCounter + 1
 				self.minefield.toggleFlag(realPos[0],realPos[1])
@@ -84,6 +87,15 @@ class App:
 			x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
 			y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
 			self.screen.blit(text, (x_text_pos, y_text_pos))
+
+	def reset():
+		self.minefield = Minefield(x_dim, y_dim, n_mines)
+		self.flagCounter = n_mines
+
+    
+	def getTime(self):
+		return pygame.time.get_ticks / 1000
+
 
 def main():	
 	app = App()
