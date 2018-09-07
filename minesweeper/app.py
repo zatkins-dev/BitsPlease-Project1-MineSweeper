@@ -23,6 +23,11 @@ class App:
 
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
+		#Images
+		self.imageRevealed = pygame.image.load("..\\assets\\space_empty_green.png")
+		self.imageUnrevealed = pygame.image.load("..\\assets\\gridSpace.png")
+		self.imageFlag = pygame.image.load("..\\assets\\gridSpaceFlag.png")
+		self.imageMine = pygame.image.load("..\\assets\\space_empty_rose-gold.png")
 		
 	def onClick(self, event):
 		pos = event.pos
@@ -60,15 +65,16 @@ class App:
 		pygame.display.flip()
 
 	def renderSpace(self, space):
-		color = Color('black')
+		image = self.imageUnrevealed
 		if space.isRevealed:
 			if space.isMine:
-				color = Color('red')
+				image = self.imageMine
 			else:
-				color = Color('grey')
+				image = self.imageRevealed
 		elif space.isFlagged:
-			color = Color('blue')
-		pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.window.SPACE_PIXELS, space.y_loc*self.window.SPACE_PIXELS, self.window.SPACE_PIXELS, self.window.SPACE_PIXELS))
+			image = self.imageFlag
+		self.screen.blit(image, (space.x_loc*self.window.SPACE_PIXELS, space.y_loc*self.window.SPACE_PIXELS))
+		#pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
 
 		if space.isRevealed:
 			if not space.numOfSurroundingMines or space.isMine:
