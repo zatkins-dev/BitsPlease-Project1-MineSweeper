@@ -27,10 +27,10 @@ class App:
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
 		#Images
-		self.imageRevealed = pygame.image.load('./assets/space_empty_green.png').convert()
+		self.imageRevealed = pygame.image.load('./assets/gridSpace_revealed.png').convert()
 		self.imageUnrevealed = pygame.image.load("./assets/gridSpace.png").convert()
-		self.imageFlag = pygame.image.load("./assets/gridSpaceFlag.png").convert()
-		self.imageMine = pygame.image.load("./assets/space_empty_rose-gold.png").convert()
+		self.imageFlag = pygame.image.load("./assets/flag.png").convert_alpha()
+		self.imageMine = pygame.image.load("./assets/mine.png").convert_alpha()
 		
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)
@@ -69,11 +69,8 @@ class App:
 		pygame.display.flip()
 
 	def renderSpace(self, space):
-		image = self.imageUnrevealed
 		space_x = space.x_loc*self.SPACE_WIDTH
-		space_y = space.y_loc*self.SPACE_HEIGHT
-		#pygame.draw.rect(self.screen, color, Rect(space.x_loc*self.SPACE_WIDTH, space.y_loc*self.SPACE_HEIGHT, self.SPACE_WIDTH, self.SPACE_HEIGHT))
-		
+		space_y = space.y_loc*self.SPACE_HEIGHT		
 
 		#Draw revealed space background
 		if space.isRevealed:
@@ -85,8 +82,8 @@ class App:
 				#Draw Text
 				font = pygame.font.SysFont('lucidaconsole', 20)
 				text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
-				x_text_pos = (space.x_loc * self.SPACE_WIDTH) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
-				y_text_pos = (space.y_loc * self.SPACE_HEIGHT) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
+				x_text_pos = (space_x) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
+				y_text_pos = (space_y) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
 				self.screen.blit(text, (x_text_pos, y_text_pos))
 		else:
 			self.screen.blit(self.imageUnrevealed, (space_x, space_y))
