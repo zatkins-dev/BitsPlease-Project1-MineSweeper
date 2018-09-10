@@ -1,23 +1,8 @@
-from minesweeper.app import *
+from distutils.core import setup
 
-def main():	
-	app = App()
-
-	exit = False
-	rerender = True
-	while not exit:
-		for event in pygame.event.get():
-			# Quit Event 
-			if event.type == pygame.QUIT:
-				exit = True
-			elif event.type == pygame.MOUSEBUTTONDOWN:
-				if app.onClick(event):
-					rerender = False
-
-		if rerender: app.render()
-
-		app.window.clock.tick(60)
-	
-	pygame.quit()
-
-if __name__ == '__main__': main()
+setup(name='MineSweeper',
+      version='1.0',
+      description='Minesweeping game',
+      author='Gage, Thomas, Jacob, and Zach',
+      url='https://github.com/zatkins-school/BitsPlease-Project1-MineSweeper',
+      packages=[''])

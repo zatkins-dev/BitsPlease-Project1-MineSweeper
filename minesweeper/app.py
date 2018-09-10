@@ -34,6 +34,7 @@ class App:
 		
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)
+		(gameOver, win) = False, False
 		if newEvent == True:
 			return 
 		print(newEvent.pos)
@@ -43,7 +44,8 @@ class App:
 		elif event.button == 1:
 			if self.minefield.reveal(newEvent.pos[0],newEvent.pos[1]):
 				self.render()
-				return True
+				gameOver = True
+				return (gameOver, win)
 		elif event.button == 3:
 			if not activeSpace.isRevealed:
 				if not activeSpace.isFlagged:
@@ -53,7 +55,9 @@ class App:
 					if self.flagCounter == 0:
 						isDone = self.minefield.checkFlags
 						if isDone == True:
-							self.reset()
+							gameOver = True
+							win = True
+							return gameOver, win
 						else:
 							pass
 							# do nothing
