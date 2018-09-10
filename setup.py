@@ -1,8 +1,10 @@
 from distutils.core import setup
 
-setup(name='MineSweeper',
+setup(name='minesweeper',
       version='1.0',
       description='Minesweeping game',
-      author='Gage, Thomas, Jacob, and Zach',
+      author='BitsPlease',
+      author_email='zacharyjayhawk@gmail.com',
       url='https://github.com/zatkins-school/BitsPlease-Project1-MineSweeper',
-      packages=[''])
+      packages=['minesweeper'],
+      package_data={'minesweeper': ['assets/*']})

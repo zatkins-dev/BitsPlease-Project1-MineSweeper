@@ -1,1 +1,1 @@
-pydoc -w ../minesweeper/* 
+pydoc -w minesweeper
