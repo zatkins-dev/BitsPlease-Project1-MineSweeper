@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>minesweeper package &#8212; Minesweeper 1.0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -23,16 +23,24 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="minesweeper" href="index.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="prev" title="minesweeper" href="index.html" /> 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="minesweeper"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Minesweeper 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -44,8 +52,120 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="minesweeper-minefield-module">
-<h2>minesweeper.Minefield module<a class="headerlink" href="#minesweeper-minefield-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-minesweeper.Minefield">
+<span id="minesweeper-minefield-module"></span><h2>minesweeper.Minefield module<a class="headerlink" href="#module-minesweeper.Minefield" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="minesweeper.Minefield.Minefield">
+<em class="property">class </em><code class="descclassname">minesweeper.Minefield.</code><code class="descname">Minefield</code><span class="sig-paren">(</span><em>x_size</em>, <em>y_size</em>, <em>numMines</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/Minefield.html#Minefield"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.Minefield.Minefield" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Minefield manages the internal game logic. The backend of the game board.</p>
+<p>Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.</p>
+<dl class="docutils">
+<dt>Variables:</dt>
+<dd>x_size: Integer x size of board
+y_size: Integer y size of board
+numMines: Integer number of mines
+minefield: 2D array to track where the mines are located.</dd>
+</dl>
+<dl class="method">
+<dt id="minesweeper.Minefield.Minefield.checkFlags">
+<code class="descname">checkFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/Minefield.html#Minefield.checkFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.Minefield.Minefield.checkFlags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks to see all of mined spaces have flags</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>None.</dd>
+<dt>Preconditions:</dt>
+<dd>The mines must already be placed in grid, spaces must exist</dd>
+<dt>Postconditions:</dt>
+<dd>None.</dd>
+<dt>Returns:</dt>
+<dd>True if all the mines have a flag on them, false otherwise</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.Minefield.Minefield.checkNeighbors">
+<code class="descname">checkNeighbors</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/Minefield.html#Minefield.checkNeighbors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.Minefield.Minefield.checkNeighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the number of mines that are directly around a certain space.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>self: refers to the game board itself to access all the other spaces.
+x: the x coordinate of the space (start at 0)
+y: the y coordinate of the space (start at 0)</dd>
+<dt>Preconditions:</dt>
+<dd>The mines must already be placed in the grid, spaces must exist</dd>
+<dt>Postconditions:</dt>
+<dd>numOfSurroundingMines in space(x, y) will be altered to the number of surrounding mines.</dd>
+<dt>Returns:</dt>
+<dd>Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.Minefield.Minefield.getSpace">
+<code class="descname">getSpace</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/Minefield.html#Minefield.getSpace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.Minefield.Minefield.getSpace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="minesweeper.Minefield.Minefield.minefield">
+<code class="descname">minefield</code><em class="property"> = []</em><a class="headerlink" href="#minesweeper.Minefield.Minefield.minefield" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="minesweeper.Minefield.Minefield.numMines">
+<code class="descname">numMines</code><em class="property"> = 0</em><a class="headerlink" href="#minesweeper.Minefield.Minefield.numMines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.Minefield.Minefield.reveal">
+<code class="descname">reveal</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/Minefield.html#Minefield.reveal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.Minefield.Minefield.reveal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether or not to reveal a space.</p>
+<p>Specifically, it reveals a space when it is clicked, as well as all empty spaces around the clicked space.
+It also reveals the board if a mine is clicked.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>x: x-coordinate of the space (starts at 0)
+y: y-coordinate of the space (starts at 0)</dd>
+<dt>Preconditions:</dt>
+<dd>x and y coordinates are legitimate (i.e. 0 &lt;= x &lt; self.xsize and 0 &lt;= y &lt; self.ysize)</dd>
+<dt>Postconditions:</dt>
+<dd>Set Revealed to True if space is to be revealed</dd>
+<dt>Return:</dt>
+<dd>True if space is revealed, false otherwise</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.Minefield.Minefield.setMines">
+<code class="descname">setMines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/Minefield.html#Minefield.setMines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.Minefield.Minefield.setMines" title="Permalink to this definition">¶</a></dt>
+<dd><p>setMines randomly places the mines around the board.</p>
+<dl class="docutils">
+<dt>Preconditions:</dt>
+<dd>Spaces are created and stored.</dd>
+<dt>Postconditions:</dt>
+<dd>isMine altered in numMines spaces</dd>
+<dt>Returns:</dt>
+<dd>Nothing</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.Minefield.Minefield.toggleFlag">
+<code class="descname">toggleFlag</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/Minefield.html#Minefield.toggleFlag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.Minefield.Minefield.toggleFlag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="minesweeper.Minefield.Minefield.x_size">
+<code class="descname">x_size</code><em class="property"> = 0</em><a class="headerlink" href="#minesweeper.Minefield.Minefield.x_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="minesweeper.Minefield.Minefield.y_size">
+<code class="descname">y_size</code><em class="property"> = 0</em><a class="headerlink" href="#minesweeper.Minefield.Minefield.y_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-minesweeper.Space">
 <span id="minesweeper-space-module"></span><h2>minesweeper.Space module<a class="headerlink" href="#module-minesweeper.Space" title="Permalink to this headline">¶</a></h2>
@@ -90,8 +210,39 @@ numOfSurroundingMines = Integer that tracks how many spaces in the 8 closest spa
 </dd></dl>
 
 </div>
-<div class="section" id="minesweeper-app-module">
-<h2>minesweeper.app module<a class="headerlink" href="#minesweeper-app-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-minesweeper.app">
+<span id="minesweeper-app-module"></span><h2>minesweeper.app module<a class="headerlink" href="#module-minesweeper.app" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="minesweeper.app.App">
+<em class="property">class </em><code class="descclassname">minesweeper.app.</code><code class="descname">App</code><a class="reference internal" href="_modules/minesweeper/app.html#App"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.app.App" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="minesweeper.app.App.getTime">
+<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/app.html#App.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.app.App.getTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.app.App.onClick">
+<code class="descname">onClick</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/app.html#App.onClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.app.App.onClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.app.App.render">
+<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/app.html#App.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.app.App.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.app.App.renderSpace">
+<code class="descname">renderSpace</code><span class="sig-paren">(</span><em>space</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/app.html#App.renderSpace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.app.App.renderSpace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="minesweeper.app.App.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/minesweeper/app.html#App.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#minesweeper.app.App.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-minesweeper">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-minesweeper" title="Permalink to this headline">¶</a></h2>
@@ -103,14 +254,10 @@ numOfSurroundingMines = Integer that tracks how many spaces in the 8 closest spa
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">minesweeper</a></li>
-  </ul></li>
-</ul>
-</div>
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">minesweeper</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -125,20 +272,24 @@ numOfSurroundingMines = Integer that tracks how many spaces in the 8 closest spa
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2018, Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/minesweeper.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="minesweeper"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Minesweeper 1.0 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
   </body>
 </html>
