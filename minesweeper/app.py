@@ -9,7 +9,7 @@ class App:
 	def __init__(self):
 		self.x_dim = 20
 		self.y_dim = 10
-		self.n_mines = 10
+		self.n_mines = 1
 
 		self.flagCounter = self.n_mines
 		self.gameTimer = 0
@@ -51,8 +51,11 @@ class App:
 					if self.flagCounter == 0:
 						return gameOver, win
 					self.flagCounter = self.flagCounter - 1
+					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
 					if self.flagCounter == 0:
-						isDone = self.minefield.checkFlags
+						print('About to check')
+						isDone = self.minefield.checkFlags()
+						print('Checked', isDone)
 						if isDone == True:
 							gameOver = True
 							win = True
@@ -62,7 +65,8 @@ class App:
 							# do nothing
 				else:
 					self.flagCounter = self.flagCounter + 1
-				self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
+					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
+				
 		return gameOver, win
 
 	def render(self):
