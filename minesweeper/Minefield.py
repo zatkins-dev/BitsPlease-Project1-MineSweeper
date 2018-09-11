@@ -105,7 +105,6 @@ class Minefield:
 		isComplete = True
 		for y in range(self.y_size):
 			for x in range(self.x_size):
-				print('({0}, {1})'.format(x,y),self.getSpace(x,y).isFlagged,self.getSpace(x,y).isMine)
 				if self.getSpace(x, y).isFlagged != self.getSpace(x,y).isMine:
 					isComplete = False
 		return isComplete
@@ -145,9 +144,7 @@ class Minefield:
 			return False
 
 	def toggleFlag(self, x, y):
-		print(self.minefield[y][x].isFlagged)
 		self.minefield[y][x].isFlagged = not self.getSpace(x, y).isFlagged
-		print(self.minefield[y][x].isFlagged)
 		# if thisSpace.isFlagged == False:
 		# 	thisSpace.isFlagged = True
 		# else:

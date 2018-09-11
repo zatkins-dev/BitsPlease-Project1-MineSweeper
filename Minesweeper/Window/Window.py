@@ -36,15 +36,12 @@ class Window:
 
 	def onClick(self, event):
 		x,y = event.pos
-		print((x,y))
 		x_game, y_game = (math.floor((x-self.MARGIN)/self.SPACE_PIXELS), math.floor((y-self.MARGIN-self.HEADER_BAR)/self.SPACE_PIXELS))
 		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1): 
 			x_min,y_min = self._reset.get_abs_offset()
 			x_reset_size, y_reset_size = self._reset.get_size()
 			(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size) 
-			print([(x_min, y_min), (x, y), (x_max, y_max)])
 			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
-				print ('RESETTING')
 				return 'RESET'
 			return 
 		return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})

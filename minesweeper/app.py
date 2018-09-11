@@ -40,7 +40,6 @@ class App:
 			return gameOver, newEvent
 		if not newEvent:
 			return gameOver, newEvent
-		print(newEvent.pos)
 		activeSpace = self.minefield.getSpace(newEvent.pos[0],newEvent.pos[1])
 		if activeSpace.isRevealed:
 			pass
@@ -57,9 +56,7 @@ class App:
 					self.flagCounter = self.flagCounter - 1
 					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
 					if self.flagCounter == 0:
-						print('About to check')
 						isDone = self.minefield.checkFlags()
-						print('Checked', isDone)
 						if isDone == True:
 							gameOver = True
 							win = True
@@ -81,7 +78,6 @@ class App:
 		self.reset_element.fill(pygame.Color('magenta'))
 		reset_text = pygame.font.SysFont('lucidiaconsole', 40).render('Reset Game', True, (0,0,0))
 		reset_text_pos = tuple(map(lambda x, y, z: x + y - z, self.reset_element.get_abs_offset(), map(lambda x: x/2,self.reset_element.get_size()), map(lambda x: x/2, reset_text.get_size())))
-		print(reset_text_pos)
 		self.reset_element.blit(reset_text, reset_text_pos) 
 		pygame.display.flip()
 
