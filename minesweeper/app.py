@@ -25,6 +25,7 @@ class App:
 
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
+		self.reset_element = self.window._reset
 		#Images
 		self.imageRevealed = pygame.image.load('minesweeper/assets/gridSpace_revealed.png').convert()
 		self.imageUnrevealed = pygame.image.load("minesweeper/assets/gridSpace.png").convert()
@@ -34,8 +35,11 @@ class App:
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)
 		(gameOver, win) = False, False
-		if newEvent == True:
-			return gameOver, win
+		if newEvent == 'RESET':
+			gameOver = True
+			return gameOver, newEvent
+		if not newEvent:
+			return gameOver, newEvent
 		print(newEvent.pos)
 		activeSpace = self.minefield.getSpace(newEvent.pos[0],newEvent.pos[1])
 		if activeSpace.isRevealed:
@@ -73,6 +77,12 @@ class App:
 		for y in range(self.minefield.y_size):
 			for space in self.grid[y]:
 				self.renderSpace(space)
+		
+		self.reset_element.fill(pygame.Color('magenta'))
+		reset_text = pygame.font.SysFont('lucidiaconsole', 40).render('Reset Game', True, (0,0,0))
+		reset_text_pos = tuple(map(lambda x, y, z: x + y - z, self.reset_element.get_abs_offset(), map(lambda x: x/2,self.reset_element.get_size()), map(lambda x: x/2, reset_text.get_size())))
+		print(reset_text_pos)
+		self.reset_element.blit(reset_text, reset_text_pos) 
 		pygame.display.flip()
 
 	def renderSpace(self, space):
@@ -99,6 +109,7 @@ class App:
 				self.screen.blit(self.imageFlag, (space_x, space_y))	
 
 	def reset(self):
+		pygame.display.quit()
 		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
 		self.flagCounter = self.n_mines
 		self.timeOfLastReset = pygame.time.get_ticks
@@ -113,7 +124,6 @@ def main():
 	app = App()
 
 	exit = False
-	rerender = True
 	while not exit:
 		for event in pygame.event.get():
 			# Quit Event 
@@ -124,17 +134,16 @@ def main():
 				if end:
 					app.window.gameScreen.lock()
 					# TODO: Game over screen
-					if win:
+					if win == 'RESET':
+						app = App()
+					elif win:
 						print('Winner!!')
 					else:
 						print('Loser.')
 					app.window.gameScreen.unlock()
-					app.reset()
+					app = App()
 
-        
-
-		if rerender: app.render()
-
+		app.render()
 		app.window.clock.tick(60)
 	
 	pygame.quit()
