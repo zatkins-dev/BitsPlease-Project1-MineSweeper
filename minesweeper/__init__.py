@@ -1,1 +1,1 @@
-from minesweeper.app import main
+from Minesweeper.app import main

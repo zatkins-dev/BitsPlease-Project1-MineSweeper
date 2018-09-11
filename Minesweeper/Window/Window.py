@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from Minesweeper.Window.GameScreen import GameScreen
 import math
 
 class Window:
@@ -11,13 +12,16 @@ class Window:
 		self.HEADER_BAR = self.SPACE_PIXELS * 3
 		self.WIDTH = self.SPACE_PIXELS*x_dim + 2 * self.MARGIN
 		self.HEIGHT = self.SPACE_PIXELS*y_dim + 2 * self.MARGIN + self.HEADER_BAR
-
 		pygame.init()
 		pygame.font.init()
+
 		self._screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 		self._gameScreen = self._screen.subsurface(Rect(self.MARGIN, self.HEADER_BAR + self.MARGIN, self.SPACE_PIXELS*x_dim, self.SPACE_PIXELS*y_dim))
+
 		self._screen.fill(Color('light grey'))
 		self._gameScreen.fill(Color('black'))
+
+		pygame.display.flip()
 
 		pygame.display.set_caption("BitSweeper")
 		self.clock = pygame.time.Clock()
@@ -39,4 +43,12 @@ class Window:
 			return True
 		print (realPos)
 		return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': realPos, 'button': event.button})
-		
+	
+import time
+
+def main():
+	win = Window(20,20)
+	time.sleep(5)
+	pygame.quit()
+
+if __name__ == '__main__': main()

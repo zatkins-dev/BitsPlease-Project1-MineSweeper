@@ -1,4 +1,4 @@
-from minesweeper.Space import Space
+from Minesweeper.Space import Space
 import random
 
 class Minefield:

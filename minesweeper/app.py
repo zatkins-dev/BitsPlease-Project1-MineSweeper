@@ -1,8 +1,8 @@
 
 import pygame
 from pygame.locals import *
-from minesweeper.Minefield import Minefield
-from minesweeper.Window import Window
+from Minesweeper.Minefield import Minefield
+from Minesweeper.Window.Window import Window
 import os
 import math
 class App:
@@ -35,7 +35,7 @@ class App:
 		newEvent = self.window.onClick(event)
 		(gameOver, win) = False, False
 		if newEvent == True:
-			return 
+			return gameOver, win
 		print(newEvent.pos)
 		activeSpace = self.minefield.getSpace(newEvent.pos[0],newEvent.pos[1])
 		if activeSpace.isRevealed:
@@ -44,12 +44,12 @@ class App:
 			if self.minefield.reveal(newEvent.pos[0],newEvent.pos[1]):
 				self.render()
 				gameOver = True
-				return (gameOver, win)
+				return gameOver, win
 		elif event.button == 3:
 			if not activeSpace.isRevealed:
 				if not activeSpace.isFlagged:
 					if self.flagCounter == 0:
-						return
+						return gameOver, win
 					self.flagCounter = self.flagCounter - 1
 					if self.flagCounter == 0:
 						isDone = self.minefield.checkFlags
@@ -63,7 +63,7 @@ class App:
 				else:
 					self.flagCounter = self.flagCounter + 1
 				self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
-		return False
+		return gameOver, win
 
 	def render(self):
 		for y in range(self.minefield.y_size):
@@ -116,8 +116,16 @@ def main():
 			if event.type == pygame.QUIT:
 				exit = True
 			elif event.type == pygame.MOUSEBUTTONDOWN:
-				if app.onClick(event):
-					rerender = False
+				(end, win) = app.onClick(event)
+				if end:
+					app.window.gameScreen.lock()
+					# TODO: Game over screen
+					if win:
+						print('Winner!!')
+					else:
+						print('Loser.')
+					app.window.gameScreen.unlock()
+					app.reset()
 
         
 
