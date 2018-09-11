@@ -104,17 +104,19 @@ class App:
 	def getTime(self):
 		return int((pygame.time.get_ticks() - self.timeOfLastReset) / 1000)
 	
-
+	#Not correctly working yet, but functional.
 	def updateClock(self):
 		font = pygame.font.SysFont('lucidaconsole', 20)
 		
 		text = font.render(str(self.getTime()), False, (0,0,0))
+		#This needs to be positioned in the header!
 		x_text_pos = 0
 		y_text_pos = 0
 		if not (int(self.timeOfLastTimeUpdate) == int(self.getTime())) :
 			self.screen.blit(text, (x_text_pos, y_text_pos))
-			pygame.display.flip() 
 		self.timeOfLastTimeUpdate = self.getTime()
+		pygame.display.flip() 
+		
 		
 
 
