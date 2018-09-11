@@ -14,6 +14,7 @@ class App:
 		self.flagCounter = self.n_mines
 		self.gameTimer = 0
 		self.timeOfLastReset =0
+		self.timeOfLastTimeUpdate = 0
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
@@ -69,7 +70,7 @@ class App:
 		for y in range(self.minefield.y_size):
 			for space in self.grid[y]:
 				self.renderSpace(space)
-		pygame.display.flip()
+		pygame.display.flip() 
 
 	def renderSpace(self, space):
 		space_x = space.x_loc*self.SPACE_WIDTH
@@ -100,9 +101,21 @@ class App:
 		self.timeOfLastReset = pygame.time.get_ticks
 	
 
-    
 	def getTime(self):
-		return (pygame.time.get_ticks - self.timeOfLastReset) / 1000
+		return int((pygame.time.get_ticks() - self.timeOfLastReset) / 1000)
+	
+
+	def updateClock(self):
+		font = pygame.font.SysFont('lucidaconsole', 20)
+		
+		text = font.render(str(self.getTime()), False, (0,0,0))
+		x_text_pos = 0
+		y_text_pos = 0
+		if not (int(self.timeOfLastTimeUpdate) == int(self.getTime())) :
+			self.screen.blit(text, (x_text_pos, y_text_pos))
+			pygame.display.flip() 
+		self.timeOfLastTimeUpdate = self.getTime()
+		
 
 
 def main():	
@@ -119,8 +132,7 @@ def main():
 				if app.onClick(event):
 					rerender = False
 
-        
-
+		app.updateClock()
 		if rerender: app.render()
 
 		app.window.clock.tick(60)
