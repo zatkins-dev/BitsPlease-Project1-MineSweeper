@@ -45,6 +45,33 @@ class Window:
 				return 'RESET'
 			return 
 		return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
+
+	def drawButton(self, x, y, width, height, color, colorHover, buttonText, buttonFunction=None):
+		mousePos = pygame.mouse.get_pos()
+		font = pygame.font.SysFont('lucidaconsole', 20)
+		text = font.render(str(buttonText), True, (0,0,0))
+
+		button = pygame.Surface((width, height), pygame.SRCALPHA)
+
+		#see if mouse is within the area of our button
+		if mousePos[0] > x and mousePos[0] < x + width and mousePos[1] > y and mousePos[1] < y + height:
+			#mouse is over the button
+			button.fill(colorHover)
+
+			#mouse is in the button, so it may click the button and run its function
+			if pygame.mouse.get_pressed()[0] and buttonFunction != None:
+				buttonFunction()
+		else:
+			#mouse isn't in the button
+			button.fill(color)
+
+		#put button onto the screen, then text onto the screen centered over the button
+		self._screen.blits([
+			(button, (x, y)),
+			(text, (x + width / 2 - text.get_width() / 2, y + height / 2 - text.get_height() / 2))
+		])
+		
+
 	
 import time
 
