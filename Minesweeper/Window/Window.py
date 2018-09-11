@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-from Minesweeper.Window.GameScreen import GameScreen
 import math
 
 class Window:
