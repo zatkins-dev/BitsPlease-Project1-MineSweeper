@@ -26,10 +26,10 @@ class App:
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
 		#Images
-		self.imageRevealed = pygame.image.load('./assets/gridSpace_revealed.png').convert()
-		self.imageUnrevealed = pygame.image.load("./assets/gridSpace.png").convert()
-		self.imageFlag = pygame.image.load("./assets/flag.png").convert_alpha()
-		self.imageMine = pygame.image.load("./assets/mine.png").convert_alpha()
+		self.imageRevealed = pygame.image.load('minesweeper/assets/gridSpace_revealed.png').convert()
+		self.imageUnrevealed = pygame.image.load("minesweeper/assets/gridSpace.png").convert()
+		self.imageFlag = pygame.image.load("minesweeper/assets/flag.png").convert_alpha()
+		self.imageMine = pygame.image.load("minesweeper/assets/mine.png").convert_alpha()
 		
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)

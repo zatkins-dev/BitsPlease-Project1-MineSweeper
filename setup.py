@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(name='minesweeper',
       version='1.0',
@@ -6,5 +6,6 @@ setup(name='minesweeper',
       author='BitsPlease',
       author_email='zacharyjayhawk@gmail.com',
       url='https://github.com/zatkins-school/BitsPlease-Project1-MineSweeper',
-      packages=['minesweeper'],
+      packages=find_packages(exclude=['minesweeper.egg-info']),
+      scripts=['main.py'],
       package_data={'minesweeper': ['assets/*']})
