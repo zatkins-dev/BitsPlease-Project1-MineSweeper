@@ -138,8 +138,10 @@ def main():
 						app = App()
 					elif win:
 						print('Winner!!')
+						# TODO: Win screen
 					else:
 						print('Loser.')
+						# TODO: Lose screen/ bomb cascade
 					app.window.gameScreen.unlock()
 					app = App()
 
