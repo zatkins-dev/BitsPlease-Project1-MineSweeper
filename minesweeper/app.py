@@ -7,10 +7,6 @@ from Minesweeper.StartScreen import StartScreen
 import os
 import math
 class App:
-	def __init__(self):
-		self.x_dim = 20
-		self.y_dim = 10
-		self.n_mines = 1
 	def __init__(self, x=9, y=9, mines=10):
 		self.x_dim = x
 		self.y_dim = y
