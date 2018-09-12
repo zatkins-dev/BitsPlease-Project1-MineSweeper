@@ -4,6 +4,7 @@ from pygame.locals import *
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Window.Window import Window
 from Minesweeper.StartScreen import StartScreen
+from Minesweeper.EndScreen import EndScreen
 import os
 import math
 class App:
@@ -142,12 +143,16 @@ class App:
 
 def main():	
 	exit = False
+	startScreen = None
+	app = None
+	endScreen = None
 	while not exit:
 		startScreen = StartScreen()
 		gameStarting = True
 		while gameStarting and not exit:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
+					pygame.quit()
 					exit = True
 			startScreen.render()
 			gameStarting = not startScreen.gameReady
@@ -171,14 +176,26 @@ def main():
 						elif win:
 							print('Winner!!')
 							# TODO: Win screen
+							endScreen = EndScreen(win, (app.window.WIDTH, app.window.HEIGHT))
 							gameRunning = False
 						else:
 							print('Loser.')
 							# TODO: Lose screen/ bomb cascade
+							endScreen = EndScreen(win, (app.window.WIDTH, app.window.HEIGHT))
 							gameRunning = False
 						#app.window.gameScreen.unlock()
 
 			app.render()
 			app.window.clock.tick(60)
-	
+
+		gameEnding = True
+		while gameEnding and not exit:
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					pygame.quit()
+					exit = True
+			
+			endScreen.render()
+			app.window.clock.tick(60)
+			
 	
