@@ -8,15 +8,16 @@ class Window:
 		self.y_dim = y_dim
 		self.SPACE_PIXELS = 32
 		self.MARGIN = 8
-		self.HEADER_BAR = self.SPACE_PIXELS * 3
+		self.HEADER_BAR = math.floor(self.SPACE_PIXELS * self.y_dim/4)
 		self.WIDTH = self.SPACE_PIXELS*x_dim + 2 * self.MARGIN
 		self.HEIGHT = self.SPACE_PIXELS*y_dim + 2 * self.MARGIN + self.HEADER_BAR
+		self.RESET_WIDTH = math.floor(self.SPACE_PIXELS * self.x_dim/3)
 		pygame.init()
 		pygame.font.init()
 
 		self._screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 		self._gameScreen = self._screen.subsurface(Rect(self.MARGIN, self.HEADER_BAR + self.MARGIN, self.SPACE_PIXELS*x_dim, self.SPACE_PIXELS*y_dim))
-		self._reset = self._screen.subsurface(Rect(self.MARGIN, self.MARGIN, self.SPACE_PIXELS*6, self.HEADER_BAR-self.MARGIN))
+		self._reset = self._screen.subsurface(Rect(self.MARGIN, self.MARGIN, self.RESET_WIDTH, self.HEADER_BAR-self.MARGIN))
 		self._screen.fill(Color('light grey'))
 		self._gameScreen.fill(Color('black'))
 
