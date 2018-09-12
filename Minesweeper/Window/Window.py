@@ -46,9 +46,9 @@ class Window:
 			return 
 		return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
 
-	def drawButton(self, x, y, width, height, color, colorHover, buttonText, buttonFunction=None):
+	def drawButton(self, x, y, width, height, color, colorHover, buttonText, buttonTextSize,  buttonFunction=None):
 		mousePos = pygame.mouse.get_pos()
-		font = pygame.font.SysFont('lucidaconsole', 20)
+		font = pygame.font.SysFont('lucidaconsole', buttonTextSize)
 		text = font.render(str(buttonText), True, (0,0,0))
 
 		button = pygame.Surface((width, height), pygame.SRCALPHA)
