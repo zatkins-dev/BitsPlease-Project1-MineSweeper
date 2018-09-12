@@ -130,7 +130,6 @@ class App:
 		self.timeOfLastTimeUpdate = self.getTime()
 		pygame.display.flip() 
 	
-	def updateFlagCounter(self):
 		
 		
 
