@@ -118,18 +118,20 @@ class App:
 
 
 def main():	
-	app = App()
-	startScreen = None
 	exit = False
-	gameStarting = True
 	while not exit:
 		startScreen = StartScreen()
+		gameStarting = True
 		while gameStarting and not exit:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					exit = True
 			startScreen.render()
+			gameStarting = not startScreen.gameReady
 			startScreen.clock.tick(60)
+		
+		app = App(startScreen.x_size, startScreen.y_size, startScreen.numMines)
+		gameRunning = True
 		while gameRunning and not exit:
 			for event in pygame.event.get():
 				# Quit Event 
