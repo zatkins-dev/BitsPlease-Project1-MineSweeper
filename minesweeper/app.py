@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Window.Window import Window
+from Minesweeper.StartScreen import StartScreen
 import os
 import math
 class App:
@@ -10,6 +11,10 @@ class App:
 		self.x_dim = 20
 		self.y_dim = 10
 		self.n_mines = 1
+	def __init__(self, x=9, y=9, mines=10):
+		self.x_dim = x
+		self.y_dim = y
+		self.n_mines = mines
 
 		self.flagCounter = self.n_mines
 		self.gameTimer = 0
@@ -135,33 +140,43 @@ class App:
 
 
 def main():	
-	app = App()
-
 	exit = False
 	while not exit:
-		for event in pygame.event.get():
-			# Quit Event 
-			if event.type == pygame.QUIT:
-				exit = True
-			elif event.type == pygame.MOUSEBUTTONDOWN:
+		startScreen = StartScreen()
+		gameStarting = True
+		while gameStarting and not exit:
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					exit = True
+			startScreen.render()
+			gameStarting = not startScreen.gameReady
+			startScreen.clock.tick(60)
+		
+		app = App(startScreen.x_size, startScreen.y_size, startScreen.numMines)
+		gameRunning = True
+		while gameRunning and not exit:
+			for event in pygame.event.get():
+				# Quit Event 
+				if event.type == pygame.QUIT:
+					exit = True
+				elif event.type == pygame.MOUSEBUTTONDOWN:
+					(end, win) = app.onClick(event)
+					if end:
+						#app.window.gameScreen.lock()
+						# TODO: Game over screen
+						if win == 'RESET':
+							app = App(startScreen.x_size, startScreen.y_size, startScreen.numMines)
+						elif win:
+							print('Winner!!')
+							# TODO: Win screen
+							gameRunning = False
+						else:
+							print('Loser.')
+							# TODO: Lose screen/ bomb cascade
+							gameRunning = False
+						#app.window.gameScreen.unlock()
 
-				(end, win) = app.onClick(event)
-				if end:
-					app.window.gameScreen.lock()
-					# TODO: Game over screen
-					if win == 'RESET':
-						app = App()
-					elif win:
-						print('Winner!!')
-						# TODO: Win screen
-					else:
-						print('Loser.')
-						# TODO: Lose screen/ bomb cascade
-					app.window.gameScreen.unlock()
-					app = App()
-
-		app.render()
-
-		app.window.clock.tick(60)
+			app.render()
+			app.window.clock.tick(60)
 	
 	pygame.quit()
