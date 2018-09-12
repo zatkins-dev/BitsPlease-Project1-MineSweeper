@@ -25,8 +25,6 @@ class StartScreen:
         self.title = pygame.font.SysFont('lucidaconsole', 30)
         self.subtitle = pygame.font.SysFont('lucidaconsole', 25)
 
-        self.buttonIsClicked = False
-
         self.gameReady = False
 
     def render(self):
@@ -109,13 +107,13 @@ class StartScreen:
         if mousePos[0] > x + offset[0] and mousePos[0] < x + width + offset[0] and mousePos[1] > y + offset[1] and mousePos[1] < y + height + offset[1]:
             #mouse is over the button
             button.fill(colorHover)
-
+            buttonIsClicked = False
 			#mouse is in the button, so it may click the button and run its function
-            if pygame.mouse.get_pressed()[0] and buttonFunction != None and not self.buttonIsClicked:
+            if pygame.mouse.get_pressed()[0] and buttonFunction != None and not buttonIsClicked:
                 buttonFunction()
-                self.buttonIsClicked = True
-            elif not pygame.mouse.get_pressed()[0] and self.buttonIsClicked:
-                self.buttonIsClicked = False
+                buttonIsClicked = True
+            elif not pygame.mouse.get_pressed()[0] and buttonIsClicked:
+                buttonIsClicked = False
         else:
 			#mouse isn't in the button
             button.fill(color)

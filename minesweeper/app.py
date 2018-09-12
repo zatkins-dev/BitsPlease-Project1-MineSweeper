@@ -77,11 +77,16 @@ class App:
 			for space in self.grid[y]:
 				self.renderSpace(space)
 
-		
-		self.reset_element.fill(pygame.Color('magenta'))
-		reset_text = pygame.font.SysFont('lucidiaconsole', 40).render('Reset Game', True, (0,0,0))
-		reset_text_pos = tuple(map(lambda x, y, z: x + y - z, self.reset_element.get_abs_offset(), map(lambda x: x/2,self.reset_element.get_size()), map(lambda x: x/2, reset_text.get_size())))
-		self.reset_element.blit(reset_text, reset_text_pos) 
+		(reset_left, reset_top) = self.reset_element.get_abs_offset()
+		(reset_x, reset_y) = self.reset_element.get_size()
+		reset_fontsize = 20
+		StartScreen.drawButton(self,self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), "Reset", 20, self.reset)
+		# self.reset_element.fill(pygame.Color('magenta'))
+		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
+		# reset_text_ln2 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Game', True, (0,0,0))
+		# reset_text_pos = tuple(map(lambda x, y, z: x + y - z, self.reset_element.get_abs_offset(), map(lambda x: x/2,self.reset_element.get_size()), map(lambda x: x/2, reset_text_ln1.get_size())))
+		# self.reset_element.blit(reset_text_ln1, reset_text_pos)
+		# self.reset_element.blit(reset_text_ln2, (reset_text_pos[0], reset_text_pos[1]+reset_fontsize+2))
 		pygame.display.flip()
 
 
@@ -154,14 +159,15 @@ def main():
 			for event in pygame.event.get():
 				# Quit Event 
 				if event.type == pygame.QUIT:
-					exit = True
+					pygame.quit()
 				elif event.type == pygame.MOUSEBUTTONDOWN:
 					(end, win) = app.onClick(event)
 					if end:
 						#app.window.gameScreen.lock()
 						# TODO: Game over screen
 						if win == 'RESET':
-							app = App(startScreen.x_size, startScreen.y_size, startScreen.numMines)
+							main()
+							exit = True
 						elif win:
 							print('Winner!!')
 							# TODO: Win screen
@@ -175,4 +181,4 @@ def main():
 			app.render()
 			app.window.clock.tick(60)
 	
-	pygame.quit()
+	
