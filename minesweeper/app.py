@@ -140,18 +140,19 @@ def main():
 				elif event.type == pygame.MOUSEBUTTONDOWN:
 					(end, win) = app.onClick(event)
 					if end:
-						app.window.gameScreen.lock()
+						#app.window.gameScreen.lock()
 						# TODO: Game over screen
 						if win == 'RESET':
-							app = App()
+							app = App(startScreen.x_size, startScreen.y_size, startScreen.numMines)
 						elif win:
 							print('Winner!!')
 							# TODO: Win screen
+							gameRunning = False
 						else:
 							print('Loser.')
 							# TODO: Lose screen/ bomb cascade
-						app.window.gameScreen.unlock()
-						app = App()
+							gameRunning = False
+						#app.window.gameScreen.unlock()
 
 			app.render()
 			app.window.clock.tick(60)
