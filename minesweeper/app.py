@@ -1,15 +1,15 @@
 
 import pygame
 from pygame.locals import *
-from minesweeper.Minefield import Minefield
-from minesweeper.Window import Window
+from Minesweeper.Minefield import Minefield
+from Minesweeper.Window.Window import Window
 import os
 import math
 class App:
 	def __init__(self):
 		self.x_dim = 20
 		self.y_dim = 10
-		self.n_mines = 10
+		self.n_mines = 1
 
 		self.flagCounter = self.n_mines
 		self.gameTimer = 0
@@ -26,6 +26,7 @@ class App:
 
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
+		self.reset_element = self.window._reset
 		#Images
 		self.imageRevealed = pygame.image.load('minesweeper/assets/gridSpace_revealed.png').convert()
 		self.imageUnrevealed = pygame.image.load("minesweeper/assets/gridSpace.png").convert()
@@ -35,9 +36,11 @@ class App:
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)
 		(gameOver, win) = False, False
-		if newEvent == True:
-			return 
-		print(newEvent.pos)
+		if newEvent == 'RESET':
+			gameOver = True
+			return gameOver, newEvent
+		if not newEvent:
+			return gameOver, newEvent
 		activeSpace = self.minefield.getSpace(newEvent.pos[0],newEvent.pos[1])
 		if activeSpace.isRevealed:
 			pass
@@ -45,15 +48,16 @@ class App:
 			if self.minefield.reveal(newEvent.pos[0],newEvent.pos[1]):
 				self.render()
 				gameOver = True
-				return (gameOver, win)
+				return gameOver, win
 		elif event.button == 3:
 			if not activeSpace.isRevealed:
 				if not activeSpace.isFlagged:
 					if self.flagCounter == 0:
-						return
+						return gameOver, win
 					self.flagCounter = self.flagCounter - 1
+					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
 					if self.flagCounter == 0:
-						isDone = self.minefield.checkFlags
+						isDone = self.minefield.checkFlags()
 						if isDone == True:
 							gameOver = True
 							win = True
@@ -63,14 +67,22 @@ class App:
 							# do nothing
 				else:
 					self.flagCounter = self.flagCounter + 1
-				self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
-		return False
+					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
+				
+		return gameOver, win
 
 	def render(self):
 		for y in range(self.minefield.y_size):
 			for space in self.grid[y]:
 				self.renderSpace(space)
-		pygame.display.flip() 
+
+		
+		self.reset_element.fill(pygame.Color('magenta'))
+		reset_text = pygame.font.SysFont('lucidiaconsole', 40).render('Reset Game', True, (0,0,0))
+		reset_text_pos = tuple(map(lambda x, y, z: x + y - z, self.reset_element.get_abs_offset(), map(lambda x: x/2,self.reset_element.get_size()), map(lambda x: x/2, reset_text.get_size())))
+		self.reset_element.blit(reset_text, reset_text_pos) 
+		pygame.display.flip()
+
 
 	def renderSpace(self, space):
 		space_x = space.x_loc*self.SPACE_WIDTH
@@ -96,6 +108,7 @@ class App:
 				self.screen.blit(self.imageFlag, (space_x, space_y))	
 
 	def reset(self):
+		pygame.display.quit()
 		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
 		self.flagCounter = self.n_mines
 		self.timeOfLastReset = pygame.time.get_ticks
@@ -126,18 +139,29 @@ def main():
 	app = App()
 
 	exit = False
-	rerender = True
 	while not exit:
 		for event in pygame.event.get():
 			# Quit Event 
 			if event.type == pygame.QUIT:
 				exit = True
 			elif event.type == pygame.MOUSEBUTTONDOWN:
-				if app.onClick(event):
-					rerender = False
 
-		app.updateClock()
-		if rerender: app.render()
+				(end, win) = app.onClick(event)
+				if end:
+					app.window.gameScreen.lock()
+					# TODO: Game over screen
+					if win == 'RESET':
+						app = App()
+					elif win:
+						print('Winner!!')
+						# TODO: Win screen
+					else:
+						print('Loser.')
+						# TODO: Lose screen/ bomb cascade
+					app.window.gameScreen.unlock()
+					app = App()
+
+		app.render()
 
 		app.window.clock.tick(60)
 	

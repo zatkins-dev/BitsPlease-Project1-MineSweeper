@@ -1,1 +1,1 @@
-import minesweeper.__main__
+import Minesweeper.__main__

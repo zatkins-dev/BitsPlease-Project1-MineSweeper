@@ -1,4 +1,4 @@
-from minesweeper.Space import Space
+from Minesweeper.Space import Space
 import random
 
 class Minefield:
@@ -11,11 +11,6 @@ class Minefield:
 			y_size: Integer y size of board
 			numMines: Integer number of mines
 			minefield: 2D array to track where the mines are located."""
-
-	x_size = 0
-	y_size = 0
-	numMines = 0
-	minefield = []
 
 	def __init__(self, x_size, y_size, numMines):
 
@@ -110,7 +105,7 @@ class Minefield:
 		isComplete = True
 		for y in range(self.y_size):
 			for x in range(self.x_size):
-				if self.getSpace(x, y).isFlagged != self.getSpace(x,y).isBomb:
+				if self.getSpace(x, y).isFlagged != self.getSpace(x,y).isMine:
 					isComplete = False
 		return isComplete
 
@@ -149,11 +144,11 @@ class Minefield:
 			return False
 
 	def toggleFlag(self, x, y):
-		thisSpace = self.getSpace(x, y)
-		if thisSpace.isFlagged == False:
-			thisSpace.isFlagged = True
-		else:
-			thisSpace.isFlagged = False
+		self.minefield[y][x].isFlagged = not self.getSpace(x, y).isFlagged
+		# if thisSpace.isFlagged == False:
+		# 	thisSpace.isFlagged = True
+		# else:
+		# 	thisSpace.isFlagged = False
 
 	def getSpace(self, x, y):
 		return self.minefield[y][x]
