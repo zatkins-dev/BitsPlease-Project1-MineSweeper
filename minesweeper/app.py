@@ -116,6 +116,8 @@ class App:
 			self.screen.blit(text, (x_text_pos, y_text_pos))
 		self.timeOfLastTimeUpdate = self.getTime()
 		pygame.display.flip() 
+	
+	def updateFlagCounter(self):
 		
 		
 
