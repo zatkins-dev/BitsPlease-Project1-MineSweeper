@@ -33,6 +33,7 @@ class App:
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
 		self.reset_element = self.window._reset
+		self.timer_element = self.window._timer
 		#Images
 		self.imageRevealed = pygame.image.load('Minesweeper/assets/gridSpace_revealed.png').convert()
 		self.imageUnrevealed = pygame.image.load("Minesweeper/assets/gridSpace.png").convert()
@@ -91,6 +92,7 @@ class App:
 			reset_fontsize -= 1
 			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
 		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
+		
 		# self.reset_element.fill(pygame.Color('magenta'))
 		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
 		# reset_text_ln2 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Game', True, (0,0,0))
@@ -136,22 +138,19 @@ class App:
 	def updateClock(self):
 		font = pygame.font.SysFont('lucidaconsole', 20)
 		
-		text = font.render(str(self.getTime()), False, (0,0,0))
+		text = font.render("Time remaining: " + str(self.getTime()), False, (0,0,0))
 		#This needs to be positioned in the header!
-		x_text_pos = 0
-		y_text_pos = 0
-		if not (int(self.timeOfLastTimeUpdate) == int(self.getTime())) :
-			self.screen.blit(text, (x_text_pos, y_text_pos))
-		self.timeOfLastTimeUpdate = self.getTime()
+		(timer_x, timer_y) = (50, 8)
+		self.screen.blit(text, (timer_x, timer_y))	
 		pygame.display.flip() 
-	
 		
-		
+
 
 
 def main():	
 	exit = False
 	while not exit:
+	
 		startScreen = StartScreen()
 		gameStarting = True
 		while gameStarting and not exit:
@@ -185,7 +184,7 @@ def main():
 							# TODO: Lose screen/ bomb cascade
 							gameRunning = False
 						#app.window.gameScreen.unlock()
-
+					app.updateClock()
 			app.render()
 			app.window.clock.tick(60)
 	pygame.quit()
