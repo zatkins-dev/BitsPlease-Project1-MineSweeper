@@ -1,7 +1,6 @@
 .vscode
 .vscode/*
-docs/_build
-docs/_build/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -15,6 +14,7 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+docs/*
 downloads/
 eggs/
 .eggs/
@@ -28,6 +28,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

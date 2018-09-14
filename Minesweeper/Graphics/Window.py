@@ -8,7 +8,7 @@ class Window:
 		self.y_dim = y_dim
 		self.SPACE_PIXELS = 32
 		self.MARGIN = 8
-		self.HEADER_BAR = math.floor(self.SPACE_PIXELS * self.y_dim/4)
+		self.HEADER_BAR = self.SPACE_PIXELS * 2
 		self.WIDTH = self.SPACE_PIXELS*x_dim + 2 * self.MARGIN
 		self.HEIGHT = self.SPACE_PIXELS*y_dim + 2 * self.MARGIN + self.HEADER_BAR
 		self.RESET_WIDTH = math.floor(self.SPACE_PIXELS * self.x_dim/3)
