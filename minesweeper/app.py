@@ -198,7 +198,6 @@ def main():
 
 			app.render()
 			app.window.clock.tick(60)
-<<<<<<< HEAD
 
 		gameEnding = True
 		while gameEnding and not exit:
@@ -210,8 +209,6 @@ def main():
 			endScreen.render()
 			app.window.clock.tick(60)
 			
-=======
->>>>>>> master
 	pygame.quit()
 
 	
