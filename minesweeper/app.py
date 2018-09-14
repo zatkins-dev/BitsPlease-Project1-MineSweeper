@@ -2,11 +2,13 @@
 import pygame
 from pygame.locals import *
 from Minesweeper.Minefield import Minefield
-from Minesweeper.Window.Window import Window
+from Minesweeper.Graphics.Window import Window
 from Minesweeper.StartScreen import StartScreen
 from Minesweeper.EndScreen import EndScreen
+from Minesweeper.Graphics.Drawer import Drawer
 import os
 import math
+
 class App:
 	def __init__(self, x=9, y=9, mines=10):
 		self.x_dim = x
@@ -23,6 +25,9 @@ class App:
 		self.WIDTH = self.SPACE_WIDTH*self.x_dim
 		self.HEIGHT = self.SPACE_HEIGHT*self.y_dim
 
+		self.drawer = Drawer()
+		self.drawButton = self.drawer.drawButton
+
 		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
 		self.grid = self.minefield.minefield
 
@@ -30,10 +35,10 @@ class App:
 		self.screen = self.window.gameScreen
 		self.reset_element = self.window._reset
 		#Images
-		self.imageRevealed = pygame.image.load('minesweeper/assets/gridSpace_revealed.png').convert()
-		self.imageUnrevealed = pygame.image.load("minesweeper/assets/gridSpace.png").convert()
-		self.imageFlag = pygame.image.load("minesweeper/assets/flag.png").convert_alpha()
-		self.imageMine = pygame.image.load("minesweeper/assets/mine.png").convert_alpha()
+		self.imageRevealed = pygame.image.load('Minesweeper/assets/gridSpace_revealed.png').convert()
+		self.imageUnrevealed = pygame.image.load("Minesweeper/assets/gridSpace.png").convert()
+		self.imageFlag = pygame.image.load("Minesweeper/assets/flag.png").convert_alpha()
+		self.imageMine = pygame.image.load("Minesweeper/assets/mine.png").convert_alpha()
 		
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)
@@ -78,10 +83,15 @@ class App:
 			for space in self.grid[y]:
 				self.renderSpace(space)
 
+		reset_text = 'Reset'
 		(reset_left, reset_top) = self.reset_element.get_abs_offset()
 		(reset_x, reset_y) = self.reset_element.get_size()
 		reset_fontsize = 20
-		StartScreen.drawButton(self,self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), "Reset", 20, self.reset)
+		t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
+		while t_font.size(reset_text)[0] > reset_y + 4:
+			reset_fontsize -= 1
+			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
+		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
 		# self.reset_element.fill(pygame.Color('magenta'))
 		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
 		# reset_text_ln2 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Game', True, (0,0,0))
@@ -115,7 +125,6 @@ class App:
 				self.screen.blit(self.imageFlag, (space_x, space_y))	
 
 	def reset(self):
-		pygame.display.quit()
 		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
 		self.flagCounter = self.n_mines
 		self.timeOfLastReset = pygame.time.get_ticks
@@ -171,8 +180,7 @@ def main():
 						#app.window.gameScreen.lock()
 						# TODO: Game over screen
 						if win == 'RESET':
-							main()
-							exit = True
+							gameRunning = False
 						elif win:
 							print('Winner!!')
 							# TODO: Win screen
@@ -198,4 +206,6 @@ def main():
 			endScreen.render()
 			app.window.clock.tick(60)
 			
+	pygame.quit()
+
 	
