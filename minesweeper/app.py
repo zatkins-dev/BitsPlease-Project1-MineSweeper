@@ -34,6 +34,7 @@ class App:
 		self.window = Window(self.x_dim, self.y_dim)
 		self.screen = self.window.gameScreen
 		self.reset_element = self.window._reset
+		self.reset_flag = False
 		self.timer_element = self.window._timer
 		#Images
 		self.imageRevealed = pygame.image.load('Minesweeper/assets/gridSpace_revealed.png').convert()
@@ -85,16 +86,16 @@ class App:
 		for y in range(self.minefield.y_size):
 			for space in self.grid[y]:
 				self.renderSpace(space)
-
-		reset_text = 'Reset'
-		(reset_left, reset_top) = self.reset_element.get_abs_offset()
-		(reset_x, reset_y) = self.reset_element.get_size()
-		reset_fontsize = 20
-		t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
-		while t_font.size(reset_text)[0] > reset_y + 4:
-			reset_fontsize -= 1
+		if self.reset_flag:
+			reset_text = 'Reset'
+			(reset_left, reset_top) = self.reset_element.get_abs_offset()
+			(reset_x, reset_y) = self.reset_element.get_size()
+			reset_fontsize = 20
 			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
-		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
+			while t_font.size(reset_text)[0] > reset_y + 4:
+				reset_fontsize -= 1
+				t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
+			self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
 		self.updateClock()
 		# self.reset_element.fill(pygame.Color('magenta'))
 		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
@@ -131,6 +132,7 @@ class App:
 	def reset(self):
 		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
 		self.flagCounter = self.n_mines
+		self.reset_flag = True
 		self.timeOfLastReset = pygame.time.get_ticks()
 	
 
@@ -146,6 +148,13 @@ class App:
 		self.timer_element.fill(Color('light grey'))
 		self.timer_element.blit(text, (0,0))	
 		pygame.display.flip() 
+
+	def onLose(self):
+		for row in self.grid:
+			for space in row:
+				if space.isMine:
+					space.isRevealed = True
+					self.renderSpace(space)
 		
 
 
@@ -182,21 +191,17 @@ def main():
 						#app.window.gameScreen.lock()
 						# TODO: Game over screen
 						if win == 'RESET':
-							gameRunning = False
-						elif win:
-							print('Winner!!')
-							# TODO: Win screen
-							endScreen = EndScreen(win, (app.window.WIDTH, app.window.HEIGHT))
-							gameRunning = False
+							pass
 						else:
-							print('Loser.')
-							# TODO: Lose screen/ bomb cascade
+							if not win:
+								app.onLose()
 							endScreen = EndScreen(win, (app.window.WIDTH, app.window.HEIGHT))
-							gameRunning = False
+						gameRunning = False
 						#app.window.gameScreen.unlock()
 			app.render()
 			app.window.clock.tick(60)
-
+		if app.reset_flag:
+			continue
 		gameEnding = True
 		while gameEnding and not exit:
 			for event in pygame.event.get():
