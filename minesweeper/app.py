@@ -92,7 +92,7 @@ class App:
 			reset_fontsize -= 1
 			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
 		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
-		
+		self.updateClock()
 		# self.reset_element.fill(pygame.Color('magenta'))
 		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
 		# reset_text_ln2 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Game', True, (0,0,0))
@@ -140,6 +140,7 @@ class App:
 		
 		text = font.render("Time: " + str(self.getTime()), False, (0,0,0))
 		#This needs to be positioned in the header!
+		self.timer_element.fill(Color('light grey'))
 		self.timer_element.blit(text, (0,0))	
 		pygame.display.flip() 
 		
@@ -183,7 +184,6 @@ def main():
 							# TODO: Lose screen/ bomb cascade
 							gameRunning = False
 						#app.window.gameScreen.unlock()
-					app.updateClock()
 			app.render()
 			app.window.clock.tick(60)
 	pygame.quit()
