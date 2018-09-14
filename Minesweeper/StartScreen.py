@@ -4,6 +4,11 @@ from Minesweeper.Graphics.Drawer import Drawer
 class StartScreen:
 	def __init__(self):
 		pygame.init()
+
+		self.min_size = 2
+		self.max_y = 20
+		self.max_x = 40
+
 		self.x_size = 9
 		self.y_size = 9
 		self.numMines = 10
@@ -98,19 +103,21 @@ class StartScreen:
 		pygame.display.flip()
 
 	def incWidth(self):
-		self.x_size += 1
+		if self.x_size < self.max_x:
+			self.x_size += 1
 
 	def decWidth(self):
-		if self.x_size > 5:
+		if self.x_size > self.min_size:
 			self.x_size -= 1
 		if self.numMines >= self.x_size * self.y_size:
 			self.numMines = self.x_size * self.y_size - 1
 
 	def incHeight(self):
-		self.y_size += 1
+		if self.y_size < self.max_y:
+			self.y_size += 1
 
 	def decHeight(self):
-		if self.y_size > 5:
+		if self.y_size > self.min_size:
 			self.y_size -= 1
 		if self.numMines >= self.x_size * self.y_size:
 			self.numMines = self.x_size * self.y_size - 1
