@@ -1,6 +1,7 @@
 .vscode
 .vscode/*
-*.doctree
+docs/_build
+docs/_build/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
