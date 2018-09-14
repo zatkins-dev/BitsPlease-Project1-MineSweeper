@@ -4,7 +4,10 @@ from pygame.locals import *
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Graphics.Window import Window
 from Minesweeper.StartScreen import StartScreen
+<<<<<<< HEAD
 from Minesweeper.EndScreen import EndScreen
+=======
+>>>>>>> master
 from Minesweeper.Graphics.Drawer import Drawer
 import os
 import math
@@ -195,6 +198,7 @@ def main():
 
 			app.render()
 			app.window.clock.tick(60)
+<<<<<<< HEAD
 
 		gameEnding = True
 		while gameEnding and not exit:
@@ -206,6 +210,8 @@ def main():
 			endScreen.render()
 			app.window.clock.tick(60)
 			
+=======
+>>>>>>> master
 	pygame.quit()
 
 	
