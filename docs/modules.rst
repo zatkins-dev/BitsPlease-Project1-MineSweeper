@@ -1,7 +1,7 @@
-minesweeper
+Minesweeper
 ===========
 
 .. toctree::
    :maxdepth: 4
 
-   minesweeper
+   Minesweeper
