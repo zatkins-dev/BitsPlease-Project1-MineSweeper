@@ -99,7 +99,7 @@ class App:
 		while t_font.size(reset_text)[0] > reset_y + 4:
 			reset_fontsize -= 1
 			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
-		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
+		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, (128,128,128), (96,96,96), reset_text, reset_fontsize, self.reset)
 		self.updateClock()
 		# self.reset_element.fill(pygame.Color('magenta'))
 		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
