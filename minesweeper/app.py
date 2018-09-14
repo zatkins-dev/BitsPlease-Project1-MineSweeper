@@ -203,6 +203,8 @@ def main():
 				if event.type == pygame.QUIT:
 					pygame.quit()
 					exit = True
+				elif event.type == pygame.MOUSEBUTTONDOWN:
+					gameEnding = False
 			
 			endScreen.render()
 			app.window.clock.tick(60)
