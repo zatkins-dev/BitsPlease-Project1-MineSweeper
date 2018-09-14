@@ -86,16 +86,16 @@ class App:
 		for y in range(self.minefield.y_size):
 			for space in self.grid[y]:
 				self.renderSpace(space)
-		if self.reset_flag:
-			reset_text = 'Reset'
-			(reset_left, reset_top) = self.reset_element.get_abs_offset()
-			(reset_x, reset_y) = self.reset_element.get_size()
-			reset_fontsize = 20
+		
+		reset_text = 'Reset'
+		(reset_left, reset_top) = self.reset_element.get_abs_offset()
+		(reset_x, reset_y) = self.reset_element.get_size()
+		reset_fontsize = 20
+		t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
+		while t_font.size(reset_text)[0] > reset_y + 4:
+			reset_fontsize -= 1
 			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
-			while t_font.size(reset_text)[0] > reset_y + 4:
-				reset_fontsize -= 1
-				t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
-			self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
+		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, pygame.Color('magenta'), pygame.Color('red'), reset_text, reset_fontsize, self.reset)
 		self.updateClock()
 		# self.reset_element.fill(pygame.Color('magenta'))
 		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
@@ -184,7 +184,7 @@ def main():
 			for event in pygame.event.get():
 				# Quit Event 
 				if event.type == pygame.QUIT:
-					pygame.quit()
+					exit = True
 				elif event.type == pygame.MOUSEBUTTONDOWN:
 					(end, win) = app.onClick(event)
 					if end:
