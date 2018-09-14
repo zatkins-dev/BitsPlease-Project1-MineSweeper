@@ -8,21 +8,21 @@ class Window:
 		self.y_dim = y_dim
 		self.SPACE_PIXELS = 32
 		self.MARGIN = 8
-		self.HEADER_BAR = math.floor(self.SPACE_PIXELS * self.y_dim/4)
+		self.HEADER_BAR = self.SPACE_PIXELS * 2
 		self.WIDTH = self.SPACE_PIXELS*x_dim + 2 * self.MARGIN
 		self.HEIGHT = self.SPACE_PIXELS*y_dim + 2 * self.MARGIN + self.HEADER_BAR
 		self.RESET_WIDTH = math.floor(self.SPACE_PIXELS * self.x_dim/3)
-		self.TIMER_WIDTH = 100
+		self.TIMER_WIDTH = 150
 		self.FLAG_COUNTER_HEIGHT = 20
-		self.FLAG_COUNTER_WIDTH = 1
+		self.FLAG_COUNTER_WIDTH = 150
 		pygame.init()
 		pygame.font.init()
 
 		self._screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 		self._gameScreen = self._screen.subsurface(Rect(self.MARGIN, self.HEADER_BAR + self.MARGIN, self.SPACE_PIXELS*x_dim, self.SPACE_PIXELS*y_dim))
 		self._reset = self._screen.subsurface(Rect(self.MARGIN, self.MARGIN, self.RESET_WIDTH, self.HEADER_BAR-self.MARGIN))
-		self._timer = self._screen.subsurface(Rect(self.WIDTH - self.MARGIN - self.TIMER_WIDTH , self.MARGIN, self.TIMER_WIDTH, self.FLAG_COUNTER_HEIGHT))
-		self._flagCounter = self._screen.subsurface(Rect(self.MARGIN, self.MARGIN, self.FLAG_COUNTER_HEIGHT + self.MARGIN, self.FLAG_COUNTER_HEIGHT))
+		self._timer = self._screen.subsurface(Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN, self.MARGIN, self.TIMER_WIDTH, self.FLAG_COUNTER_HEIGHT))
+		self._flagCounter = self._screen.subsurface(Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN, self.MARGIN + self.FLAG_COUNTER_HEIGHT, self.FLAG_COUNTER_WIDTH, self.FLAG_COUNTER_HEIGHT))
 		self._screen.fill(Color('light grey'))
 		self._gameScreen.fill(Color('black'))
 

@@ -6,11 +6,14 @@ class Minefield:
 	
 	Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.
 	
-	Variables:
-			x_size: Integer x size of board
-			y_size: Integer y size of board
-			numMines: Integer number of mines
-			minefield: 2D array to track where the mines are located."""
+	**Class Variables**:
+			*x_size*: Integer x size of board
+
+			*y_size*: Integer y size of board
+
+			*numMines*: Integer number of mines
+			
+                        *minefield*: 2D array to track where the mines are located."""
 
 	def __init__(self, x_size, y_size, numMines):
 
@@ -37,14 +40,17 @@ class Minefield:
 	def setMines(self):
 		"""setMines randomly places the mines around the board.
 		
-		Preconditions:
+                **Args**:
+                                None.
+
+		**Preconditions**:
 				Spaces are created and stored.
 				
-		Postconditions:
+		**Postconditions**:
 				isMine altered in numMines spaces
 				
-		Returns:
-				Nothing"""
+		**Returns**:
+				None."""
 
 		currentMines = 0
 		random.seed()
@@ -60,19 +66,19 @@ class Minefield:
 	def checkNeighbors(self, x, y):
 		"""Determines the number of mines that are directly around a certain space.
 				
-			Args:
-				self: refers to the game board itself to access all the other spaces.
-				x: the x coordinate of the space (start at 0)
-				y: the y coordinate of the space (start at 0)
+			**Args**:
+				*x*: the x coordinate of the space (start at 0)
+				
+                                *y*: the y coordinate of the space (start at 0)
 					
-			Preconditions:
+			**Preconditions**:
 				The mines must already be placed in the grid, spaces must exist
 
-			Postconditions:
-				numOfSurroundingMines in space(x, y) will be altered to the number of surrounding mines.
-
-			Returns:
-				Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space."""
+			**Postconditions**:
+				Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space.
+                                
+                        **Return**:
+                                None."""
 		#Using the count variable to monitor the number of surrounding mines 
 		count = 0
 		leftX = 0 if x == 0 else x-1
@@ -90,16 +96,16 @@ class Minefield:
 	def checkFlags(self):
 		"""Checks to see all of mined spaces have flags
 
-			Args:
+			**Args**:
 					None.
 
-			Preconditions:
+			**Preconditions**:
 					The mines must already be placed in grid, spaces must exist
 
-			Postconditions:
+			**Postconditions**:
 					None.
 
-			Returns:
+			**Returns**:
 					True if all the mines have a flag on them, false otherwise
 		"""
 		isComplete = True
@@ -113,19 +119,21 @@ class Minefield:
 		"""Determines whether or not to reveal a space.
 
 			Specifically, it reveals a space when it is clicked, as well as all empty spaces around the clicked space.
-			It also reveals the board if a mine is clicked.
+			
+                        It also reveals the board if a mine is clicked.
 
-			Args:
-					x: x-coordinate of the space (starts at 0)
-					y: y-coordinate of the space (starts at 0)
+			**Args**:
+					*x*: x-coordinate of the space (starts at 0)
+					
+                                        *y*: y-coordinate of the space (starts at 0)
 
-			Preconditions:
+			**Preconditions**:
 					x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0 <= y < self.ysize)
 
-			Postconditions:
+			**Postconditions**:
 					Set Revealed to True if space is to be revealed
 
-			Return:
+			**Return**:
 					True if space is revealed, false otherwise
 		"""
 		thisSpace = self.getSpace(x, y)
@@ -144,6 +152,22 @@ class Minefield:
 			return False
 
 	def toggleFlag(self, x, y):
+                """Toggles whether or not a flag is on the space defined by x and y.
+
+                        **Args:**
+                                        *x*: x-coordinate of the space (starts at 0)
+
+                                        *y*: y-coordinate of the space (starts at 0)
+
+                        **Preconditions**:
+                                        x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0 <= y < self.ysize)
+
+                        **Postconditions**:
+                                        Flips value of isFlagged on specific space
+
+                        **Return**:
+                                        None.
+                """
 		self.minefield[y][x].isFlagged = not self.getSpace(x, y).isFlagged
 		# if thisSpace.isFlagged == False:
 		# 	thisSpace.isFlagged = True
@@ -151,5 +175,21 @@ class Minefield:
 		# 	thisSpace.isFlagged = False
 
 	def getSpace(self, x, y):
+                """Getter that returns a space object at location x, y
+
+                        **Args:**
+                                        *x*: x-coordinate of the space (starts at 0)
+
+                                        *y*: y-coordinate of the space (starts at 0)
+
+                        **Preconditions**:
+                                        x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0<= y < self.ysize)
+
+                        **Postconditions**:
+                                        None.
+
+                        **Return**:
+                                        Returns the space at location x, y to the caller.
+                """
 		return self.minefield[y][x]
 
