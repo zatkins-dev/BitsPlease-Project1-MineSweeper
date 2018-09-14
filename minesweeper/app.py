@@ -16,8 +16,8 @@ class App:
 
 		self.flagCounter = self.n_mines
 		self.gameTimer = 0
-		self.timeOfLastReset =0
 		self.timeOfLastTimeUpdate = 0
+		self.timeOfLastReset = pygame.time.get_ticks()
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
@@ -39,6 +39,8 @@ class App:
 		self.imageUnrevealed = pygame.image.load("Minesweeper/assets/gridSpace.png").convert()
 		self.imageFlag = pygame.image.load("Minesweeper/assets/flag.png").convert_alpha()
 		self.imageMine = pygame.image.load("Minesweeper/assets/mine.png").convert_alpha()
+
+		
 		
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)
@@ -128,7 +130,7 @@ class App:
 	def reset(self):
 		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
 		self.flagCounter = self.n_mines
-		self.timeOfLastReset = pygame.time.get_ticks
+		self.timeOfLastReset = pygame.time.get_ticks()
 	
 
 	def getTime(self):
@@ -160,6 +162,7 @@ def main():
 			startScreen.render()
 			gameStarting = not startScreen.gameReady
 			startScreen.clock.tick(60)
+			
 		
 		app = App(startScreen.x_size, startScreen.y_size, startScreen.numMines)
 		gameRunning = True
