@@ -12,7 +12,7 @@ class Window:
 		self.WIDTH = self.SPACE_PIXELS*x_dim + 2 * self.MARGIN
 		self.HEIGHT = self.SPACE_PIXELS*y_dim + 2 * self.MARGIN + self.HEADER_BAR
 		self.RESET_WIDTH = math.floor(self.SPACE_PIXELS * self.x_dim/3)
-		self.TIMER_WIDTH = 70
+		self.TIMER_WIDTH = 100
 		self.FLAG_COUNTER_HEIGHT = 20
 		self.FLAG_COUNTER_WIDTH = 1
 		pygame.init()

@@ -138,10 +138,9 @@ class App:
 	def updateClock(self):
 		font = pygame.font.SysFont('lucidaconsole', 20)
 		
-		text = font.render("Time remaining: " + str(self.getTime()), False, (0,0,0))
+		text = font.render("Time: " + str(self.getTime()), False, (0,0,0))
 		#This needs to be positioned in the header!
-		(timer_x, timer_y) = (50, 8)
-		self.screen.blit(text, (timer_x, timer_y))	
+		self.timer_element.blit(text, (0,0))	
 		pygame.display.flip() 
 		
 
