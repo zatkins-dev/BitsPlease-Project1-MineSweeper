@@ -2,10 +2,10 @@ import pygame
 from Minesweeper.StartScreen import StartScreen
 
 class EndScreen:
-	def __init__(self, gameWon, windowSize):
-		self.surf = pygame.Surface(windowSize, pygame.SRCALPHA)
+	def __init__(self, gameWon):
 		self.destSurf = pygame.display.get_surface().copy()
 		self.drawWindow = pygame.display.get_surface()
+		self.surf = pygame.Surface(pygame.display.get_surface().get_size(), pygame.SRCALPHA)
 		self.gameWon = gameWon
 		self.winColor = (0,255, 0, 127)
 		self.winTextBackgroundColor = (0,255,0)
@@ -24,7 +24,7 @@ class EndScreen:
 			self.titleSurf = self.title.render("You Won!", True, pygame.Color('black'))
 		else:
 			self.surf.fill(self.loseColor)
-			self.titleSurf = self.title.render("You Lost!", True, pygame.Color('black'))
+			self.titleSurf = self.title.render("You Lost...", True, pygame.Color('black'))
 		self.subtitleSurf = self.subtitle.render("Click to play again", True, pygame.Color('black'))
 
 		self.textBackgroundSurf = pygame.Surface(((self.subtitleSurf.get_width() + 2*textBackgroundMargin),(self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin)))
@@ -34,13 +34,9 @@ class EndScreen:
 		else:
 			self.textBackgroundSurf.fill(self.loseTextBackgroundColor)
 
-		self.titlePos = (windowSize[0] / 2 - self.titleSurf.get_width() / 2, windowSize[1] / 2 - self.titleSurf.get_height() - textMargin / 2)
-		self.subtitlePos = (windowSize[0] / 2 - self.subtitleSurf.get_width() / 2, windowSize[1] / 2 + textMargin / 2)
-		self.textBackgroundPos = (windowSize[0] / 2 - self.textBackgroundSurf.get_width() / 2, windowSize[1] / 2 - self.textBackgroundSurf.get_height() / 2)
-	
-		
-		
-		
+		self.titlePos = (self.drawWindow.get_width() / 2 - self.titleSurf.get_width() / 2, self.drawWindow.get_height() / 2 - self.titleSurf.get_height() - textMargin / 2)
+		self.subtitlePos = (self.drawWindow.get_width() / 2 - self.subtitleSurf.get_width() / 2, self.drawWindow.get_height() / 2 + textMargin / 2)
+		self.textBackgroundPos = (self.drawWindow.get_width() / 2 - self.textBackgroundSurf.get_width() / 2, self.drawWindow.get_height() / 2 - self.textBackgroundSurf.get_height() / 2)
 
 	def render(self):
 		self.drawWindow.blit(self.destSurf, (0,0))
