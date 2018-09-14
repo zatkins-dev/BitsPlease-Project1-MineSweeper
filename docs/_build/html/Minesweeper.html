@@ -1,0 +1,319 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Minesweeper package &#8212; Minesweeper 1.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Minesweeper 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="minesweeper-package">
+<h1>Minesweeper package<a class="headerlink" href="#minesweeper-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Minesweeper.Graphics.html">Minesweeper.Graphics package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Minesweeper.Graphics.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minesweeper.Graphics.html#module-Minesweeper.Graphics.Drawer">Minesweeper.Graphics.Drawer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minesweeper.Graphics.html#module-Minesweeper.Graphics.Window">Minesweeper.Graphics.Window module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Minesweeper.Graphics.html#module-Minesweeper.Graphics">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-Minesweeper.Minefield">
+<span id="minesweeper-minefield-module"></span><h2>Minesweeper.Minefield module<a class="headerlink" href="#module-Minesweeper.Minefield" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Minesweeper.Minefield.Minefield">
+<em class="property">class </em><code class="descclassname">Minesweeper.Minefield.</code><code class="descname">Minefield</code><span class="sig-paren">(</span><em>x_size</em>, <em>y_size</em>, <em>numMines</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minefield.html#Minefield"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minefield.Minefield" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Minefield manages the internal game logic. The backend of the game board.</p>
+<p>Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.</p>
+<dl class="docutils">
+<dt>Variables:</dt>
+<dd>x_size: Integer x size of board
+y_size: Integer y size of board
+numMines: Integer number of mines
+minefield: 2D array to track where the mines are located.</dd>
+</dl>
+<dl class="method">
+<dt id="Minesweeper.Minefield.Minefield.checkFlags">
+<code class="descname">checkFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minefield.html#Minefield.checkFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minefield.Minefield.checkFlags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks to see all of mined spaces have flags</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>None.</dd>
+<dt>Preconditions:</dt>
+<dd>The mines must already be placed in grid, spaces must exist</dd>
+<dt>Postconditions:</dt>
+<dd>None.</dd>
+<dt>Returns:</dt>
+<dd>True if all the mines have a flag on them, false otherwise</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.Minefield.Minefield.checkNeighbors">
+<code class="descname">checkNeighbors</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minefield.html#Minefield.checkNeighbors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minefield.Minefield.checkNeighbors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the number of mines that are directly around a certain space.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>self: refers to the game board itself to access all the other spaces.
+x: the x coordinate of the space (start at 0)
+y: the y coordinate of the space (start at 0)</dd>
+<dt>Preconditions:</dt>
+<dd>The mines must already be placed in the grid, spaces must exist</dd>
+<dt>Postconditions:</dt>
+<dd>numOfSurroundingMines in space(x, y) will be altered to the number of surrounding mines.</dd>
+<dt>Returns:</dt>
+<dd>Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.Minefield.Minefield.getSpace">
+<code class="descname">getSpace</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minefield.html#Minefield.getSpace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minefield.Minefield.getSpace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.Minefield.Minefield.reveal">
+<code class="descname">reveal</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minefield.html#Minefield.reveal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minefield.Minefield.reveal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether or not to reveal a space.</p>
+<p>Specifically, it reveals a space when it is clicked, as well as all empty spaces around the clicked space.
+It also reveals the board if a mine is clicked.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>x: x-coordinate of the space (starts at 0)
+y: y-coordinate of the space (starts at 0)</dd>
+<dt>Preconditions:</dt>
+<dd>x and y coordinates are legitimate (i.e. 0 &lt;= x &lt; self.xsize and 0 &lt;= y &lt; self.ysize)</dd>
+<dt>Postconditions:</dt>
+<dd>Set Revealed to True if space is to be revealed</dd>
+<dt>Return:</dt>
+<dd>True if space is revealed, false otherwise</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.Minefield.Minefield.setMines">
+<code class="descname">setMines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minefield.html#Minefield.setMines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minefield.Minefield.setMines" title="Permalink to this definition">¶</a></dt>
+<dd><p>setMines randomly places the mines around the board.</p>
+<dl class="docutils">
+<dt>Preconditions:</dt>
+<dd>Spaces are created and stored.</dd>
+<dt>Postconditions:</dt>
+<dd>isMine altered in numMines spaces</dd>
+<dt>Returns:</dt>
+<dd>Nothing</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.Minefield.Minefield.toggleFlag">
+<code class="descname">toggleFlag</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Minefield.html#Minefield.toggleFlag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Minefield.Minefield.toggleFlag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Minesweeper.Space">
+<span id="minesweeper-space-module"></span><h2>Minesweeper.Space module<a class="headerlink" href="#module-Minesweeper.Space" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Minesweeper.Space.Space">
+<em class="property">class </em><code class="descclassname">Minesweeper.Space.</code><code class="descname">Space</code><span class="sig-paren">(</span><em>x_loc</em>, <em>y_loc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Space.html#Space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Space.Space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The Space class stores all of the information relevant to a specific space on the board.</p>
+<dl class="docutils">
+<dt>Variables:</dt>
+<dd>x_loc = Integer location on the board. 0 is the left hand side.
+y_loc = Integer location on the board. 0 is the top of the board.
+isMine = Boolean that logs if the space has a mine. True if it does, false otherwise.
+isFlagged = Boolean that logs if the user placed a flag on this space. True if the user did.
+IsRevealed = Boolean that logs if the contents of the space are revealed to the user. True if the user should see the contents.
+numOfSurroundingMines = Integer that tracks how many spaces in the 8 closest spaces have mines.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-Minesweeper.StartScreen">
+<span id="minesweeper-startscreen-module"></span><h2>Minesweeper.StartScreen module<a class="headerlink" href="#module-Minesweeper.StartScreen" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Minesweeper.StartScreen.StartScreen">
+<em class="property">class </em><code class="descclassname">Minesweeper.StartScreen.</code><code class="descname">StartScreen</code><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.decHeight">
+<code class="descname">decHeight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.decHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.decHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.decMines">
+<code class="descname">decMines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.decMines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.decMines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.decWidth">
+<code class="descname">decWidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.decWidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.decWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.incHeight">
+<code class="descname">incHeight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.incHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.incHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.incMines">
+<code class="descname">incMines</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.incMines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.incMines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.incWidth">
+<code class="descname">incWidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.incWidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.incWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.render">
+<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.StartScreen.StartScreen.start">
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/StartScreen.html#StartScreen.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.StartScreen.StartScreen.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-Minesweeper.app">
+<span id="minesweeper-app-module"></span><h2>Minesweeper.app module<a class="headerlink" href="#module-Minesweeper.app" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Minesweeper.app.App">
+<em class="property">class </em><code class="descclassname">Minesweeper.app.</code><code class="descname">App</code><span class="sig-paren">(</span><em>x=9</em>, <em>y=9</em>, <em>mines=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="Minesweeper.app.App.getTime">
+<code class="descname">getTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App.getTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App.getTime" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.app.App.onClick">
+<code class="descname">onClick</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App.onClick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App.onClick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.app.App.render">
+<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.app.App.renderSpace">
+<code class="descname">renderSpace</code><span class="sig-paren">(</span><em>space</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App.renderSpace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App.renderSpace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.app.App.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.app.App.updateClock">
+<code class="descname">updateClock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App.updateClock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App.updateClock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Minesweeper.app.App.updateFlags">
+<code class="descname">updateFlags</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#App.updateFlags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.App.updateFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="Minesweeper.app.main">
+<code class="descclassname">Minesweeper.app.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/app.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.app.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-Minesweeper">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Minesweeper" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Minesweeper 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+  </body>
+</html>
