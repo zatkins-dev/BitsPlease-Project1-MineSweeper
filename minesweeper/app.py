@@ -55,6 +55,8 @@ class App:
 		if activeSpace.isRevealed:
 			pass
 		elif event.button == 1:
+			if activeSpace.isFlagged :
+				self.flagCounter = self.flagCounter + 1
 			if self.minefield.reveal(newEvent.pos[0],newEvent.pos[1]):
 				self.render()
 				gameOver = True
@@ -75,6 +77,7 @@ class App:
 						else:
 							pass
 							# do nothing
+						
 				else:
 					self.flagCounter = self.flagCounter + 1
 					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
