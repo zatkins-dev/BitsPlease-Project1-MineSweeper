@@ -34,6 +34,7 @@ class App:
 		self.screen = self.window.gameScreen
 		self.reset_element = self.window._reset
 		self.timer_element = self.window._timer
+		self.flag_element = self.window._flagCounter
 		#Images
 		self.imageRevealed = pygame.image.load('Minesweeper/assets/gridSpace_revealed.png').convert()
 		self.imageUnrevealed = pygame.image.load("Minesweeper/assets/gridSpace.png").convert()
@@ -136,15 +137,21 @@ class App:
 	def getTime(self):
 		return int((pygame.time.get_ticks() - self.timeOfLastReset) / 1000)
 	
-	#Not correctly working yet, but functional.
 	def updateClock(self):
 		font = pygame.font.SysFont('lucidaconsole', 20)
-		
-		text = font.render("Time: " + str(self.getTime()), False, (0,0,0))
-		#This needs to be positioned in the header!
+		text = font.render("Time : " + str(self.getTime()), False, (0,0,0))
 		self.timer_element.fill(Color('light grey'))
 		self.timer_element.blit(text, (0,0))	
 		pygame.display.flip() 
+
+	def updateFlags(self):
+		font = pygame.font.SysFont('lucidaconsole', 20)
+		text = font.render("Flags: " + str(self.flagCounter), False, (0,0,0))
+		self.flag_element.fill(Color('light grey'))
+		self.flag_element.blit(text, (0,0))	
+		pygame.display.flip() 
+	
+
 		
 
 
@@ -187,6 +194,7 @@ def main():
 							# TODO: Lose screen/ bomb cascade
 							gameRunning = False
 						#app.window.gameScreen.unlock()
+				app.updateFlags()
 			app.render()
 			app.window.clock.tick(60)
 	pygame.quit()
