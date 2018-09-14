@@ -204,7 +204,7 @@ def main():
 						else:
 							if not win:
 								app.onLose()
-							endScreen = EndScreen(win)
+							endScreen = EndScreen(win, (app.window.WIDTH, app.window.HEIGHT))
 						gameRunning = False
 						#app.window.gameScreen.unlock()
 				app.updateFlags()
