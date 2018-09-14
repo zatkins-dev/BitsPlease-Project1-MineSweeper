@@ -152,22 +152,22 @@ class Minefield:
 			return False
 
 	def toggleFlag(self, x, y):
-                """Toggles whether or not a flag is on the space defined by x and y.
+		"""Toggles whether or not a flag is on the space defined by x and y.
 
-                        **Args:**
-                                        *x*: x-coordinate of the space (starts at 0)
+				**Args:**
+								*x*: x-coordinate of the space (starts at 0)
 
-                                        *y*: y-coordinate of the space (starts at 0)
+								*y*: y-coordinate of the space (starts at 0)
 
-                        **Preconditions**:
-                                        x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0 <= y < self.ysize)
+				**Preconditions**:
+								x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0 <= y < self.ysize)
 
-                        **Postconditions**:
-                                        Flips value of isFlagged on specific space
+				**Postconditions**:
+								Flips value of isFlagged on specific space
 
-                        **Return**:
-                                        None.
-                """
+				**Return**:
+								None.
+		"""
 		self.minefield[y][x].isFlagged = not self.getSpace(x, y).isFlagged
 		# if thisSpace.isFlagged == False:
 		# 	thisSpace.isFlagged = True
@@ -175,21 +175,21 @@ class Minefield:
 		# 	thisSpace.isFlagged = False
 
 	def getSpace(self, x, y):
-                """Getter that returns a space object at location x, y
+		"""Getter that returns a space object at location x, y
 
-                        **Args:**
-                                        *x*: x-coordinate of the space (starts at 0)
+				**Args:**
+								*x*: x-coordinate of the space (starts at 0)
 
-                                        *y*: y-coordinate of the space (starts at 0)
+								*y*: y-coordinate of the space (starts at 0)
 
-                        **Preconditions**:
-                                        x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0<= y < self.ysize)
+				**Preconditions**:
+								x and y coordinates are legitimate (i.e. 0 <= x < self.xsize and 0<= y < self.ysize)
 
-                        **Postconditions**:
-                                        None.
+				**Postconditions**:
+								None.
 
-                        **Return**:
-                                        Returns the space at location x, y to the caller.
-                """
+				**Return**:
+								Returns the space at location x, y to the caller.
+		"""
 		return self.minefield[y][x]
 
