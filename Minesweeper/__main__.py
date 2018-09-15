@@ -1,5 +1,4 @@
 import pygame
-from pygame import constants as pgconst
 from enum import Enum
 from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
@@ -20,7 +19,7 @@ def main():
 			if startScreen is None:
 				startScreen = StartScreen()
 			for event in pygame.event.get():
-				if event.type == pgconst.QUIT:
+				if event.type == pygame.constants.QUIT:
 					currentState = State.Exit
 			startScreen.render()
 			startScreen.clock.tick(60)
@@ -31,9 +30,9 @@ def main():
 
 		elif currentState == State.Minesweeper:
 			for event in pygame.event.get():
-				if event.type == pgconst.QUIT:
+				if event.type == pygame.constants.QUIT:
 					currentState = State.Exit
-				elif event.type == pgconst.MOUSEBUTTONDOWN:
+				elif event.type == pygame.constants.MOUSEBUTTONDOWN:
 					(end, win) = minesweeper.onClick(event)
 					if end:
 						if win == 'RESET':
@@ -56,9 +55,9 @@ def main():
 			minesweeper.window.clock.tick(60)
 
 			for event in pygame.event.get():
-				if event.type == pgconst.QUIT:
+				if event.type == pygame.constants.QUIT:
 					currentState = State.Exit
-				elif event.type == pgconst.MOUSEBUTTONDOWN:
+				elif event.type == pygame.constants.MOUSEBUTTONDOWN:
 					currentState = State.Start
 					endScreen = None
 		else:

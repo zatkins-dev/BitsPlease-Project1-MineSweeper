@@ -1,11 +1,10 @@
 import pygame
-import pygame.constants as pgconst
 
 class EndScreen:
 	def __init__(self, gameWon):
 		self.destSurf = pygame.display.get_surface().copy()
 		self.drawWindow = pygame.display.get_surface()
-		self.surf = pygame.Surface(pygame.display.get_surface().get_size(), pgconst.SRCALPHA)
+		self.surf = pygame.surface.Surface(pygame.display.get_surface().get_size(), pygame.constants.SRCALPHA)
 		self.gameWon = gameWon
 		self.winColor = (0,255, 0, 127)
 		self.winTextBackgroundColor = (0,255,0)
@@ -27,7 +26,7 @@ class EndScreen:
 			self.titleSurf = self.title.render("You Lost...", True, pygame.Color('black'))
 		self.subtitleSurf = self.subtitle.render("Click to play again", True, pygame.Color('black'))
 
-		self.textBackgroundSurf = pygame.Surface(((self.subtitleSurf.get_width() + 2*textBackgroundMargin),(self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin)))
+		self.textBackgroundSurf = pygame.surface.Surface(((self.subtitleSurf.get_width() + 2*textBackgroundMargin),(self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin)))
 
 		if self.gameWon:
 			self.textBackgroundSurf.fill(self.winTextBackgroundColor)
@@ -40,7 +39,7 @@ class EndScreen:
 
 	def render(self):
 		self.drawWindow.blit(self.destSurf, (0,0))
-		self.drawWindow.blit(self.surf, (0,0), None, pgconst.BLEND_RGBA_MULT)
+		self.drawWindow.blit(self.surf, (0,0), None, pygame.constants.BLEND_RGBA_MULT)
 		self.drawWindow.blits([
 			(self.textBackgroundSurf, self.textBackgroundPos),
 			(self.titleSurf, self.titlePos),
