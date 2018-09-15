@@ -22,19 +22,16 @@ def main():
 		*End*:
 
 		*Exit*:
-	"""
-	"""
-	Runs a finite state machine cycling through game states
-	
+
 	**Args**:
 			None.
-	
+
 	**Preconditions**:
 			None.
-	
+
 	**Postconditions**:
 			None.
-	
+
 	**Returns**:
 			None.
 	"""
