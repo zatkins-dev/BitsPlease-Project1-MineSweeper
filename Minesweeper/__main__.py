@@ -35,7 +35,7 @@ def main():
 				elif event.type == pygame.constants.MOUSEBUTTONDOWN:
 					(end, win) = minesweeper.onClick(event)
 					if end:
-						if win == 'RESET':
+						if win is None:
 							currentState = State.Start
 						else:
 							currentState = State.End

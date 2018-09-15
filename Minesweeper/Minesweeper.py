@@ -46,7 +46,7 @@ class Minesweeper:
 	def onClick(self, event):
 		newEvent = self.window.onClick(event)
 		(gameOver, win) = False, False
-		if newEvent == 'RESET':
+		if newEvent is None:
 			self.reset_flag = True
 			gameOver = True
 			return gameOver, newEvent

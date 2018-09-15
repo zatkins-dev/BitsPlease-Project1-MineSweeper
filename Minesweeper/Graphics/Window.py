@@ -48,6 +48,6 @@ class Window:
 			x_reset_size, y_reset_size = self._reset.get_size()
 			(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size) 
 			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
-				return 'RESET'
+				return None
 			return 
 		return pygame.event.Event(pygame.constants.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
