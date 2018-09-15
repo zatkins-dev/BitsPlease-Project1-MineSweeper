@@ -9,6 +9,21 @@ def main():
 	"""
 	Runs a finite state machine cycling through game states
 	"""
+	"""
+	Runs a finite state machine cycling through game states
+	
+	**Args**:
+			None.
+	
+	**Preconditions**:
+			None.
+	
+	**Postconditions**:
+			None.
+	
+	**Returns**:
+			None.
+	"""
 	State = Enum('State','Start Minesweeper End Exit')
 	currentState = State.Start
 	startScreen = None
@@ -39,14 +54,10 @@ def main():
 							currentState = State.Start
 						else:
 							currentState = State.End
-							if win:
-								minesweeper.updateFlags()
-							else:
+							if not win:
 								minesweeper.onLose()
 							minesweeper.render()
 							endScreen = EndScreen(win)
-
-			minesweeper.updateFlags()
 			minesweeper.render()
 			minesweeper.window.clock.tick(60)
 

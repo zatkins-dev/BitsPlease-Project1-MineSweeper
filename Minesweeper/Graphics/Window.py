@@ -29,16 +29,22 @@ class Window:
 		display.set_caption("BitSweeper")
 		self.clock = time.Clock()
 
-	@property
-	def gameScreen(self):
-		return self._gameScreen
-
-	@gameScreen.setter
-	def setGameScreen(self, appSurface):
-		""" Adds appSurface as a subsurface to screen """
-		self._screen.subsurface(appSurface)
-
 	def onClick(self, newEvent):
+		"""
+		On click handler for window
+		
+		**Args**:
+				*newEvent*: pygame Event object, newEvent.pos: pixel location of click, newEvent.button: mouse button clicked
+		
+		**Preconditions**:
+				None.
+		
+		**Postconditions**:
+				None.
+		
+		**Returns**:
+				pygame Event object, with same button and gid location if on grid, else button=-1 if on reset button, else None
+		"""
 		x,y = newEvent.pos
 		x_game, y_game = (math.floor((x-self.MARGIN)/self.SPACE_PIXELS), math.floor((y-self.MARGIN-self.HEADER_BAR)/self.SPACE_PIXELS))
 		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1): 
@@ -46,6 +52,6 @@ class Window:
 			x_reset_size, y_reset_size = self._reset.get_size()
 			(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size) 
 			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
-				return None
+				return event.Event(constants.MOUSEBUTTONDOWN, {'pos': newEvent.pos, 'button': -1})
 			return 
 		return event.Event(constants.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': newEvent.button})
