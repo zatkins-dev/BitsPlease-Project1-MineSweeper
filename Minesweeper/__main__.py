@@ -2,8 +2,8 @@ import pygame
 from enum import Enum
 from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
-from Minesweeper.Graphics.StartScreen import StartScreen
-from Minesweeper.Graphics.EndScreen import EndScreen
+from Minesweeper.StartScreen import StartScreen
+from Minesweeper.EndScreen import EndScreen
 
 def main():
 	"""
