@@ -1,3 +1,4 @@
+pip install sphinx
 rm Minesweeper.rst
 rm modules.rst
 rm Minesweeper.Graphics.rst
