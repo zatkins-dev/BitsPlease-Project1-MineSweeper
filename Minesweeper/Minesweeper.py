@@ -1,6 +1,6 @@
 
-import pygame
-from pygame.locals import *
+from pygame import font, display, time, image
+from pygame.locals import Color
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Graphics.Window import Window
 from Minesweeper.Graphics.Drawer import Drawer
@@ -16,7 +16,7 @@ class Minesweeper:
 		self.flagCounter = self.n_mines
 		self.gameTimer = 0
 		self.timeOfLastTimeUpdate = 0
-		self.timeOfLastReset = pygame.time.get_ticks()
+		self.timeOfLastReset = time.get_ticks()
 
 		self.SPACE_WIDTH = 32
 		self.SPACE_HEIGHT = 32
@@ -36,10 +36,10 @@ class Minesweeper:
 		self.timer_element = self.window._timer
 		self.flag_element = self.window._flagCounter
 		#Images
-		self.imageRevealed = pygame.image.load('Minesweeper/assets/gridSpace_revealed.png').convert()
-		self.imageUnrevealed = pygame.image.load("Minesweeper/assets/gridSpace.png").convert()
-		self.imageFlag = pygame.image.load("Minesweeper/assets/flag.png").convert_alpha()
-		self.imageMine = pygame.image.load("Minesweeper/assets/mine.png").convert_alpha()
+		self.imageRevealed = image.load('Minesweeper/assets/gridSpace_revealed.png').convert()
+		self.imageUnrevealed = image.load("Minesweeper/assets/gridSpace.png").convert()
+		self.imageFlag = image.load("Minesweeper/assets/flag.png").convert_alpha()
+		self.imageMine = image.load("Minesweeper/assets/mine.png").convert_alpha()
 
 		
 		
@@ -94,13 +94,13 @@ class Minesweeper:
 		(reset_left, reset_top) = self.reset_element.get_abs_offset()
 		(reset_x, reset_y) = self.reset_element.get_size()
 		reset_fontsize = 20
-		t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
+		t_font = font.SysFont('lucidaconsole', reset_fontsize)
 		while t_font.size(reset_text)[0] > reset_y + 4:
 			reset_fontsize -= 1
-			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
+			t_font = font.SysFont('lucidaconsole', reset_fontsize)
 		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, (128,128,128), (96,96,96), reset_text, reset_fontsize, self.reset)
 		self.updateClock()
-		pygame.display.flip()
+		display.flip()
 
 
 	def renderSpace(self, space):
@@ -115,8 +115,8 @@ class Minesweeper:
 				self.screen.blit(self.imageMine, (space_x, space_y))
 			elif space.numOfSurroundingMines != 0:
 				#Draw Text
-				font = pygame.font.SysFont('lucidaconsole', 20)
-				text = font.render(str(space.numOfSurroundingMines), True, (0,0,0))
+				t_font = font.SysFont('lucidaconsole', 20)
+				text = t_font.render(str(space.numOfSurroundingMines), True, (0,0,0))
 				x_text_pos = (space_x) + (self.SPACE_WIDTH / 2) - (text.get_width() / 2)
 				y_text_pos = (space_y) + (self.SPACE_HEIGHT / 2) - (text.get_height() / 2)
 				self.screen.blit(text, (x_text_pos, y_text_pos))
@@ -127,17 +127,17 @@ class Minesweeper:
 				self.screen.blit(self.imageFlag, (space_x, space_y))
 
 	def getTime(self):
-		return int((pygame.time.get_ticks() - self.timeOfLastReset) / 1000)
+		return int((time.get_ticks() - self.timeOfLastReset) / 1000)
 
 	def reset(self):
 		self.reset_flag = True
 	
 	def updateClock(self):
-		font = pygame.font.SysFont('lucidaconsole', 20)
-		text = font.render("Time : " + str(self.getTime()), False, (0,0,0))
+		t_font = font.SysFont('lucidaconsole', 20)
+		text = t_font.render("Time : " + str(self.getTime()), False, (0,0,0))
 		self.timer_element.fill(Color('light grey'))
 		self.timer_element.blit(text, (0,0))	
-		pygame.display.flip() 
+		display.flip() 
 
 	def onLose(self):
 		for row in self.grid:
@@ -147,11 +147,11 @@ class Minesweeper:
 					self.renderSpace(space)
 					
 	def updateFlags(self):
-		font = pygame.font.SysFont('lucidaconsole', 20)
-		text = font.render("Flags: " + str(self.flagCounter), False, (0,0,0))
+		t_font = font.SysFont('lucidaconsole', 20)
+		text = t_font.render("Flags: " + str(self.flagCounter), False, (0,0,0))
 		self.flag_element.fill(Color('light grey'))
 		self.flag_element.blit(text, (0,0))	
-		pygame.display.flip() 
+		display.flip() 
 	
 
 		

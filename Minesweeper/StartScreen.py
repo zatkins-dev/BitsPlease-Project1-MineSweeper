@@ -1,9 +1,9 @@
-import pygame
-from pygame.locals import *
+from pygame import display, time, font, draw, init
+from pygame.locals import Rect, Color
 from Minesweeper.Graphics.Drawer import Drawer
 class StartScreen:
 	def __init__(self):
-		pygame.init()
+		init()
 
 		self.min_size = 2
 		self.max_y = 20
@@ -15,7 +15,7 @@ class StartScreen:
 		self.window_x_size = 600
 		self.window_y_size = 500
 		self.window_margin = 20
-		self.window = pygame.display.set_mode((self.window_x_size, self.window_y_size))
+		self.window = display.set_mode((self.window_x_size, self.window_y_size))
 		
 		self.sizeSurface = self.window.subsurface(Rect(self.window_margin, self.window_margin, self.window_x_size / 2 - 1.5*self.window_margin - 1, self.window_y_size - 2 * self.window_margin - 100))
 		
@@ -26,9 +26,9 @@ class StartScreen:
 		self.window.fill(Color('light grey'))
 		self.sizeSurface.fill(Color('dark grey'))
 		self.mineSurface.fill(Color('dark gray'))
-		self.clock = pygame.time.Clock()
-		self.title = pygame.font.SysFont('lucidaconsole', 30)
-		self.subtitle = pygame.font.SysFont('lucidaconsole', 25)
+		self.clock = time.Clock()
+		self.title = font.SysFont('lucidaconsole', 30)
+		self.subtitle = font.SysFont('lucidaconsole', 25)
 
 		self.drawer = Drawer()
 		self.drawButton = self.drawer.drawButton
@@ -78,9 +78,9 @@ class StartScreen:
 
 		self.drawButton(self.startSurface, 0, 0, self.startSurface.get_width(), self.startSurface.get_height(), startButtonColor, startButtonHoverColor, "Start!", 30, self.start)
 
-		pygame.draw.rect(self.sizeSurface, Color('black'), (buttonLeft_x, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
-		pygame.draw.rect(self.sizeSurface, Color('black'), (buttonLeft_y, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
-		pygame.draw.rect(self.mineSurface, Color('black'), (buttonLeft_mine, buttonTop + buttonHeight, buttonWidth_mine, buttonHeight))
+		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_x, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
+		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_y, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
+		draw.rect(self.mineSurface, Color('black'), (buttonLeft_mine, buttonTop + buttonHeight, buttonWidth_mine, buttonHeight))
 
 		currSizePos_x = (self.sizeSurface.get_width() / 4 - currSize_x.get_width() / 2, buttonTop + buttonHeight * 1.5 - currSize_x.get_height() / 2)
 		currSizePos_y = (3 * self.sizeSurface.get_width() / 4 - currSize_y.get_width() / 2, buttonTop + buttonHeight * 1.5 - currSize_y.get_height() / 2)
@@ -100,7 +100,7 @@ class StartScreen:
 		])
 		
 
-		pygame.display.flip()
+		display.flip()
 
 	def incWidth(self):
 		if self.x_size < self.max_x:

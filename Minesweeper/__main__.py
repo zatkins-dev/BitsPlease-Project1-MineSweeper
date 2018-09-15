@@ -1,4 +1,4 @@
-import pygame
+from pygame import event, constants
 from enum import Enum
 from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
@@ -18,8 +18,8 @@ def main():
 		if (currentState == State.Start):
 			if startScreen is None:
 				startScreen = StartScreen()
-			for event in pygame.event.get():
-				if event.type == pygame.constants.QUIT:
+			for newEvent in event.get():
+				if newEvent.type == constants.QUIT:
 					currentState = State.Exit
 			startScreen.render()
 			startScreen.clock.tick(60)
@@ -29,11 +29,11 @@ def main():
 				startScreen = None
 
 		elif currentState == State.Minesweeper:
-			for event in pygame.event.get():
-				if event.type == pygame.constants.QUIT:
+			for newEvent in event.get():
+				if newEvent.type == constants.QUIT:
 					currentState = State.Exit
-				elif event.type == pygame.constants.MOUSEBUTTONDOWN:
-					(end, win) = minesweeper.onClick(event)
+				elif newEvent.type == constants.MOUSEBUTTONDOWN:
+					(end, win) = minesweeper.onClick(newEvent)
 					if end:
 						if win is None:
 							currentState = State.Start
@@ -54,10 +54,10 @@ def main():
 			endScreen.render()
 			minesweeper.window.clock.tick(60)
 
-			for event in pygame.event.get():
-				if event.type == pygame.constants.QUIT:
+			for newEvent in event.get():
+				if newEvent.type == constants.QUIT:
 					currentState = State.Exit
-				elif event.type == pygame.constants.MOUSEBUTTONDOWN:
+				elif newEvent.type == constants.MOUSEBUTTONDOWN:
 					currentState = State.Start
 					endScreen = None
 		else:

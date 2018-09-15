@@ -1,15 +1,15 @@
-import pygame
+from pygame import mouse, font, surface, constants
 
 class Drawer:
     def __init__(self):
         self.buttonIsClicked = False
         
     def drawButton(self, destSurf, x, y, width, height, color, colorHover, buttonText, buttonTextSize, buttonFunction=None):
-        mousePos = pygame.mouse.get_pos()
-        font = pygame.font.SysFont('lucidaconsole', buttonTextSize)
-        text = font.render(str(buttonText), True, (0,0,0))
+        mousePos = mouse.get_pos()
+        t_font = font.SysFont('lucidaconsole', buttonTextSize)
+        text = t_font.render(str(buttonText), True, (0,0,0))
 
-        button = pygame.surface.Surface((width, height), pygame.constants.SRCALPHA)
+        button = surface.Surface((width, height), constants.SRCALPHA)
 
         offset = destSurf.get_abs_offset()
 
@@ -18,10 +18,10 @@ class Drawer:
             #mouse is over the button
             button.fill(colorHover)
 			#mouse is in the button, so it may click the button and run its function
-            if pygame.mouse.get_pressed()[0] and buttonFunction != None and not self.buttonIsClicked:
+            if mouse.get_pressed()[0] and buttonFunction != None and not self.buttonIsClicked:
                 buttonFunction()
                 self.buttonIsClicked = True
-            elif not pygame.mouse.get_pressed()[0] and self.buttonIsClicked:
+            elif not mouse.get_pressed()[0] and self.buttonIsClicked:
                 self.buttonIsClicked = False
         else:
 			#mouse isn't in the button

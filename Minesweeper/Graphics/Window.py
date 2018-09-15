@@ -1,5 +1,5 @@
-import pygame
-from pygame.locals import *
+from pygame import font, display, time, event, constants, init
+from pygame.locals import Rect, Color
 import math
 
 class Window:
@@ -15,10 +15,8 @@ class Window:
 		self.TIMER_WIDTH = 150
 		self.FLAG_COUNTER_HEIGHT = 20
 		self.FLAG_COUNTER_WIDTH = 150
-		pygame.init()
-		pygame.font.init()
-
-		self._screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+		init()
+		self._screen = display.set_mode((self.WIDTH, self.HEIGHT))
 		self._gameScreen = self._screen.subsurface(Rect(self.MARGIN, self.HEADER_BAR + self.MARGIN, self.SPACE_PIXELS*x_dim, self.SPACE_PIXELS*y_dim))
 		self._reset = self._screen.subsurface(Rect(self.MARGIN, self.MARGIN, self.RESET_WIDTH, self.HEADER_BAR-self.MARGIN))
 		self._timer = self._screen.subsurface(Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN, self.MARGIN, self.TIMER_WIDTH, self.FLAG_COUNTER_HEIGHT))
@@ -26,10 +24,10 @@ class Window:
 		self._screen.fill(Color('light grey'))
 		self._gameScreen.fill(Color('black'))
 
-		pygame.display.flip()
+		display.flip()
 
-		pygame.display.set_caption("BitSweeper")
-		self.clock = pygame.time.Clock()
+		display.set_caption("BitSweeper")
+		self.clock = time.Clock()
 
 	@property
 	def gameScreen(self):
@@ -40,8 +38,8 @@ class Window:
 		""" Adds appSurface as a subsurface to screen """
 		self._screen.subsurface(appSurface)
 
-	def onClick(self, event):
-		x,y = event.pos
+	def onClick(self, newEvent):
+		x,y = newEvent.pos
 		x_game, y_game = (math.floor((x-self.MARGIN)/self.SPACE_PIXELS), math.floor((y-self.MARGIN-self.HEADER_BAR)/self.SPACE_PIXELS))
 		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1): 
 			x_min,y_min = self._reset.get_abs_offset()
@@ -50,4 +48,4 @@ class Window:
 			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
 				return None
 			return 
-		return pygame.event.Event(pygame.constants.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
+		return event.Event(constants.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': newEvent.button})
