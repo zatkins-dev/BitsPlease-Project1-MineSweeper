@@ -3,8 +3,8 @@ import pygame
 from pygame.locals import *
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Graphics.Window import Window
-from Minesweeper.StartScreen import StartScreen
-from Minesweeper.EndScreen import EndScreen
+from Minesweeper.Graphics.StartScreen import StartScreen
+from Minesweeper.Graphics.EndScreen import EndScreen
 from Minesweeper.Graphics.Drawer import Drawer
 import os
 import math

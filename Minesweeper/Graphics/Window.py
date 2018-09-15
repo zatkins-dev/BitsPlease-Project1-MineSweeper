@@ -51,12 +51,3 @@ class Window:
 				return 'RESET'
 			return 
 		return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
-	
-import time
-
-def main():
-	win = Window(20,20)
-	time.sleep(5)
-	pygame.quit()
-
-if __name__ == '__main__': main()
