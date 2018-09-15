@@ -100,12 +100,6 @@ class Minesweeper:
 			t_font = pygame.font.SysFont('lucidaconsole', reset_fontsize)
 		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, (128,128,128), (96,96,96), reset_text, reset_fontsize, self.reset)
 		self.updateClock()
-		# self.reset_element.fill(pygame.Color('magenta'))
-		# reset_text_ln1 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Reset', True, (0,0,0))
-		# reset_text_ln2 = pygame.font.SysFont('lucidiaconsole', reset_fontsize).render('Game', True, (0,0,0))
-		# reset_text_pos = tuple(map(lambda x, y, z: x + y - z, self.reset_element.get_abs_offset(), map(lambda x: x/2,self.reset_element.get_size()), map(lambda x: x/2, reset_text_ln1.get_size())))
-		# self.reset_element.blit(reset_text_ln1, reset_text_pos)
-		# self.reset_element.blit(reset_text_ln2, (reset_text_pos[0], reset_text_pos[1]+reset_fontsize+2))
 		pygame.display.flip()
 
 
