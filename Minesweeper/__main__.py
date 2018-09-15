@@ -1,11 +1,15 @@
 import pygame
+from pygame import constants as pgconst
 from enum import Enum
 from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Graphics.StartScreen import StartScreen
 from Minesweeper.Graphics.EndScreen import EndScreen
 
-def main():	
+def main():
+	"""
+	Runs a finite state machine cycling through game states
+	"""
 	State = Enum('State','Start Minesweeper End Exit')
 	currentState = State.Start
 	startScreen = None
@@ -16,7 +20,7 @@ def main():
 			if startScreen is None:
 				startScreen = StartScreen()
 			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
+				if event.type == pgconst.QUIT:
 					currentState = State.Exit
 			startScreen.render()
 			startScreen.clock.tick(60)
@@ -27,9 +31,9 @@ def main():
 
 		elif currentState == State.Minesweeper:
 			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
+				if event.type == pgconst.QUIT:
 					currentState = State.Exit
-				elif event.type == pygame.MOUSEBUTTONDOWN:
+				elif event.type == pgconst.MOUSEBUTTONDOWN:
 					(end, win) = minesweeper.onClick(event)
 					if end:
 						if win == 'RESET':
@@ -52,9 +56,9 @@ def main():
 			minesweeper.window.clock.tick(60)
 
 			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
+				if event.type == pgconst.QUIT:
 					currentState = State.Exit
-				elif event.type == pygame.MOUSEBUTTONDOWN:
+				elif event.type == pgconst.MOUSEBUTTONDOWN:
 					currentState = State.Start
 					endScreen = None
 		else:
