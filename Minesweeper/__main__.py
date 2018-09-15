@@ -1,12 +1,9 @@
 import pygame
 from enum import Enum
-from pygame.locals import *
 from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
-from Minesweeper.Graphics.Window import Window
 from Minesweeper.Graphics.StartScreen import StartScreen
 from Minesweeper.Graphics.EndScreen import EndScreen
-from Minesweeper.Graphics.Drawer import Drawer
 
 def main():	
 	State = Enum('State','Start Minesweeper End Exit')
@@ -41,9 +38,9 @@ def main():
 							currentState = State.End
 							if win:
 								minesweeper.updateFlags()
-								minesweeper.render()
 							else:
 								minesweeper.onLose()
+							minesweeper.render()
 							endScreen = EndScreen(win)
 
 			minesweeper.updateFlags()
@@ -51,6 +48,9 @@ def main():
 			minesweeper.window.clock.tick(60)
 
 		elif currentState == State.End:
+			endScreen.render()
+			minesweeper.window.clock.tick(60)
+
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					currentState = State.Exit
@@ -58,7 +58,5 @@ def main():
 					currentState = State.Start
 					endScreen = None
 			
-			endScreen.render()
-			minesweeper.window.clock.tick(60)
 
 main()
