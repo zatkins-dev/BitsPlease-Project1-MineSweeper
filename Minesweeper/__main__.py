@@ -7,7 +7,21 @@ from Minesweeper.EndScreen import EndScreen
 
 def main():
 	"""
-	Runs a finite state machine cycling through game states
+	The __main__ class utilizes a finite state machine structure to manage the overall flow
+	of the game from start up to game ending.
+
+	**States**
+		There are four states that the game undergoes. The states and their interactions summarized:
+
+		*Start*: The default state when the game is first run. This state creates the StartScreen, which
+		asks players what board size they perfer and the number of mines on the board. This state will end
+		either when the player quits the game with a state *Exit* or generates a game with a state *Minesweeper*.
+
+		*Minesweeper*: This state runs when the player is actually playing minesweeper. There are only two ways to
+
+		*End*:
+
+		*Exit*:
 	"""
 	State = Enum('State','Start Minesweeper End Exit')
 	currentState = State.Start
@@ -63,6 +77,6 @@ def main():
 		else:
 			currentState = State.Start
 			print('Error: This really should never happen, resetting game...')
-			
+
 
 main()
