@@ -1,4 +1,5 @@
 import pygame
+from pygame import constants as pgconst
 
 class Drawer:
     def __init__(self):
@@ -9,7 +10,7 @@ class Drawer:
         font = pygame.font.SysFont('lucidaconsole', buttonTextSize)
         text = font.render(str(buttonText), True, (0,0,0))
 
-        button = pygame.Surface((width, height), pygame.SRCALPHA)
+        button = pygame.Surface((width, height), pgconst.SRCALPHA)
 
         offset = destSurf.get_abs_offset()
 

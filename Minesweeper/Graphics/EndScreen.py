@@ -1,10 +1,11 @@
 import pygame
+import pygame.constants as pgconst
 
 class EndScreen:
 	def __init__(self, gameWon):
 		self.destSurf = pygame.display.get_surface().copy()
 		self.drawWindow = pygame.display.get_surface()
-		self.surf = pygame.Surface(pygame.display.get_surface().get_size(), pygame.SRCALPHA)
+		self.surf = pygame.Surface(pygame.display.get_surface().get_size(), pgconst.SRCALPHA)
 		self.gameWon = gameWon
 		self.winColor = (0,255, 0, 127)
 		self.winTextBackgroundColor = (0,255,0)
@@ -39,7 +40,7 @@ class EndScreen:
 
 	def render(self):
 		self.drawWindow.blit(self.destSurf, (0,0))
-		self.drawWindow.blit(self.surf, (0,0), None, pygame.BLEND_RGBA_MULT)
+		self.drawWindow.blit(self.surf, (0,0), None, pgconst.BLEND_RGBA_MULT)
 		self.drawWindow.blits([
 			(self.textBackgroundSurf, self.textBackgroundPos),
 			(self.titleSurf, self.titlePos),

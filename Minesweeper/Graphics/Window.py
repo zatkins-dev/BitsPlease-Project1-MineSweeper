@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from pygame import constants as pgconst
 import math
 
 class Window:
@@ -50,4 +51,4 @@ class Window:
 			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
 				return 'RESET'
 			return 
-		return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
+		return pygame.event.Event(pgconst.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
