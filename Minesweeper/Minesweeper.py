@@ -3,13 +3,11 @@ import pygame
 from pygame.locals import *
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Graphics.Window import Window
-from Minesweeper.StartScreen import StartScreen
-from Minesweeper.EndScreen import EndScreen
 from Minesweeper.Graphics.Drawer import Drawer
 import os
 import math
 
-class App:
+class Minesweeper:
 	def __init__(self, x=9, y=9, mines=10):
 		self.x_dim = x
 		self.y_dim = y
@@ -49,6 +47,7 @@ class App:
 		newEvent = self.window.onClick(event)
 		(gameOver, win) = False, False
 		if newEvent == 'RESET':
+			self.reset_flag = True
 			gameOver = True
 			return gameOver, newEvent
 		if not newEvent:
@@ -131,14 +130,7 @@ class App:
 			self.screen.blit(self.imageUnrevealed, (space_x, space_y))
 			#Draw a flag if the space is flagged
 			if space.isFlagged:
-				self.screen.blit(self.imageFlag, (space_x, space_y))	
-
-	def reset(self):
-		self.minefield = Minefield(self.x_dim, self.y_dim, self.n_mines)
-		self.flagCounter = self.n_mines
-		self.reset_flag = True
-		self.timeOfLastReset = pygame.time.get_ticks()
-	
+				self.screen.blit(self.imageFlag, (space_x, space_y))
 
 	def getTime(self):
 		return int((pygame.time.get_ticks() - self.timeOfLastReset) / 1000)
@@ -156,6 +148,7 @@ class App:
 				if space.isMine:
 					space.isRevealed = True
 					self.renderSpace(space)
+					
 	def updateFlags(self):
 		font = pygame.font.SysFont('lucidaconsole', 20)
 		text = font.render("Flags: " + str(self.flagCounter), False, (0,0,0))
@@ -165,62 +158,5 @@ class App:
 	
 
 		
-
-
-
-def main():	
-	startScreen = None
-	app = None
-	endScreen = None
-	while True:
-	
-		startScreen = StartScreen()
-		gameStarting = True
-		while gameStarting:
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					pygame.quit()
-					return 0
-			startScreen.render()
-			gameStarting = not startScreen.gameReady
-			startScreen.clock.tick(60)
-		
-		app = App(startScreen.x_size, startScreen.y_size, startScreen.numMines)
-		gameRunning = True
-		while gameRunning:
-			for event in pygame.event.get():
-				# Quit Event 
-				if event.type == pygame.QUIT:
-					pygame.quit()
-					return 0
-				elif event.type == pygame.MOUSEBUTTONDOWN:
-					(end, win) = app.onClick(event)
-					if end:
-						#app.window.gameScreen.lock()
-						# TODO: Game over screen
-						if win == 'RESET':
-							pass
-						else:
-							if not win:
-								app.onLose()
-							endScreen = EndScreen(win)
-						gameRunning = False
-						#app.window.gameScreen.unlock()
-				app.updateFlags()
-			app.render()
-			app.window.clock.tick(60)
-		if app.reset_flag:
-			continue
-		gameEnding = True
-		while gameEnding:
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					pygame.quit()
-					return 0
-				elif event.type == pygame.MOUSEBUTTONDOWN:
-					gameEnding = False
-			
-			endScreen.render()
-			app.window.clock.tick(60)
 
 	

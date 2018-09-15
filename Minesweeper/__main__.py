@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
 from Minesweeper.Graphics.Window import Window
 from Minesweeper.Graphics.StartScreen import StartScreen
@@ -7,6 +8,13 @@ from Minesweeper.Graphics.EndScreen import EndScreen
 from Minesweeper.Graphics.Drawer import Drawer
 
 def main():	
+	states = {
+		'Quit': 0,
+		'Start': 1,
+		'App': 2, 
+		'End': 3, 
+	}
+	currentState = states['Start']
 	startScreen = None
 	app = None
 	endScreen = None
@@ -34,8 +42,6 @@ def main():
 				elif event.type == pygame.MOUSEBUTTONDOWN:
 					(end, win) = app.onClick(event)
 					if end:
-						#app.window.gameScreen.lock()
-						# TODO: Game over screen
 						if win == 'RESET':
 							pass
 						else:
