@@ -57,6 +57,9 @@ def main():
 				elif event.type == pygame.MOUSEBUTTONDOWN:
 					currentState = State.Start
 					endScreen = None
+		else:
+			currentState = State.Start
+			print('Error: This really should never happen, resetting game...')
 			
 
 main()
