@@ -40,8 +40,8 @@ class Minefield:
 	def setMines(self):
 		"""setMines randomly places the mines around the board.
 		
-                **Args**:
-                                None.
+		**Args**:
+				None.
 
 		**Preconditions**:
 				Spaces are created and stored.
