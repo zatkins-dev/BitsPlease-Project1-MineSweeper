@@ -85,7 +85,8 @@ class Minesweeper:
 		if newEvent.button == -1:
 			self.reset_flag = True
 			gameOver = True
-			return gameOver, newEvent
+			win = None
+			return gameOver, win
 		
 		activeSpace = self.minefield.getSpace(newEvent.pos[0],newEvent.pos[1])
 		if activeSpace.isRevealed:

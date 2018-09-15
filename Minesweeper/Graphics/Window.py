@@ -53,5 +53,5 @@ class Window:
 			(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size) 
 			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
 				return event.Event(constants.MOUSEBUTTONDOWN, {'pos': newEvent.pos, 'button': -1})
-			return 
+			return None
 		return event.Event(constants.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': newEvent.button})
