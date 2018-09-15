@@ -1,5 +1,4 @@
 import pygame
-from Minesweeper.StartScreen import StartScreen
 
 class EndScreen:
 	def __init__(self, gameWon):

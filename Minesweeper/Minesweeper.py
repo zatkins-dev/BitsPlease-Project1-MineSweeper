@@ -134,6 +134,9 @@ class Minesweeper:
 
 	def getTime(self):
 		return int((pygame.time.get_ticks() - self.timeOfLastReset) / 1000)
+
+	def reset(self):
+		self.reset_flag = True
 	
 	def updateClock(self):
 		font = pygame.font.SysFont('lucidaconsole', 20)
