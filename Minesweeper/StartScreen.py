@@ -2,31 +2,68 @@ from pygame import display, time, font, draw, init
 from pygame.locals import Rect, Color
 from Minesweeper.Graphics.Drawer import Drawer
 class StartScreen:
-	def __init__(self, x_size_init = 9, y_size_init = 9, numMines_init = 10):
+	"""Minefield manages the internal game logic. The backend of the game board.
+	
+	Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.
+	
+	**Class Variables**:
+			*min_size*: Integer The minimum board size to be allowed by the game
+
+			*max_y*: Integer The maximum board height to be allowed by the game
+
+			*max_x*: Integer The maximum board width to be allowed by the game
+
+			*x_size*: Integer Keeps track of the selected board width
+
+			*y_size*: Integer Keeps track of the selected board height
+
+			*numMines*: Integer The currently selected number of mines
+
+			*window_x_size*: 
+
+			*window_y_size*:
+
+			*window_margin*:
+
+			*window*:
+
+			*sizeSurface*:
+
+			*mineSurface*:
+
+			*startSurface*:
+
+			*title*:
+
+			*subtitle*:	
+	"""
+	def __init__(self, x_size_init = 9, y_size_init = 9, numMines_init = 10):	
 		init()
 
+		#limits on board size selections
 		self.min_size = 2
 		self.max_y = 20
 		self.max_x = 40
 
+		#initialize member variables with initial values
 		self.x_size = x_size_init
 		self.y_size = y_size_init
 		self.numMines = numMines_init
+
+		#define a size for the menu window
 		self.window_x_size = 600
 		self.window_y_size = 500
-		self.window_margin = 20
 		self.window = display.set_mode((self.window_x_size, self.window_y_size))
 		
+		self.window_margin = 20	
 		self.sizeSurface = self.window.subsurface(Rect(self.window_margin, self.window_margin, self.window_x_size / 2 - 1.5*self.window_margin - 1, self.window_y_size - 2 * self.window_margin - 100))
-		
 		self.mineSurface = self.window.subsurface(Rect((self.window_x_size / 2) + .5*self.window_margin, self.window_margin, self.window_x_size / 2 - 1.5*self.window_margin, self.window_y_size - 2 * self.window_margin - 100))
-		
 		self.startSurface = self.window.subsurface(Rect(self.window_margin, 400, self.window_x_size - 2*self.window_margin, 100 - self.window_margin))
 		
 		self.window.fill(Color('light grey'))
 		self.sizeSurface.fill(Color('dark grey'))
 		self.mineSurface.fill(Color('dark gray'))
-		self.clock = time.Clock()
+
 		self.title = font.SysFont('lucidaconsole', 30)
 		self.subtitle = font.SysFont('lucidaconsole', 25)
 
@@ -36,6 +73,21 @@ class StartScreen:
 		self.gameReady = False
 
 	def render(self):
+		"""
+		Renders the minefield, reset button, flag counter, and timer
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				None.
+		
+		**Postconditions**:
+				None.
+		
+		**Returns**:
+				None.
+		"""
 		#render texts for the labels
 		sizeLabel = self.title.render("Size:", True, Color('black'))
 		sizeLabel_x = self.subtitle.render("Width:", True, Color('black'))

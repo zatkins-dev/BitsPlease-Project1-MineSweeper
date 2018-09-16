@@ -1,4 +1,4 @@
-from pygame import event, constants
+from pygame import event, constants, time
 from enum import Enum
 from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
@@ -39,6 +39,7 @@ def main():
 	**Returns**:
 			None.
 	"""
+	clock = time.Clock()
 	State = Enum('State','Start Minesweeper End Exit')
 	currentState = State.Start
 	startScreen = None
@@ -56,7 +57,7 @@ def main():
 				if newEvent.type == constants.QUIT:
 					currentState = State.Exit
 			startScreen.render()
-			startScreen.clock.tick(60)
+			clock.tick(60)
 			if startScreen.gameReady:
 				currentState = State.Minesweeper
 				x, y, mines = startScreen.x_size, startScreen.y_size, startScreen.numMines
