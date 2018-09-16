@@ -62,9 +62,7 @@ class Minesweeper:
 			'unrevealed': image.load("Minesweeper/assets/gridSpace.png").convert(),
 			'flagged': image.load("Minesweeper/assets/flag.png").convert_alpha(),
 			'mine': image.load("Minesweeper/assets/mine.png").convert_alpha()
-		}
-
-		
+		}	
 		
 	def onClick(self, event):
 		"""
@@ -337,8 +335,3 @@ class Minesweeper:
 		text = t_font.render("Flags: " + str(self.flagCounter), False, (0,0,0))
 		self.flag_element.fill(Color('light grey'))
 		self.flag_element.blit(text, (0,0))	
-	
-
-		
-
-	
