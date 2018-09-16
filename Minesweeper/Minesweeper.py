@@ -33,7 +33,7 @@ class Minesweeper:
 		self.drawer = Drawer()
 		self.drawButton = self.drawer.drawButton
 		
-		self.screen = self.window._gameScreen
+		self.game_element = self.window._gameScreen
 		self.reset_element = self.window._reset
 		self.reset_flag = False
 		self.timer_element = self.window._timer
@@ -175,22 +175,22 @@ class Minesweeper:
 
 		#Draw revealed space background
 		if space.isRevealed:
-			self.screen.blit(self.img['revealed'], (space_x, space_y))
+			self.game_element.blit(self.img['revealed'], (space_x, space_y))
 			#Draw either a mine, or text ontop of background
 			if space.isMine:
-				self.screen.blit(self.img['mine'], (space_x, space_y))
+				self.game_element.blit(self.img['mine'], (space_x, space_y))
 			elif space.numOfSurroundingMines != 0:
 				#Draw Text
 				t_font = font.SysFont('lucidaconsole', 20)
 				text = t_font.render(str(space.numOfSurroundingMines), True, (0,0,0))
 				x_text_pos = (space_x) + (self.window.SPACE_PIXELS / 2) - (text.get_width() / 2)
 				y_text_pos = (space_y) + (self.window.SPACE_PIXELS / 2) - (text.get_height() / 2)
-				self.screen.blit(text, (x_text_pos, y_text_pos))
+				self.game_element.blit(text, (x_text_pos, y_text_pos))
 		else:
-			self.screen.blit(self.img['unrevealed'], (space_x, space_y))
+			self.game_element.blit(self.img['unrevealed'], (space_x, space_y))
 			#Draw a flag if the space is flagged
 			if space.isFlagged:
-				self.screen.blit(self.img['flagged'], (space_x, space_y))
+				self.game_element.blit(self.img['flagged'], (space_x, space_y))
 
 	def getTime(self):
 		"""
