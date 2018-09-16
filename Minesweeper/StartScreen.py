@@ -5,33 +5,33 @@ class StartScreen:
 	"""StartScreen manages user imput for the variables needed to make a minesweeper game, such as size and mine count
 	
 	**Class Variables**:
-			*min_size*: Integer The minimum board size to be allowed by the game
+		*min_size*: Integer The minimum board size to be allowed by the game
 
-			*max_y*: Integer The maximum board height to be allowed by the game
+		*max_y*: Integer The maximum board height to be allowed by the game
 
-			*max_x*: Integer The maximum board width to be allowed by the game
+		*max_x*: Integer The maximum board width to be allowed by the game
 
-			*x_size*: Integer Keeps track of the selected board width
+		*x_size*: Integer Keeps track of the selected board width
 
-			*y_size*: Integer Keeps track of the selected board height
+		*y_size*: Integer Keeps track of the selected board height
 
-			*numMines*: Integer The currently selected number of mines
+		*numMines*: Integer The currently selected number of mines
 
-			*window*: Surface The render surface that all other screen items will be drawn onto
+		*window*: Surface The render surface that all other screen items will be drawn onto
 
-			*window_margin*: Integer Number of Pixels to use between screen elements
+		*window_margin*: Integer Number of Pixels to use between screen elements
 
-			*sizeSurface*: Surface Subsurface of window. Used to hold board size menu
+		*sizeSurface*: Surface Subsurface of window. Used to hold board size menu
 
-			*mineSurface*: Surface Subsurface of window. Used to hold mine count menu
+		*mineSurface*: Surface Subsurface of window. Used to hold mine count menu
 
-			*startSurface*: Surface subsurface of window. Holds the "start" button
+		*startSurface*: Surface subsurface of window. Holds the "start" button
 
-			*title*: Font Stored font and font size for more emphasized text
+		*title*: Font Stored font and font size for more emphasized text
 
-			*subtitle*:	Font Stored font and font size for less emphasized text
+		*subtitle*:	Font Stored font and font size for less emphasized text
 
-			*drawer*: Drawer used to draw the buttons on the menu screen
+		*drawer*: Drawer used to draw the buttons on the menu screen
 	"""
 	def __init__(self, x_size_init = 9, y_size_init = 9, numMines_init = 10):	
 		init()
