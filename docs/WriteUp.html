@@ -149,17 +149,23 @@ Bits Please - Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman
 <h2>Challenges Faced by the Team</h2>
 	<div style = "margin-left: 40px">
 		<h3>Git Issues</h3>
-			<p>None of our group's members were espescially experienced or proficient with Git, so as expected we ran into a few issues.
-			While most of them were small issues, such as forgetting to commit before pushing or forgetting to pull from master before creating a new branch,
-			there was one debacle that stood above the rest. We were not sure exactly how, but somewhere down the line we had a folder in our file structure called 
-			"minesweeper" that was renamed to "Minesweeper". This change eventually made its way to the master branch, and when the dust settled we had two minesweeper 
-			folders (one capital and one lowercase), and the files within seemed to be arbitrarily split between the two. The game actually still ran (somehow), but that 
-			of course needed to be changed, and we were able to succesfully revert back to a previous commit.  </p>
-		<h3>Differences in Knowledge of Python and Pygame</h3>
-			<p>
+			<p style="margin-left: 20px">None of the team members described themselves as proficient with Git/Guthub before we started, so the team experienced
+				issues with the version control service. Most of these issues were easily resolved (like remembering to commit <em>and</em> push); however, one
+				problem took a large amount of time to resolve. Most of the team used Github Desktop on Windows, which we suspect as causing an issue where
+				two versions of the same folder existed - "<b>M</b>inesweeper" and "<b>m</b>inesweeper". Our files were split between the two folders, yet the game
+				still ran! After spending some time trying to debug, we just reverted to a previous commit.
 			</p>
-	
-	
+		<h3>Differences in Knowledge of Python and pygame</h3>
+			<p style="margin-left: 20px">Two of our team members, specifically Zachary and Gage, had previous experience with Python. The other two members, Jacob
+				and Thomas, had extremely little Python experience before starting this project. This limited how the tasks could be split between members and caused
+				some confusion in interpreting code that developers wrote. While the learning curve for Python was not extremely steep, it did create a barrier to who
+				could create what parts of the Minesweeper code.
+
+				Zachary was the only team member at the start of the project who had experience with the pygame library. This meant he was forced to work on front end
+				development while the rest of us focused on backend development. Additionally, this caused our structure to change as Zachary continued to create the
+				front end. See <a href = "#StructChanges">Additional Planning to Avoid Structural Changes</a>.</p>
+
+
 	</div>
 <h2>Features Cut from Demo</h2>
 	<div style="margin-left: 40px">
@@ -167,13 +173,13 @@ Bits Please - Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman
 		<ul>
 			<li>Intense Mode - Additional Challenges while playing minesweeper to break user concentration. This included rock music, shaking the screen,
 				and animals that would walk on the screen.</li>
-			<li>Number Selectors - Being about to increment the number of mines/board size by more than 1 at a time.</li>
+			<li>Number Selectors - Being able to increment the number of mines/board size by more than 1 at a time.</li>
 		</ul>
 	</div>
 
 <h2>What the Team Would Have Done Differently</h2>
 	<div style="margin-left: 40px">
-		<h3>Additional Planning to Avoid Structural Changes</h3>
+		<h3 id="StructChanges">Additional Planning to Avoid Structural Changes</h3>
 			<p style="margin-left: 20px">As we developed the back and front ends, our vision of the structure continually changed. Since we decided to use the pygame library,
 				our plans were based off of our understanding of that library's functionality. As we learned more about how pygame functioned, our structure
 				necessarily changed as a result. We should have spend some time playing around with pygame and understanding how it operates before starting
