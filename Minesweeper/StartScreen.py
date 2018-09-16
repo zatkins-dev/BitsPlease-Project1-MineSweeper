@@ -2,16 +2,16 @@ from pygame import display, time, font, draw, init
 from pygame.locals import Rect, Color
 from Minesweeper.Graphics.Drawer import Drawer
 class StartScreen:
-	def __init__(self):
+	def __init__(self, x_size_init = 9, y_size_init = 9, numMines_init = 10):
 		init()
 
 		self.min_size = 2
 		self.max_y = 20
 		self.max_x = 40
 
-		self.x_size = 9
-		self.y_size = 9
-		self.numMines = 10
+		self.x_size = x_size_init
+		self.y_size = y_size_init
+		self.numMines = numMines_init
 		self.window_x_size = 600
 		self.window_y_size = 500
 		self.window_margin = 20
