@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Minesweeper.StartScreen &#8212; Minesweeper 1.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -22,16 +22,22 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-   
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -158,32 +164,32 @@
 		<span class="n">buttonSize_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">sizeLabel_x</span><span class="o">.</span><span class="n">get_width</span><span class="p">(),</span> <span class="mi">60</span><span class="p">)</span>
 		<span class="n">buttonHeight</span><span class="o">=</span> <span class="mi">60</span>
 		<span class="n">buttonColors</span> <span class="o">=</span> <span class="p">(</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">,</span><span class="mi">128</span><span class="p">),</span> <span class="p">(</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">,</span><span class="mi">96</span><span class="p">)</span> <span class="p">)</span>
-		<span class="c1"># TODO: Inc Width Button</span>
+		<span class="c1">#  Inc Width Button</span>
 		<span class="n">incButtonSizeX_pos</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeSurface</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">-</span> <span class="n">sizeLabel</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">buttonTop</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeSurface</span><span class="p">,</span> <span class="n">incButtonSizeX_pos</span><span class="p">,</span> <span class="n">buttonSize_size</span><span class="p">,</span> <span class="n">buttonColors</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">incWidth</span><span class="p">)</span>
 
-		<span class="c1"># TODO: Dec Width Button</span>
+		<span class="c1">#  Dec Width Button</span>
 		<span class="n">decButtonSizeX_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">incButtonSizeX_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttonTop</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">buttonSize_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeSurface</span><span class="p">,</span> <span class="n">decButtonSizeX_pos</span><span class="p">,</span> <span class="n">buttonSize_size</span><span class="p">,</span> <span class="n">buttonColors</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decWidth</span><span class="p">)</span>
 
-		<span class="c1"># TODO: Inc Height Button</span>
+		<span class="c1">#  Inc Height Button</span>
 		<span class="n">incButtonSizeY_pos</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizeSurface</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">-</span> <span class="n">sizeLabel</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">buttonTop</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeSurface</span><span class="p">,</span> <span class="n">incButtonSizeY_pos</span><span class="p">,</span> <span class="n">buttonSize_size</span><span class="p">,</span> <span class="n">buttonColors</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">incHeight</span><span class="p">)</span>
 
-		<span class="c1"># TODO: Dec Height Button</span>
+		<span class="c1">#  Dec Height Button</span>
 		<span class="n">decButtonSizeY_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">incButtonSizeY_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttonTop</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">buttonSize_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeSurface</span><span class="p">,</span> <span class="n">decButtonSizeY_pos</span><span class="p">,</span> <span class="n">buttonSize_size</span><span class="p">,</span> <span class="n">buttonColors</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decHeight</span><span class="p">)</span>
 
-		<span class="c1"># TODO: Inc Mines Button</span>
+		<span class="c1">#  Inc Mines Button</span>
 		<span class="n">incButtonMines_pos</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mineSurface</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">mineLabel</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">buttonTop</span><span class="p">)</span>
 		<span class="n">buttonMines_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">mineLabel</span><span class="o">.</span><span class="n">get_width</span><span class="p">(),</span> <span class="mi">60</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mineSurface</span><span class="p">,</span> <span class="n">incButtonMines_pos</span><span class="p">,</span> <span class="n">buttonMines_size</span><span class="p">,</span> <span class="n">buttonColors</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">incMines</span><span class="p">)</span>
 
-		<span class="c1"># TODO: Dec Mines Button</span>
+		<span class="c1">#  Dec Mines Button</span>
 		<span class="n">decButtonMines_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">incButtonMines_pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttonTop</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">buttonMines_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mineSurface</span><span class="p">,</span> <span class="n">decButtonMines_pos</span><span class="p">,</span> <span class="n">buttonMines_size</span><span class="p">,</span> <span class="n">buttonColors</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">decMines</span><span class="p">)</span>
 
-		<span class="c1"># TODO: Start Button</span>
+		<span class="c1">#  Start Button</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">drawer</span><span class="o">.</span><span class="n">drawButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">startSurface</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">startSurface</span><span class="o">.</span><span class="n">get_size</span><span class="p">(),</span> <span class="n">startButtonColors</span><span class="p">,</span> <span class="s2">&quot;Start!&quot;</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
 		
 		<span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sizeSurface</span><span class="p">,</span> <span class="n">Color</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">),</span> <span class="p">(</span><span class="n">buttonLeft_x</span><span class="p">,</span> <span class="n">buttonTop</span> <span class="o">+</span> <span class="n">buttonHeight</span><span class="p">,</span> <span class="n">buttonWidth_x</span><span class="p">,</span> <span class="n">buttonHeight</span><span class="p">))</span>
@@ -353,15 +359,7 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
+        <div class="sphinxsidebarwrapper">
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
@@ -376,17 +374,22 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2018, Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
   </body>
 </html>
