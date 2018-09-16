@@ -19,19 +19,21 @@ class StartScreen:
 
 			*numMines*: Integer The currently selected number of mines
 
-			*window_margin*:
+			*window*: Surface The render surface that all other screen items will be drawn onto
 
-			*window*:
+			*window_margin*: Integer Number of Pixels to use between screen elements
 
-			*sizeSurface*:
+			*sizeSurface*: Surface Subsurface of window. Used to hold board size menu
 
-			*mineSurface*:
+			*mineSurface*: Surface Subsurface of window. Used to hold mine count menu
 
-			*startSurface*:
+			*startSurface*: Surface subsurface of window. Holds the "start" button
 
-			*title*:
+			*title*: Font Stored font and font size for more emphasized text
 
-			*subtitle*:	
+			*subtitle*:	Font Stored font and font size for less emphasized text
+
+			*drawer*: Drawer used to draw the buttons on the menu screen
 	"""
 	def __init__(self, x_size_init = 9, y_size_init = 9, numMines_init = 10):	
 		init()
@@ -51,25 +53,29 @@ class StartScreen:
 		
 		self.window_margin = 20	
 
+		#define subsurfaces for rendering different menu components
 		self.sizeSurface = self.window.subsurface(Rect(self.window_margin, self.window_margin, self.window.get_width() / 2 - 1.5*self.window_margin - 1, self.window.get_height() - 2 * self.window_margin - 100))
 		self.mineSurface = self.window.subsurface(Rect((self.window.get_width() / 2) + .5*self.window_margin, self.window_margin, self.window.get_width() / 2 - 1.5*self.window_margin, self.window.get_height() - 2 * self.window_margin - 100))
 		self.startSurface = self.window.subsurface(Rect(self.window_margin, 400, self.window.get_width() - 2*self.window_margin, 100 - self.window_margin))
 		
+		#initialize colors of the surfaces
 		self.window.fill(Color('light grey'))
 		self.sizeSurface.fill(Color('dark grey'))
 		self.mineSurface.fill(Color('dark gray'))
 
+		#intialize different font sizes
 		self.title = font.SysFont('lucidaconsole', 30)
 		self.subtitle = font.SysFont('lucidaconsole', 25)
 
+		#initialize the Drawer
 		self.drawer = Drawer()
-		self.drawButton = self.drawer.drawButton
 
+		#initialize the ready flag
 		self.gameReady = False
 
 	def render(self):
 		"""
-		Renders the minefield, reset button, flag counter, and timer
+		Renders labels, buttons, and live counts of selected board size and mine count.
 		
 		**Args**:
 				None.
@@ -78,7 +84,7 @@ class StartScreen:
 				None.
 		
 		**Postconditions**:
-				None.
+				Menu elements will be drawn to StartScreen's surface
 		
 		**Returns**:
 				None.
@@ -106,24 +112,25 @@ class StartScreen:
 		buttonLeft_y = sizeLabelPos_y[0]
 		buttonLeft_mine = mineLabelPos[0]
 		buttonTop = sizeLabelPos_x[1] + sizeLabel_x.get_height() + 20 
-
 		buttonHeight = 60
-
 		buttonColor = (128,128,128)
 		buttonHoverColor = (96,96,96)
 
+		#seperate colors for the start button
 		startButtonColor = (0, 180, 0)
 		startButtonHoverColor = (0, 156, 0)
 
-		self.drawButton(self.sizeSurface, buttonLeft_x, buttonTop, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incWidth)
-		self.drawButton(self.sizeSurface, buttonLeft_x, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decWidth)
-		self.drawButton(self.sizeSurface, buttonLeft_y, buttonTop, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incHeight)
-		self.drawButton(self.sizeSurface, buttonLeft_y, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decHeight)
+		#draw size changing buttons
+		self.drawer.drawButton(self.sizeSurface, buttonLeft_x, buttonTop, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incWidth)
+		self.drawer.drawButton(self.sizeSurface, buttonLeft_x, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decWidth)
+		self.drawer.drawButton(self.sizeSurface, buttonLeft_y, buttonTop, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incHeight)
+		self.drawer.drawButton(self.sizeSurface, buttonLeft_y, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decHeight)
 
-		self.drawButton(self.mineSurface, buttonLeft_mine, buttonTop, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incMines)
-		self.drawButton(self.mineSurface, buttonLeft_mine, buttonTop + buttonHeight * 2, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decMines)
+		#draw 
+		self.drawer.drawButton(self.mineSurface, buttonLeft_mine, buttonTop, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incMines)
+		self.drawer.drawButton(self.mineSurface, buttonLeft_mine, buttonTop + buttonHeight * 2, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decMines)
 
-		self.drawButton(self.startSurface, 0, 0, self.startSurface.get_width(), self.startSurface.get_height(), startButtonColor, startButtonHoverColor, "Start!", 30, self.start)
+		self.drawer.drawButton(self.startSurface, 0, 0, self.startSurface.get_width(), self.startSurface.get_height(), startButtonColor, startButtonHoverColor, "Start!", 30, self.start)
 
 		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_x, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
 		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_y, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
@@ -150,32 +157,139 @@ class StartScreen:
 		display.flip()
 
 	def incWidth(self):
+		"""
+		Helper function to increment the selected width of the board
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				Current x_size must be a number
+		
+		**Postconditions**:
+				x_size will be less than or equal to the max x size specified
+		
+		**Returns**:
+				None.
+		"""
 		if self.x_size < self.max_x:
 			self.x_size += 1
 
 	def decWidth(self):
+		"""
+		Helper function to decrement the selected width of the board
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				Current x_size must be a number
+		
+		**Postconditions**:
+				x_size will be greater than or equal to the minimum x size specified.
+				Also, the selected number of mines will be less than the area of the board.
+		
+		**Returns**:
+				None.
+		"""
 		if self.x_size > self.min_size:
 			self.x_size -= 1
 		if self.numMines >= self.x_size * self.y_size:
 			self.numMines = self.x_size * self.y_size - 1
 
 	def incHeight(self):
+		"""
+		Helper function to increment the selected height of the board
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				Current y_size must be a number
+		
+		**Postconditions**:
+				y_size will be less than or equal to the max y size specified
+		
+		**Returns**:
+				None.
+		"""
 		if self.y_size < self.max_y:
 			self.y_size += 1
 
 	def decHeight(self):
+		"""
+		Helper function to decrement the selected height of the board
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				Current y_size must be a number
+		
+		**Postconditions**:
+				y_size will be greater than or equal to the minimum x size specified.
+				Also, the selected number of mines will be less than the area of the board.
+		
+		**Returns**:
+				None.
+		"""
 		if self.y_size > self.min_size:
 			self.y_size -= 1
 		if self.numMines >= self.x_size * self.y_size:
 			self.numMines = self.x_size * self.y_size - 1
 
 	def incMines(self):
+		"""
+		Helper function to increment the selected number of mines on the board
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				Current numMines must be a number
+		
+		**Postconditions**:
+				numMines will be less than the total number of spaces available on the board
+		
+		**Returns**:
+				None.
+		"""
 		if self.numMines < self.x_size * self.y_size - 1:
 			self.numMines += 1
 	
 	def decMines(self):
+		"""
+		Helper function to decrement the selected number of mines on the board
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				Current numMines must be a number
+		
+		**Postconditions**:
+				numMines will be at least 1
+		
+		**Returns**:
+				None.
+		"""
 		if self.numMines > 1:
 			self.numMines -= 1
 
 	def start(self):
+		"""
+		Sets the gameReady flag to True. This is the signal for a top level class to move on to the game
+		
+		**Args**:
+				None.
+		
+		**Preconditions**:
+				None
+		
+		**Postconditions**:
+				gameReady will be True
+		
+		**Returns**:
+				None.
+		"""
 		self.gameReady = True
