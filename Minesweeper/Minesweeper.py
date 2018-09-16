@@ -300,6 +300,8 @@ class Minesweeper:
 		for row in self.grid:
 			for space in row:
 				if space.isMine:
+					if space.isFlagged:
+						self.toggleFlag(space.x_loc, space.y_loc)
 					space.isRevealed = True
 					self.renderSpace(space)
 					
