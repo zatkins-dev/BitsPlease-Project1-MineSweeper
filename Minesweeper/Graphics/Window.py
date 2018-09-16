@@ -49,10 +49,9 @@ class Window:
 		self.SPACE_PIXELS = 32
 		self.MARGIN = 8
 
-		if (math.floor(self.SPACE_PIXELS * self.y_dim/4)) < 70 :
-			self.HEADER_BAR = 70
-		else:
-			self.HEADER_BAR = math.floor(self.SPACE_PIXELS * self.y_dim/4)
+		
+		self.HEADER_BAR = 70
+		
 
 		if (self.SPACE_PIXELS*self.x_dim + 2 * self.MARGIN) < 300 :
 			self.WIDTH = 300
