@@ -109,8 +109,10 @@ class Minesweeper:
 			# If out of flags and trying to add another, do nothing, return (False, False)
 			if self.flagCounter == 0 and not activeSpace.isFlagged:
 				return NOTHING
-			# Toggle flag and check if all flags are correct: if they are, return (True, True); else, return (False, False)
-			return WIN if self.toggleFlag(x,y) and self.minefield.checkFlags() else NOTHING
+			# toggle flag on space at (x,y)
+			self.toggleFlag(x,y)
+			# If flag was placed, check if all flags are correct: if they are, return (True, True); else, return (False, False)
+			return WIN if activeSpace.isFlagged and self.minefield.checkFlags() else NOTHING
 
 	def render(self):
 		"""
@@ -152,12 +154,11 @@ class Minesweeper:
 				space.isFlagged is toggled
 		
 		**Returns**:
-				New value of space.isFlagged
+				None.
 		"""
 		space = self.minefield.getSpace(x,y)
 		self.flagCounter += 1 if space.isFlagged else -1
 		self.minefield.toggleFlag(x,y)
-		return space.isFlagged
 
 	def renderSpace(self, space):
 		"""
