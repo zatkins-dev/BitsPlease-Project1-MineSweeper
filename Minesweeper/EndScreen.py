@@ -46,8 +46,8 @@ class EndScreen:
 		self.subtitleSurf = subtitle.render("Click to play again", True, Color('black'))
 
 		self.textBackgroundSurf = surface.Surface(
-			(self.subtitleSurf.get_width() + 2*textBackgroundMargin),
-			(self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin)
+			(self.subtitleSurf.get_width() + 2*textBackgroundMargin,
+			self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin)
 		)
 
 		self.textBackgroundSurf.fill(backgroundColor)
