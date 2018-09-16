@@ -19,10 +19,6 @@ class StartScreen:
 
 			*numMines*: Integer The currently selected number of mines
 
-			*window_x_size*: 
-
-			*window_y_size*:
-
 			*window_margin*:
 
 			*window*:
@@ -50,15 +46,14 @@ class StartScreen:
 		self.y_size = y_size_init
 		self.numMines = numMines_init
 
-		#define a size for the menu window
-		self.window_x_size = 600
-		self.window_y_size = 500
-		self.window = display.set_mode((self.window_x_size, self.window_y_size))
+		#create a new display window of size (x, y)
+		self.window = display.set_mode((600, 500))
 		
 		self.window_margin = 20	
-		self.sizeSurface = self.window.subsurface(Rect(self.window_margin, self.window_margin, self.window_x_size / 2 - 1.5*self.window_margin - 1, self.window_y_size - 2 * self.window_margin - 100))
-		self.mineSurface = self.window.subsurface(Rect((self.window_x_size / 2) + .5*self.window_margin, self.window_margin, self.window_x_size / 2 - 1.5*self.window_margin, self.window_y_size - 2 * self.window_margin - 100))
-		self.startSurface = self.window.subsurface(Rect(self.window_margin, 400, self.window_x_size - 2*self.window_margin, 100 - self.window_margin))
+
+		self.sizeSurface = self.window.subsurface(Rect(self.window_margin, self.window_margin, self.window.get_width() / 2 - 1.5*self.window_margin - 1, self.window.get_height() - 2 * self.window_margin - 100))
+		self.mineSurface = self.window.subsurface(Rect((self.window.get_width() / 2) + .5*self.window_margin, self.window_margin, self.window.get_width() / 2 - 1.5*self.window_margin, self.window.get_height() - 2 * self.window_margin - 100))
+		self.startSurface = self.window.subsurface(Rect(self.window_margin, 400, self.window.get_width() - 2*self.window_margin, 100 - self.window_margin))
 		
 		self.window.fill(Color('light grey'))
 		self.sizeSurface.fill(Color('dark grey'))
