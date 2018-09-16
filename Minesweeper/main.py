@@ -80,11 +80,11 @@ def main():
 							minesweeper.render()
 							endScreen = EndScreen(win)
 			minesweeper.render()
-			minesweeper.window.clock.tick(60)
+			clock.tick(60)
 
 		elif currentState == State.End:
 			endScreen.render()
-			minesweeper.window.clock.tick(60)
+			clock.tick(60)
 
 			for newEvent in event.get():
 				if newEvent.type == constants.QUIT:
