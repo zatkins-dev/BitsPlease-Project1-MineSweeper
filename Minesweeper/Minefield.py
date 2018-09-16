@@ -13,7 +13,8 @@ class Minefield:
 
 			*numMines*: Integer number of mines
 			
-                        *minefield*: 2D array to track where the mines are located."""
+			*minefield*: 2D array to track where the mines are located.
+	"""
 
 	def __init__(self, x_size, y_size, numMines):
 
