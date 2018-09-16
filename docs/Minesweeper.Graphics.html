@@ -54,10 +54,37 @@
 <dt id="Minesweeper.Graphics.Drawer.Drawer">
 <em class="property">class </em><code class="descclassname">Minesweeper.Graphics.Drawer.</code><code class="descname">Drawer</code><a class="reference internal" href="_modules/Minesweeper/Graphics/Drawer.html#Drawer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Graphics.Drawer.Drawer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Drawer is a utility class used to draw different things to the screen, although currently it only draws a button.</p>
+<dl class="docutils">
+<dt><strong>Class Variables</strong>:</dt>
+<dd><em>buttonIsClicked</em>: A state variable which stores whether a button is currently being pressed. Used to prevent buttons actions from executing on every single frame.</dd>
+</dl>
 <dl class="method">
 <dt id="Minesweeper.Graphics.Drawer.Drawer.drawButton">
 <code class="descname">drawButton</code><span class="sig-paren">(</span><em>destSurf</em>, <em>pos</em>, <em>size</em>, <em>colors</em>, <em>buttonText</em>, <em>buttonTextSize</em>, <em>buttonFunction=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Minesweeper/Graphics/Drawer.html#Drawer.drawButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Minesweeper.Graphics.Drawer.Drawer.drawButton" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Utility function that draws a button to the screen</p>
+<dl class="docutils">
+<dt><strong>Args</strong>:</dt>
+<dd><em>destSurf</em>: Surface The surface that the button will be drawn to</dd>
+</dl>
+<p><em>pos</em>: Tuple (int, int) The (x,y) position of the button. This point corresponds to the top-left corner of the button.</p>
+<p><em>size</em>: Tuple (int, int) The (width, height) of the button to be drawn.</p>
+<dl class="docutils">
+<dt><em>colors</em>: Tuple (Color, Color) The first member of the tuple is the color of the button, and the second</dt>
+<dd>member is the color of the button while it is being hovered over. These colors can be given as 
+pygame colors, triples of RGB values, or 4-tuples of RGBA values if transparency is desired</dd>
+</dl>
+<p><em>buttonText</em>: The text to be rendered at the center of the button</p>
+<p><em>buttonTextSize</em>: The size of the text to be rendered</p>
+<p><em>buttonFunction</em>: A function to call while the button is pressed</p>
+<dl class="docutils">
+<dt><strong>Preconditions</strong>:</dt>
+<dd>None.</dd>
+<dt><strong>Postconditions</strong>:</dt>
+<dd>None.</dd>
+</dl>
+<p><strong>Returns</strong>: None.</p>
+</dd></dl>
 
 </dd></dl>
 
