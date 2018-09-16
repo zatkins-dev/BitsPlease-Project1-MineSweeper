@@ -1,0 +1,283 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Minesweeper.Minefield &#8212; Minesweeper 1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Minesweeper.Minefield</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">Minesweeper.Space</span> <span class="k">import</span> <span class="n">Space</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<div class="viewcode-block" id="Minefield"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minefield.Minefield">[docs]</a><span class="k">class</span> <span class="nc">Minefield</span><span class="p">:</span>
+	<span class="sd">&quot;&quot;&quot;Minefield manages the internal game logic. The backend of the game board.</span>
+<span class="sd">	</span>
+<span class="sd">	Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.</span>
+<span class="sd">	</span>
+<span class="sd">	**Class Variables**:</span>
+<span class="sd">			*x_size*: Integer x size of board</span>
+
+<span class="sd">			*y_size*: Integer y size of board</span>
+
+<span class="sd">			*numMines*: Integer number of mines</span>
+<span class="sd">			</span>
+<span class="sd">			*minefield*: 2D array to track where the mines are located.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_size</span><span class="p">,</span> <span class="n">y_size</span><span class="p">,</span> <span class="n">numMines</span><span class="p">):</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">x_size</span> <span class="o">=</span> <span class="n">x_size</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">y_size</span> <span class="o">=</span> <span class="n">y_size</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">numMines</span> <span class="o">=</span> <span class="n">numMines</span>
+
+		<span class="c1">#initialize minefield array</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">minefield</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Space</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x_size</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_size</span><span class="p">)]</span>
+
+		<span class="c1"># for y in range(self.y_size):</span>
+		<span class="c1"># 	self.minefield[y] = []</span>
+		<span class="c1"># 	for x in range(self.x_size):</span>
+		<span class="c1"># 		self.minefield[y][x] = Space(x, y)</span>
+
+		<span class="c1">#set mines in the minefield</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">setMines</span><span class="p">()</span>
+
+		<span class="c1">#initialize surrounding mine numbers</span>
+		<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_size</span><span class="p">):</span>
+			<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_size</span><span class="p">):</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">checkNeighbors</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Minefield.setMines"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minefield.Minefield.setMines">[docs]</a>	<span class="k">def</span> <span class="nf">setMines</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;setMines randomly places the mines around the board.</span>
+<span class="sd">		</span>
+<span class="sd">		**Args**:</span>
+<span class="sd">				None.</span>
+
+<span class="sd">		**Preconditions**:</span>
+<span class="sd">				Spaces are created and stored.</span>
+<span class="sd">				</span>
+<span class="sd">		**Postconditions**:</span>
+<span class="sd">				isMine altered in numMines spaces</span>
+<span class="sd">				</span>
+<span class="sd">		**Returns**:</span>
+<span class="sd">				None.&quot;&quot;&quot;</span>
+
+		<span class="n">currentMines</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span>
+
+		<span class="k">while</span> <span class="n">currentMines</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">numMines</span><span class="p">:</span>
+			<span class="n">mine_x</span><span class="p">,</span> <span class="n">mine_y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_size</span><span class="p">),</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_size</span><span class="p">)</span>
+			<span class="n">thisSpace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">mine_x</span><span class="p">,</span> <span class="n">mine_y</span><span class="p">)</span>
+
+			<span class="k">if</span> <span class="ow">not</span> <span class="n">thisSpace</span><span class="o">.</span><span class="n">isMine</span><span class="p">:</span>
+				<span class="n">thisSpace</span><span class="o">.</span><span class="n">isMine</span> <span class="o">=</span> <span class="kc">True</span>
+				<span class="n">currentMines</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="Minefield.checkNeighbors"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minefield.Minefield.checkNeighbors">[docs]</a>	<span class="k">def</span> <span class="nf">checkNeighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Determines the number of mines that are directly around a certain space.</span>
+<span class="sd">				</span>
+<span class="sd">			**Args**:</span>
+<span class="sd">				*x*: the x coordinate of the space (start at 0)</span>
+<span class="sd">				</span>
+<span class="sd">                                *y*: the y coordinate of the space (start at 0)</span>
+<span class="sd">					</span>
+<span class="sd">			**Preconditions**:</span>
+<span class="sd">				The mines must already be placed in the grid, spaces must exist</span>
+
+<span class="sd">			**Postconditions**:</span>
+<span class="sd">				Sets the variable numOfSurroundingMines in the space in x,y to the integer number of mines touching that space.</span>
+<span class="sd">                                </span>
+<span class="sd">                        **Return**:</span>
+<span class="sd">                                None.&quot;&quot;&quot;</span>
+		<span class="c1">#Using the count variable to monitor the number of surrounding mines </span>
+		<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">leftX</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">x</span><span class="o">-</span><span class="mi">1</span>
+		<span class="n">rightX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_size</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_size</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+		<span class="n">leftY</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span>
+		<span class="n">rightY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_size</span><span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_size</span><span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span>
+
+		<span class="n">checkCoordinates</span> <span class="o">=</span> <span class="p">[(</span><span class="n">xCoord</span><span class="p">,</span> <span class="n">yCoord</span><span class="p">)</span> <span class="k">for</span> <span class="n">xCoord</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">leftX</span><span class="p">,</span> <span class="n">rightX</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">yCoord</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">leftY</span><span class="p">,</span> <span class="n">rightY</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">xCoord</span><span class="p">,</span> <span class="n">yCoord</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)]</span>
+		<span class="k">for</span> <span class="n">gridPoint</span> <span class="ow">in</span> <span class="n">checkCoordinates</span><span class="p">:</span>
+			<span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">gridPoint</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">gridPoint</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">isMine</span><span class="p">):</span> 
+				<span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">numOfSurroundingMines</span> <span class="o">=</span> <span class="n">count</span></div>
+
+<div class="viewcode-block" id="Minefield.checkFlags"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minefield.Minefield.checkFlags">[docs]</a>	<span class="k">def</span> <span class="nf">checkFlags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Checks to see all of mined spaces have flags</span>
+
+<span class="sd">			**Args**:</span>
+<span class="sd">					None.</span>
+
+<span class="sd">			**Preconditions**:</span>
+<span class="sd">					The mines must already be placed in grid, spaces must exist</span>
+
+<span class="sd">			**Postconditions**:</span>
+<span class="sd">					None.</span>
+
+<span class="sd">			**Returns**:</span>
+<span class="sd">					True if all the mines have a flag on them, false otherwise</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">isComplete</span> <span class="o">=</span> <span class="kc">True</span>
+		<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_size</span><span class="p">):</span>
+			<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_size</span><span class="p">):</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">isFlagged</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">isMine</span><span class="p">:</span>
+					<span class="n">isComplete</span> <span class="o">=</span> <span class="kc">False</span>
+		<span class="k">return</span> <span class="n">isComplete</span></div>
+
+<div class="viewcode-block" id="Minefield.reveal"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minefield.Minefield.reveal">[docs]</a>	<span class="k">def</span> <span class="nf">reveal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Determines whether or not to reveal a space.</span>
+
+<span class="sd">			Specifically, it reveals a space when it is clicked, as well as all empty spaces around the clicked space.</span>
+<span class="sd">			</span>
+<span class="sd">                        It also reveals the board if a mine is clicked.</span>
+
+<span class="sd">			**Args**:</span>
+<span class="sd">					*x*: x-coordinate of the space (starts at 0)</span>
+<span class="sd">					</span>
+<span class="sd">                                        *y*: y-coordinate of the space (starts at 0)</span>
+
+<span class="sd">			**Preconditions**:</span>
+<span class="sd">					x and y coordinates are legitimate (i.e. 0 &lt;= x &lt; self.xsize and 0 &lt;= y &lt; self.ysize)</span>
+
+<span class="sd">			**Postconditions**:</span>
+<span class="sd">					Set Revealed to True if space is to be revealed</span>
+
+<span class="sd">			**Return**:</span>
+<span class="sd">					True if space is revealed, false otherwise</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">thisSpace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+		
+		<span class="n">thisSpace</span><span class="o">.</span><span class="n">isRevealed</span> <span class="o">=</span> <span class="kc">True</span>
+		<span class="k">if</span> <span class="n">thisSpace</span><span class="o">.</span><span class="n">isMine</span><span class="p">:</span>
+			<span class="k">return</span> <span class="kc">True</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">thisSpace</span><span class="o">.</span><span class="n">numOfSurroundingMines</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="n">x_range</span><span class="p">,</span> <span class="n">y_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+				<span class="k">for</span> <span class="n">y_curr</span> <span class="ow">in</span> <span class="n">y_range</span><span class="p">:</span>
+					<span class="k">for</span> <span class="n">x_curr</span> <span class="ow">in</span> <span class="n">x_range</span><span class="p">:</span>
+						<span class="k">if</span> <span class="p">(</span><span class="n">x_curr</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y_curr</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x_curr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_size</span> <span class="ow">and</span> <span class="n">y_curr</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_size</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">x_curr</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">y_curr</span> <span class="o">==</span> <span class="n">y</span><span class="p">):</span>
+							<span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">x_curr</span><span class="p">,</span> <span class="n">y_curr</span><span class="p">)</span><span class="o">.</span><span class="n">isRevealed</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">x_curr</span><span class="p">,</span> <span class="n">y_curr</span><span class="p">)</span><span class="o">.</span><span class="n">isFlagged</span><span class="p">):</span>
+								<span class="bp">self</span><span class="o">.</span><span class="n">reveal</span><span class="p">(</span><span class="n">x_curr</span><span class="p">,</span> <span class="n">y_curr</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Minefield.toggleFlag"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minefield.Minefield.toggleFlag">[docs]</a>	<span class="k">def</span> <span class="nf">toggleFlag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Toggles whether or not a flag is on the space defined by x and y.</span>
+
+<span class="sd">				**Args:**</span>
+<span class="sd">								*x*: x-coordinate of the space (starts at 0)</span>
+
+<span class="sd">								*y*: y-coordinate of the space (starts at 0)</span>
+
+<span class="sd">				**Preconditions**:</span>
+<span class="sd">								x and y coordinates are legitimate (i.e. 0 &lt;= x &lt; self.xsize and 0 &lt;= y &lt; self.ysize)</span>
+
+<span class="sd">				**Postconditions**:</span>
+<span class="sd">								Flips value of isFlagged on specific space</span>
+
+<span class="sd">				**Return**:</span>
+<span class="sd">								None.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">minefield</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">isFlagged</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">getSpace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">isFlagged</span></div>
+		<span class="c1"># if thisSpace.isFlagged == False:</span>
+		<span class="c1"># 	thisSpace.isFlagged = True</span>
+		<span class="c1"># else:</span>
+		<span class="c1"># 	thisSpace.isFlagged = False</span>
+
+<div class="viewcode-block" id="Minefield.getSpace"><a class="viewcode-back" href="../../Minesweeper.html#Minesweeper.Minefield.Minefield.getSpace">[docs]</a>	<span class="k">def</span> <span class="nf">getSpace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Getter that returns a space object at location x, y</span>
+
+<span class="sd">				**Args:**</span>
+<span class="sd">								*x*: x-coordinate of the space (starts at 0)</span>
+
+<span class="sd">								*y*: y-coordinate of the space (starts at 0)</span>
+
+<span class="sd">				**Preconditions**:</span>
+<span class="sd">								x and y coordinates are legitimate (i.e. 0 &lt;= x &lt; self.xsize and 0&lt;= y &lt; self.ysize)</span>
+
+<span class="sd">				**Postconditions**:</span>
+<span class="sd">								None.</span>
+
+<span class="sd">				**Return**:</span>
+<span class="sd">								Returns the space at location x, y to the caller.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">minefield</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span></div></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Zachary Atkins, Gage Phillips, Jacob Marshall, Thomas Gartman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+  </body>
+</html>
