@@ -18,6 +18,7 @@ def main():
 		either when the player quits the game with a state *Exit* or generates a game with a state *Minesweeper*.
 
 		*Minesweeper*: This state runs when the player is actually playing minesweeper. There are only two ways to
+		change state -
 
 		*End*:
 
