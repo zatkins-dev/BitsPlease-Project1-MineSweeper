@@ -270,7 +270,7 @@ class Minesweeper:
 		while t_font.size(reset_text)[0] > reset_y + 4:
 			reset_fontsize -= 1
 			t_font = font.SysFont('lucidaconsole', reset_fontsize)
-		self.drawButton(self.window._screen, reset_left, reset_top, reset_x, reset_y, (128,128,128), (96,96,96), reset_text, reset_fontsize, self.reset)
+		self.drawButton(self.window._screen, (reset_left, reset_top), (reset_x, reset_y), ((128,128,128), (96,96,96)), reset_text, reset_fontsize, self.reset)
 
 	def updateClock(self):
 		"""
