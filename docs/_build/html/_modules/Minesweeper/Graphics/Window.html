@@ -1,0 +1,207 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Minesweeper.Graphics.Window &#8212; Minesweeper 1.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Minesweeper.Graphics.Window</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pygame</span> <span class="k">import</span> <span class="n">font</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">init</span>
+<span class="kn">from</span> <span class="nn">pygame.locals</span> <span class="k">import</span> <span class="n">Rect</span><span class="p">,</span> <span class="n">Color</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<div class="viewcode-block" id="Window"><a class="viewcode-back" href="../../../Minesweeper.Graphics.html#Minesweeper.Graphics.Window.Window">[docs]</a><span class="k">class</span> <span class="nc">Window</span><span class="p">:</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Window class controls interactions with the pygame surfaces of the parent window and subsurfaces of the various game elements</span>
+<span class="sd">		</span>
+<span class="sd">		**Class Variables**:</span>
+<span class="sd">			*self.x_dim*: number of game tiles, x dimension</span>
+
+<span class="sd">			*self.y_dim*: number of game tiles, y dimension</span>
+
+<span class="sd">			*self.SPACE_PIXELS*: const, size of single square size</span>
+
+<span class="sd">			*self.MARGIN*: const, width of margin</span>
+
+<span class="sd">			*self.HEADER_BAR*: const, header bar height</span>
+
+<span class="sd">			*self.WIDTH*: const, window width</span>
+
+<span class="sd">			*self.HEIGHT*: const, window height </span>
+
+<span class="sd">			*self.RESET_WIDTH*: const, width of reset button element</span>
+
+<span class="sd">			*self.TIMER_WIDTH*: const, width of timer text</span>
+
+<span class="sd">			*self.FLAG_COUNTER_HEIGHT*: const, height of flag counter text</span>
+
+<span class="sd">			*self.FLAG_COUNTER_WIDTH*: const, width of flag counter text</span>
+
+<span class="sd">			*self.GAME_SCREEN_LEFT*: const, left-most pixel value of game screen</span>
+
+<span class="sd">			*self._screen*: Surface object, parent window</span>
+
+<span class="sd">			*self._gameScreen*: Surface object, game grid element</span>
+
+<span class="sd">			*self._reset*: Surface object, reset button element</span>
+
+<span class="sd">			*self._timer*: Surface object, timer text element</span>
+
+<span class="sd">			*self._flagCounter*: Surface object, flag counter text element</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">=</span> <span class="n">x_dim</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span> <span class="o">=</span> <span class="n">y_dim</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">=</span> <span class="mi">32</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">=</span> <span class="mi">8</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">70</span> <span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span> <span class="o">=</span> <span class="mi">70</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">300</span> <span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">300</span>
+		<span class="k">else</span><span class="p">:</span> 
+			<span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">TIMER_WIDTH</span> <span class="o">=</span> <span class="mi">150</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span> <span class="o">=</span> <span class="mi">20</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_WIDTH</span> <span class="o">=</span> <span class="mi">150</span>
+
+		<span class="n">init</span><span class="p">()</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_screen</span> <span class="o">=</span> <span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">))</span>
+		<span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s2">&quot;BitSweeper&quot;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+		<span class="k">else</span> <span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_gameScreen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
+				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="p">)</span>
+			<span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_reset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
+				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">)</span>
+			<span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_timer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
+				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIMER_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">)</span>
+			<span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_flagCounter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">subsurface</span><span class="p">(</span>
+				<span class="n">Rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">RESET_WIDTH</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">FLAG_COUNTER_HEIGHT</span><span class="p">)</span>
+			<span class="p">)</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">_screen</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">Color</span><span class="p">(</span><span class="s1">&#39;light grey&#39;</span><span class="p">))</span>
+
+		<span class="n">display</span><span class="o">.</span><span class="n">flip</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Window.onClick"><a class="viewcode-back" href="../../../Minesweeper.Graphics.html#Minesweeper.Graphics.Window.Window.onClick">[docs]</a>	<span class="k">def</span> <span class="nf">onClick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newEvent</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		On click handler for window</span>
+<span class="sd">		</span>
+<span class="sd">		**Args**:</span>
+<span class="sd">				*newEvent*: pygame Event object, newEvent.pos: pixel location of click, newEvent.button: mouse button clicked</span>
+<span class="sd">		</span>
+<span class="sd">		**Preconditions**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		</span>
+<span class="sd">		**Postconditions**:</span>
+<span class="sd">				None.</span>
+<span class="sd">		</span>
+<span class="sd">		**Returns**:</span>
+<span class="sd">				pygame Event object, with same button and gid location if on grid, else button=-1 if on reset button, else None</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">pos</span>
+		<span class="n">x_game</span><span class="p">,</span> <span class="n">y_game</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">GAME_SCREEN_LEFT</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">MARGIN</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">HEADER_BAR</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">SPACE_PIXELS</span><span class="p">))</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x_game</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_dim</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y_game</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_dim</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> 
+			<span class="n">x_min</span><span class="p">,</span><span class="n">y_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="o">.</span><span class="n">get_abs_offset</span><span class="p">()</span>
+			<span class="n">x_reset_size</span><span class="p">,</span> <span class="n">y_reset_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+			<span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">+</span> <span class="n">x_reset_size</span><span class="p">,</span> <span class="n">y_min</span> <span class="o">+</span> <span class="n">y_reset_size</span><span class="p">)</span> 
+			<span class="k">if</span> <span class="p">(</span><span class="n">x_min</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x_max</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y_min</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">y_max</span><span class="p">):</span>
+				<span class="k">return</span> <span class="n">event</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+			<span class="k">return</span> <span class="kc">None</span>
+		<span class="k">return</span> <span class="n">event</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">MOUSEBUTTONDOWN</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;pos&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">x_game</span><span class="p">,</span> <span class="n">y_game</span><span class="p">),</span> <span class="s1">&#39;button&#39;</span><span class="p">:</span> <span class="n">newEvent</span><span class="o">.</span><span class="n">button</span><span class="p">})</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Minesweeper 1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Zachary Atkins, Gage Phillip, Jacob Marshall, Thomas Gartman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+  </body>
+</html>

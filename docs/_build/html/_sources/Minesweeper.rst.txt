@@ -1,0 +1,69 @@
+Minesweeper package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    Minesweeper.Graphics
+
+Submodules
+----------
+
+Minesweeper\.EndScreen module
+-----------------------------
+
+.. automodule:: Minesweeper.EndScreen
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Minesweeper\.Minefield module
+-----------------------------
+
+.. automodule:: Minesweeper.Minefield
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Minesweeper\.Minesweeper module
+-------------------------------
+
+.. automodule:: Minesweeper.Minesweeper
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Minesweeper\.Space module
+-------------------------
+
+.. automodule:: Minesweeper.Space
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Minesweeper\.StartScreen module
+-------------------------------
+
+.. automodule:: Minesweeper.StartScreen
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Minesweeper\.main module
+------------------------
+
+.. automodule:: Minesweeper.main
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: Minesweeper
+    :members:
+    :undoc-members:
+    :show-inheritance:
