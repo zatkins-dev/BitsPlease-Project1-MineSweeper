@@ -17,11 +17,15 @@ def main():
 		asks players what board size they perfer and the number of mines on the board. This state will end
 		either when the player quits the game with a state *Exit* or generates a game with a state *Minesweeper*.
 
-		*Minesweeper*: This state runs when the player is actually playing minesweeper. There are only two ways to
+		*Minesweeper*: This state runs when the player is actually playing minesweeper. This state monitors how the game
+		is progressing. Once the player wins or loses, this state will record the outcome then change state.
+		There are only two ways to change state - when the game is won or lost with a state *End* or when the player quits
+		the game with a state *Exit*.
 
-		*End*:
+		*End*: This state throws up the appropirate end screen depending on whether or not the player won or lost. Then,
+		awaits whether or not the player quits the game with a state *Exit* or starts a new game with state *Start*.
 
-		*Exit*:
+		*Exit*: This state exits out of the finite state machine and terminates the application.
 
 	**Args**:
 			None.
