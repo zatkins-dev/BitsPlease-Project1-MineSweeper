@@ -1,0 +1,8 @@
+BitsPlease-Project1-MineSweeper
+===============================
+
+.. toctree::
+   :maxdepth: 4
+
+   Minesweeper
+   setup
