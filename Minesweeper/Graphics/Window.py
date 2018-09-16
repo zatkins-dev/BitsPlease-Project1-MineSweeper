@@ -56,7 +56,7 @@ class Window:
 				pygame Event object, with same button and gid location if on grid, else button=-1 if on reset button, else None
 		"""
 		x,y = newEvent.pos
-		x_game, y_game = (math.floor((x-self.MARGIN)/self.SPACE_PIXELS), math.floor((y-self.MARGIN-self.HEADER_BAR)/self.SPACE_PIXELS))
+		x_game, y_game = (math.floor((x-self.GAME_SCREEN_LEFT)/self.SPACE_PIXELS), math.floor((y-self.MARGIN-self.HEADER_BAR)/self.SPACE_PIXELS))
 		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1): 
 			x_min,y_min = self._reset.get_abs_offset()
 			x_reset_size, y_reset_size = self._reset.get_size()
