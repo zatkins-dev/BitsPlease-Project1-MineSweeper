@@ -1,5 +1,5 @@
-import pygame
-from pygame.locals import *
+from pygame import font, display, time, event, constants, init
+from pygame.locals import Rect, Color
 import math
 
 class Window:
@@ -21,9 +21,8 @@ class Window:
 		self.TIMER_WIDTH = 150
 		self.FLAG_COUNTER_HEIGHT = 20
 		self.FLAG_COUNTER_WIDTH = 150
-		pygame.init()
-		pygame.font.init()
-		self._screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+		init()
+		self._screen = display.set_mode((self.WIDTH, self.HEIGHT))
 		if (self.x_dim*self.SPACE_PIXELS) < self.WIDTH :
 			self.GAME_SCREEN_LEFT = (self.WIDTH / 2) - ((self.x_dim* self.SPACE_PIXELS) / 2)
 		else :
@@ -35,38 +34,34 @@ class Window:
 		self._screen.fill(Color('light grey'))
 		self._gameScreen.fill(Color('black'))
 
-		pygame.display.flip()
+		display.flip()
 
-		pygame.display.set_caption("BitSweeper")
-		self.clock = pygame.time.Clock()
+		display.set_caption("BitSweeper")
+		self.clock = time.Clock()
 
-	@property
-	def gameScreen(self):
-		return self._gameScreen
-
-	@gameScreen.setter
-	def setGameScreen(self, appSurface):
-		""" Adds appSurface as a subsurface to screen """
-		self._screen.subsurface(appSurface)
-
-	def onClick(self, event):
-		x,y = event.pos
+	def onClick(self, newEvent):
+		"""
+		On click handler for window
+		
+		**Args**:
+				*newEvent*: pygame Event object, newEvent.pos: pixel location of click, newEvent.button: mouse button clicked
+		
+		**Preconditions**:
+				None.
+		
+		**Postconditions**:
+				None.
+		
+		**Returns**:
+				pygame Event object, with same button and gid location if on grid, else button=-1 if on reset button, else None
+		"""
+		x,y = newEvent.pos
 		x_game, y_game = (math.floor((x-self.GAME_SCREEN_LEFT)/self.SPACE_PIXELS), math.floor((y-self.MARGIN-self.HEADER_BAR)/self.SPACE_PIXELS))
 		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1): 
 			x_min,y_min = self._reset.get_abs_offset()
 			x_reset_size, y_reset_size = self._reset.get_size()
 			(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size) 
 			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
-				return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': -1})
-
-			return 
-		return pygame.event.Event(pygame.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': event.button})
-	
-import time
-
-def main():
-	win = Window(20,20)
-	time.sleep(5)
-	pygame.quit()
-
-if __name__ == '__main__': main()
+				return event.Event(constants.MOUSEBUTTONDOWN, {'pos': newEvent.pos, 'button': -1})
+			return None
+		return event.Event(constants.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': newEvent.button})
