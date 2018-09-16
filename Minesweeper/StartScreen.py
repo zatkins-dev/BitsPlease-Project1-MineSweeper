@@ -2,9 +2,7 @@ from pygame import display, time, font, draw, init
 from pygame.locals import Rect, Color
 from Minesweeper.Graphics.Drawer import Drawer
 class StartScreen:
-	"""Minefield manages the internal game logic. The backend of the game board.
-	
-	Minefield is designed to be our internal game engine. In this class, there is logic to determine where the mines are placed, to reveal the gameboard, and deal with flags.
+	"""StartScreen manages user imput for the variables needed to make a minesweeper game, such as size and mine count
 	
 	**Class Variables**:
 			*min_size*: Integer The minimum board size to be allowed by the game
