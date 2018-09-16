@@ -58,10 +58,10 @@ class Minesweeper:
 		self.flag_element = self.window._flagCounter
 		#Images
 		self.img = {
-			'revealed': image.load('Minesweeper/assets/gridSpace_revealed.png').convert(),
-			'unrevealed': image.load("Minesweeper/assets/gridSpace.png").convert(),
-			'flagged': image.load("Minesweeper/assets/flag.png").convert_alpha(),
-			'mine': image.load("Minesweeper/assets/mine.png").convert_alpha()
+			'revealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace_revealed.png')).convert(),
+			'unrevealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace.png')).convert(),
+			'flagged': image.load(os.path.join(os.path.dirname(__file__), 'assets/flag.png')).convert_alpha(),
+			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha()
 		}	
 		
 	def onClick(self, event):
