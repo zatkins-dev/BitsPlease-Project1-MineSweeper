@@ -76,46 +76,41 @@ class Minesweeper:
 		**Returns**:
 				*(gameOver, win)*: tuple of booleans, as named 
 		"""
+		# Semantic names for possible return values
+		WIN = (True, True)
+		LOSE = (True, False)
+		RESET = (True, None)
+		NOTHING = (False, False)
+		# Let self.window process click event
 		newEvent = self.window.onClick(event)
-		(gameOver, win) = False, False
-
+		# Click was not on grid or reset button, return (False,False)
 		if newEvent is None:
-			return gameOver, newEvent
-
+			return NOTHING
+		# Click was on reset button, returns (True, None)
 		if newEvent.button == -1:
 			self.reset_flag = True
-			gameOver = True
-			win = None
-			return gameOver, win
-		
-		activeSpace = self.minefield.getSpace(newEvent.pos[0],newEvent.pos[1])
+			return RESET
+		# Click was on grid
+		(x,y) = newEvent.pos
+		activeSpace = self.minefield.getSpace(x,y)
+		# If the space is revealed, return (False, False)
 		if activeSpace.isRevealed:
-			pass
+			return NOTHING
+		# Reveal space if left-click
 		elif event.button == 1:
+			# Make sure not to lose a flag by revealing without first removing the flag
 			if activeSpace.isFlagged :
-				self.flagCounter = self.flagCounter + 1
-			if self.minefield.reveal(newEvent.pos[0],newEvent.pos[1]):
-				self.render()
-				gameOver = True
-				return gameOver, win
+				self.toggleFlag(activeSpace)
+			# Reveal the space, return (activeSpace.isMine, false)
+			self.minefield.reveal(x,y)
+			return LOSE if activeSpace.isMine else NOTHING
+		# Toggle flag on space if right-click
 		elif event.button == 3:
-			if not activeSpace.isRevealed:
-				if not activeSpace.isFlagged:
-					if self.flagCounter == 0:
-						return gameOver, win
-					self.flagCounter = self.flagCounter - 1
-					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
-					if self.flagCounter == 0:
-						isDone = self.minefield.checkFlags()
-						if isDone == True:
-							gameOver = True
-							win = True
-							return gameOver, win
-				else:
-					self.flagCounter = self.flagCounter + 1
-					self.minefield.toggleFlag(newEvent.pos[0],newEvent.pos[1])
-				
-		return gameOver, win
+			# If out of flags and trying to add another, do nothing, return (False, False)
+			if self.flagCounter == 0 and not activeSpace.isFlagged:
+				return NOTHING
+			# Toggle flag and check if all flags are correct: if they are, return (True, True); else, return (False, False)
+			return WIN if self.toggleFlag(activeSpace) and self.minefield.checkFlags() else NOTHING
 
 	def render(self):
 		"""
@@ -142,6 +137,25 @@ class Minesweeper:
 		self.updateFlags()
 		display.flip()
 
+	def toggleFlag(self, space):
+		"""
+		Toggles the isFlagged variable for space
+		
+		**Args**:
+				*space*: Space object to toggle flag
+		
+		**Preconditions**:
+				Space is not revealed, self.flagCounter > 0
+		
+		**Postconditions**:
+				space.isFlagged is toggled
+		
+		**Returns**:
+				New value of space.isFlagged
+		"""
+		self.flagCounter += 1 if space.isFlagged else -1
+		space.isFlagged = not space.isFlagged
+		return space.isFlagged
 
 	def renderSpace(self, space):
 		"""
