@@ -100,7 +100,7 @@ class Minesweeper:
 		elif event.button == 1:
 			# Make sure not to lose a flag by revealing without first removing the flag
 			if activeSpace.isFlagged :
-				self.toggleFlag(activeSpace)
+				self.toggleFlag(x,y)
 			# Reveal the space, return (activeSpace.isMine, false)
 			self.minefield.reveal(x,y)
 			return LOSE if activeSpace.isMine else NOTHING
@@ -110,7 +110,7 @@ class Minesweeper:
 			if self.flagCounter == 0 and not activeSpace.isFlagged:
 				return NOTHING
 			# Toggle flag and check if all flags are correct: if they are, return (True, True); else, return (False, False)
-			return WIN if self.toggleFlag(activeSpace) and self.minefield.checkFlags() else NOTHING
+			return WIN if self.toggleFlag(x,y) and self.minefield.checkFlags() else NOTHING
 
 	def render(self):
 		"""
@@ -137,12 +137,13 @@ class Minesweeper:
 		self.updateFlags()
 		display.flip()
 
-	def toggleFlag(self, space):
+	def toggleFlag(self, x, y):
 		"""
-		Toggles the isFlagged variable for space
+		Calls self.minefield.toggleFlag for space at (x,y) and adjusts flagCounter appropriately
 		
 		**Args**:
-				*space*: Space object to toggle flag
+				*x*: x coordinate of space to toggle flag
+				*y*: y coordinate of space to toggle flag
 		
 		**Preconditions**:
 				Space is not revealed, self.flagCounter > 0
@@ -153,8 +154,9 @@ class Minesweeper:
 		**Returns**:
 				New value of space.isFlagged
 		"""
+		space = self.minefield.getSpace(x,y)
 		self.flagCounter += 1 if space.isFlagged else -1
-		space.isFlagged = not space.isFlagged
+		self.minefield.toggleFlag(x,y)
 		return space.isFlagged
 
 	def renderSpace(self, space):
