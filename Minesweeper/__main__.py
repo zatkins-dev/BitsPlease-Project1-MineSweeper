@@ -90,5 +90,3 @@ def main():
 			currentState = State.Start
 			print('Error: This really should never happen, resetting game...')
 
-
-main()
