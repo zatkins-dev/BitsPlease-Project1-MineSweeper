@@ -12,13 +12,31 @@ class Minesweeper:
 		Minesweeper class controls the execution of the game
 		
 		**Class Variables**:
-			*x_dim*: Integer x size of board
-
-			*y_dim*: Integer y size of board
-
-			*numMines*: Integer number of mines
+			*flagCounter*: Current number of flags remaining, initialized to number of mines
 			
-            *minefield*: 2D array to track where the mines are located.
+			*timeOfLastReset*: Time game started
+			
+			*minefield*: Minefield object, controls backend game execution
+			
+			*grid*: minefield.minefield, reference to grid of spaces
+			
+			*window*: Window object, handles onClick actions to determine which element was clicked 
+			
+			*drawer*: Drawer object, utility for abstracting the drawing of buttons on the window
+			
+			*drawButton*: drawer.drawButton, reference to the drawButton function
+			
+			*game_element*: window._gameScreen, reference to surface in window, used for rendering display
+			
+			*reset_element*: window._reset, reference to surface in window, used for rendering display
+			
+			*timer_element*: window._timer, reference to surface in window, used for rendering display
+			
+			*flag_element*: window._flagCounter, reference to surface in window, used for rendering display
+
+			*reset_flag*: boolean, set when reset button is clicked
+
+			*img*: dictionary of images of squares in various states
 	"""
 	def __init__(self, x=9, y=9, mines=10):		
 
