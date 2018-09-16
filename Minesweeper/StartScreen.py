@@ -106,29 +106,54 @@ class StartScreen:
 		#define common vars for the buttons
 		buttonWidth_x = sizeLabel_x.get_width()
 		buttonWidth_mine = mineLabel.get_width()
-		buttonLeft_x = sizeLabelPos_x[0]
-		buttonLeft_y = sizeLabelPos_y[0]
-		buttonLeft_mine = mineLabelPos[0]
-		buttonTop = sizeLabelPos_x[1] + sizeLabel_x.get_height() + 20 
-		buttonHeight = 60
-		buttonColor = (128,128,128)
-		buttonHoverColor = (96,96,96)
-
+		buttonLeft_x = self.sizeSurface.get_width() / 4 - sizeLabel.get_width() / 2
+		buttonLeft_y = 3 * self.sizeSurface.get_width() / 4 - sizeLabel.get_width() / 2
+		buttonLeft_mine = self.mineSurface.get_width() / 2 - mineLabel.get_width() / 2
+		
+		buttonTop = sizeLabel_x.get_height() + 80 
+		
 		#seperate colors for the start button
-		startButtonColor = (0, 180, 0)
-		startButtonHoverColor = (0, 156, 0)
+		startButtonColors = ( (0, 180, 0), (0, 156, 0) )
+		buttonSize_size = (sizeLabel_x.get_width(), 60)
+		buttonHeight= 60
+		buttonColors = ( (128,128,128), (96,96,96) )
+		# TODO: Inc Width Button
+		incButtonSizeX_pos = (self.sizeSurface.get_width() / 4 - sizeLabel.get_width() / 2, buttonTop)
+		self.drawer.drawButton(self.sizeSurface, incButtonSizeX_pos, buttonSize_size, buttonColors, "+", 25, self.incWidth)
 
+		# TODO: Dec Width Button
+		decButtonSizeX_pos = (incButtonSizeX_pos[0], buttonTop + 2*buttonSize_size[1])
+		self.drawer.drawButton(self.sizeSurface, decButtonSizeX_pos, buttonSize_size, buttonColors, "-", 25, self.decWidth)
+
+		# TODO: Inc Height Button
+		incButtonSizeY_pos = (3 * self.sizeSurface.get_width() / 4 - sizeLabel.get_width() / 2, buttonTop)
+		self.drawer.drawButton(self.sizeSurface, incButtonSizeY_pos, buttonSize_size, buttonColors, "+", 25, self.incHeight)
+
+		# TODO: Dec Height Button
+		decButtonSizeY_pos = (incButtonSizeY_pos[0], buttonTop + 2*buttonSize_size[1])
+		self.drawer.drawButton(self.sizeSurface, decButtonSizeY_pos, buttonSize_size, buttonColors, "-", 25, self.decHeight)
+
+		# TODO: Inc Mines Button
+		incButtonMines_pos = (self.mineSurface.get_width() / 2 - mineLabel.get_width() / 2, buttonTop)
+		buttonMines_size = (mineLabel.get_width(), 60)
+		self.drawer.drawButton(self.mineSurface, incButtonMines_pos, buttonMines_size, buttonColors, "+", 25, self.incMines)
+
+		# TODO: Dec Mines Button
+		decButtonMines_pos = (incButtonMines_pos[0], buttonTop + 2*buttonMines_size[1])
+		self.drawer.drawButton(self.mineSurface, decButtonMines_pos, buttonMines_size, buttonColors, "-", 25, self.decMines)
+
+		# TODO: Start Button
+		self.drawer.drawButton(self.startSurface, (0, 0), self.startSurface.get_size(), startButtonColors, "Start!", 30, self.start)
 		#draw size changing buttons
-		self.drawer.drawButton(self.sizeSurface, buttonLeft_x, buttonTop, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incWidth)
-		self.drawer.drawButton(self.sizeSurface, buttonLeft_x, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decWidth)
-		self.drawer.drawButton(self.sizeSurface, buttonLeft_y, buttonTop, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incHeight)
-		self.drawer.drawButton(self.sizeSurface, buttonLeft_y, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decHeight)
+		#self.drawer.drawButton(self.sizeSurface, buttonLeft_x, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decWidth)
+		#self.drawer.drawButton(self.sizeSurface, buttonLeft_y, buttonTop, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incHeight)
+		#self.drawer.drawButton(self.sizeSurface, buttonLeft_y, buttonTop + buttonHeight * 2, buttonWidth_x, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decHeight)
 
 		#draw 
-		self.drawer.drawButton(self.mineSurface, buttonLeft_mine, buttonTop, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incMines)
-		self.drawer.drawButton(self.mineSurface, buttonLeft_mine, buttonTop + buttonHeight * 2, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decMines)
+		#self.drawer.drawButton(self.mineSurface, buttonLeft_mine, buttonTop, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "+", 25, self.incMines)
+		#self.drawer.drawButton(self.mineSurface, buttonLeft_mine, buttonTop + buttonHeight * 2, buttonWidth_mine, buttonHeight, buttonColor, buttonHoverColor, "-", 25, self.decMines)
 
-		self.drawer.drawButton(self.startSurface, 0, 0, self.startSurface.get_width(), self.startSurface.get_height(), startButtonColor, startButtonHoverColor, "Start!", 30, self.start)
+		#self.drawer.drawButton(self.startSurface, 0, 0, self.startSurface.get_width(), self.startSurface.get_height(), startButtonColor, startButtonHoverColor, "Start!", 30, self.start)
 
 		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_x, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
 		draw.rect(self.sizeSurface, Color('black'), (buttonLeft_y, buttonTop + buttonHeight, buttonWidth_x, buttonHeight))
