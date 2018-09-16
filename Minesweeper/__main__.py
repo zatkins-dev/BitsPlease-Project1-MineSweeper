@@ -47,7 +47,10 @@ def main():
 	while currentState != State.Exit:
 		if (currentState == State.Start):
 			if startScreen is None:
-				startScreen = StartScreen()
+				if minesweeper is None:
+					startScreen = StartScreen()
+				else:
+					startScreen = StartScreen(minesweeper.x_dim, minesweeper.y_dim, minesweeper.n_mines)
 			for newEvent in event.get():
 				if newEvent.type == constants.QUIT:
 					currentState = State.Exit
