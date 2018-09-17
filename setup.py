@@ -1,14 +1,5 @@
 from setuptools import setup, find_packages
 
-import codecs
-try:
-    codecs.lookup('mbcs')
-except LookupError:
-    ascii = codecs.lookup('ascii')
-    func = lambda name, enc=ascii: {True: enc}.get(name=='mbcs')
-    codecs.register(func)
-
-
 setup(name='Minesweeper',
       version='1.0',
       description='Minesweeping game',
