@@ -5,7 +5,7 @@ from pygame.locals import Color
 class EndScreen:
 	"""EndScreen manages post game conditions, tells the user whether they won or lost, and will restart the game.
 	The win state is passed in at construction time via the gameWon boolean parameter.
-	
+
 	**Class Variables**:
 		*gameSurf*: Surface A copy of the game screen to be used as a base for other transparent drawing
 
@@ -57,7 +57,7 @@ class EndScreen:
 			self.drawWindow.get_height() / 2 - self.titleSurf.get_height() - textMargin / 2
 		)
 		self.subtitlePos = (
-			self.drawWindow.get_width() / 2 - self.subtitleSurf.get_width() / 2, 
+			self.drawWindow.get_width() / 2 - self.subtitleSurf.get_width() / 2,
 			self.drawWindow.get_height() / 2 + textMargin / 2
 		)
 		self.textBackgroundPos = (
@@ -67,17 +67,17 @@ class EndScreen:
 
 	def render(self):
 		"""
-		Renders the ending screen. This includes message text and a transparent color 
-		
+		Renders the ending screen. This includes message text and a transparent color
+
 		**Args**:
 				None.
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				EndScreen's contents will be rendered to the main pygame display surface.
-		
+
 		**Returns**:
 				None.
 		"""
@@ -89,4 +89,4 @@ class EndScreen:
 			(self.subtitleSurf, self.subtitlePos)
 		])
 
-		display.flip()	
+		display.flip()
