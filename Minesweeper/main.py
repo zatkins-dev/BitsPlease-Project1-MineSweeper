@@ -83,10 +83,10 @@ def main():
 							currentState = State.End
 							if not win:
 								minesweeper.onLose()
-							minesweeper.render()
 							endScreen = EndScreen(win)
                     ###################################### new for cheat mode ######################################
 					elif win is None:
+						minesweeper.cheatFlags()
 						cheatMode = CheatMode()
 						currentState = State.CheatMode
                     ################################################################################################
@@ -107,11 +107,11 @@ def main():
         ###################################### new for cheat mode ######################################
 		elif currentState == State.CheatMode:
 			cheatMode.render()
-
 			for newEvent in event.get():
 				if newEvent.type == constants.QUIT:
 					currentState = State.Exit
 				elif newEvent.type == constants.MOUSEBUTTONDOWN:
+					minesweeper.undoCheatFlags()
 					currentState = State.Minesweeper
 					cheatMode = None
         ################################################################################################

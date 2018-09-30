@@ -65,7 +65,7 @@ class Minesweeper:
 			'revealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace_revealed.png')).convert(),
 			'unrevealed': image.load(os.path.join(os.path.dirname(__file__), 'assets/gridSpace.png')).convert(),
 			'flagged': image.load(os.path.join(os.path.dirname(__file__), 'assets/flag.png')).convert_alpha(),
-			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha()
+			'mine': image.load(os.path.join(os.path.dirname(__file__), 'assets/mine.png')).convert_alpha(),
 		}
 
 	def onClick(self, event):
@@ -201,8 +201,11 @@ class Minesweeper:
 		space_x = space.x_loc*self.window.SPACE_PIXELS
 		space_y = space.y_loc*self.window.SPACE_PIXELS
 
+		if space.isCheatFlag:
+			self.game_element.blit(self.img['mine'], (space_x, space_y))
+
 		#Draw revealed space background
-		if space.isRevealed:
+		elif space.isRevealed:
 			self.game_element.blit(self.img['revealed'], (space_x, space_y))
 			#Draw either a mine, or text ontop of background
 			if space.isMine:
@@ -219,6 +222,7 @@ class Minesweeper:
 			#Draw a flag if the space is flagged
 			if space.isFlagged:
 				self.game_element.blit(self.img['flagged'], (space_x, space_y))
+
 
 	def getTime(self):
 		"""
@@ -299,15 +303,29 @@ class Minesweeper:
 		(cheatMode_x, cheatMode_y) = self.cheatMode_element.get_size()
 		cheatMode_fontsize = 20
 		cheatMode_font = font.SysFont('lucidaconsole', cheatMode_fontsize)
-
-		# print ('cheatMode left: ', cheatMode_left)
-		# print ('cheatMode top: ', cheatMode_top)
-		# print ('cheatMode x: ', cheatMode_x)
-		# print ('cheatMode y: ', cheatMode_y)
-		# print ('')
-
 		self.drawButton(self.window._screen, (cheatMode_left, cheatMode_top), (cheatMode_x, cheatMode_y), ((128,128,128), (96,96,96)), cheatMode_text, cheatMode_fontsize, self.reset)
 
+	def cheatFlags(self):
+		# for row in self.grid:
+		# 	for space in row:
+		# 		if space.isMine:
+		# 			space.isCheatFlag = True
+		# 			self.renderSpace(space)
+		for row in self.grid:
+			for space in row:
+				if space.isMine:
+					space.isCheatFlag = True
+					self.renderSpace(space)
+
+	def undoCheatFlags(self):
+		for row in self.grid:
+			for space in row:
+				if space.isMine:
+					space.isCheatFlag = False
+					self.renderSpace(space)
+
+
+################################################################################################
 
 	def updateClock(self):
 		"""

@@ -8,12 +8,8 @@ class CheatMode:
 		self.gameSurf = display.get_surface().copy()
 		self.drawWindow = display.get_surface()
 		self.transparentSurf = surface.Surface(display.get_surface().get_size(), constants.SRCALPHA)
-
-		color = (0,2, 0, 127)
-		text = "Cheat Mode!"
-		backgroundColor = 'blue'
-		title = SysFont('lucidaconsole', 25)
-		subtitle = SysFont('lucidaconsole', 15)
+		color = (127, 179, 213, 127)
+		self.transparentSurf.fill(color)
 
 	def render(self):
 		self.drawWindow.blit(self.gameSurf, (0,0))
