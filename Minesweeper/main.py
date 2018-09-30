@@ -4,6 +4,7 @@ from Minesweeper.Minesweeper import Minesweeper
 from Minesweeper.Minefield import Minefield
 from Minesweeper.StartScreen import StartScreen
 from Minesweeper.EndScreen import EndScreen
+from Minesweeper.CheatMode import CheatMode
 
 def main():
 	"""
@@ -40,12 +41,17 @@ def main():
 			None.
 	"""
 	clock = time.Clock()
-	State = Enum('State','Start Minesweeper End Exit')
+	State = Enum('State','Start Minesweeper End Exit CheatMode')
 	currentState = State.Start
 	startScreen = None
 	minesweeper = None
 	endScreen = None
+	###################################### new for cheat mode ######################################
+	cheatMode = None
+	################################################################################################
 	x,y,mines = 0, 0, 0
+
+
 	while currentState != State.Exit:
 		if (currentState == State.Start):
 			if startScreen is None:
@@ -79,6 +85,11 @@ def main():
 								minesweeper.onLose()
 							minesweeper.render()
 							endScreen = EndScreen(win)
+                    ###################################### new for cheat mode ######################################
+					elif win is None:
+						cheatMode = CheatMode()
+						currentState = State.CheatMode
+                    ################################################################################################
 			minesweeper.render()
 			clock.tick(60)
 
@@ -92,7 +103,19 @@ def main():
 				elif newEvent.type == constants.MOUSEBUTTONDOWN:
 					currentState = State.Start
 					endScreen = None
+
+        ###################################### new for cheat mode ######################################
+		elif currentState == State.CheatMode:
+			cheatMode.render()
+
+			for newEvent in event.get():
+				if newEvent.type == constants.QUIT:
+					currentState = State.Exit
+				elif newEvent.type == constants.MOUSEBUTTONDOWN:
+					currentState = State.Minesweeper
+					cheatMode = None
+        ################################################################################################
+
 		else:
 			currentState = State.Start
 			print('Error: This really should never happen, resetting game...')
-
