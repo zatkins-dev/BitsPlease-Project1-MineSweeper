@@ -5,7 +5,7 @@ import math
 class Window:
 	"""
 		Window class controls interactions with the pygame surfaces of the parent window and subsurfaces of the various game elements
-		
+
 		**Class Variables**:
 			*self.x_dim*: number of game tiles, x dimension
 
@@ -19,7 +19,7 @@ class Window:
 
 			*self.WIDTH*: const, window width
 
-			*self.HEIGHT*: const, window height 
+			*self.HEIGHT*: const, window height
 
 			*self.RESET_WIDTH*: const, width of reset button element
 
@@ -49,13 +49,13 @@ class Window:
 		self.SPACE_PIXELS = 32
 		self.MARGIN = 8
 
-		
-		self.HEADER_BAR = 70
-		
 
-		if (self.SPACE_PIXELS*self.x_dim + 2 * self.MARGIN) < 300 :
-			self.WIDTH = 300
-		else: 
+		self.HEADER_BAR = 70
+
+
+		if (self.SPACE_PIXELS*self.x_dim + 2 * self.MARGIN) < 550 :
+			self.WIDTH = 550
+		else:
 			self.WIDTH = self.SPACE_PIXELS*self.x_dim + 2 * self.MARGIN
 
 		self.HEIGHT = self.SPACE_PIXELS*self.y_dim + 2 * self.MARGIN + self.HEADER_BAR
@@ -86,34 +86,52 @@ class Window:
 		self._flagCounter = self._screen.subsurface(
 				Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN, self.MARGIN + self.FLAG_COUNTER_HEIGHT, self.FLAG_COUNTER_WIDTH, self.FLAG_COUNTER_HEIGHT)
 			)
-		
+
 		self._screen.fill(Color('light grey'))
+
+        ###################################### new for cheat mode ######################################
+		self.CHEATMODE_WIDTH = math.floor(self.WIDTH/3)
+        # self.CHEATMODE_WIDTH = 150
+		self._cheatMode = self._screen.subsurface(
+				Rect(self.MARGIN + self.RESET_WIDTH + self.MARGIN + self.TIMER_WIDTH + self.MARGIN, self.MARGIN, self.CHEATMODE_WIDTH, self.HEADER_BAR-self.MARGIN)
+			)
 
 		display.flip()
 
 	def onClick(self, newEvent):
 		"""
 		On click handler for window
-		
+
 		**Args**:
 				*newEvent*: pygame Event object, newEvent.pos: pixel location of click, newEvent.button: mouse button clicked
-		
+
 		**Preconditions**:
 				None.
-		
+
 		**Postconditions**:
 				None.
-		
+
 		**Returns**:
 				pygame Event object, with same button and gid location if on grid, else button=-1 if on reset button, else None
 		"""
 		x,y = newEvent.pos
 		x_game, y_game = (math.floor((x-self.GAME_SCREEN_LEFT)/self.SPACE_PIXELS), math.floor((y-self.MARGIN-self.HEADER_BAR)/self.SPACE_PIXELS))
-		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1): 
-			x_min,y_min = self._reset.get_abs_offset()
-			x_reset_size, y_reset_size = self._reset.get_size()
-			(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size) 
-			if (x_min <= x <= x_max) and (y_min <= y <= y_max):
-				return event.Event(constants.MOUSEBUTTONDOWN, {'pos': newEvent.pos, 'button': -1})
-			return None
+
+		if not (0 <= x_game <= self.x_dim-1 and 0 <= y_game <= self.y_dim-1):
+			# reset button
+			if (self.MARGIN<=x<self.RESET_WIDTH and self.MARGIN<=y<self.HEADER_BAR-self.MARGIN ):
+				x_min,y_min = self._reset.get_abs_offset()
+				x_reset_size, y_reset_size = self._reset.get_size()
+				(x_max, y_max) = (x_min + x_reset_size, y_min + y_reset_size)
+				if (x_min <= x <= x_max) and (y_min <= y <= y_max):
+					return event.Event(constants.MOUSEBUTTONDOWN, {'pos': newEvent.pos, 'button': -1})
+				return None
+			# cheat mode button
+			else:
+				x_min,y_min = self._cheatMode.get_abs_offset()
+				x_cheatMode_size, y_cheatMode_size = self._cheatMode.get_size()
+				(x_max, y_max) = (x_min + x_cheatMode_size, y_min + y_cheatMode_size)
+				if (x_min <= x <= x_max) and (y_min <= y <= y_max):
+					return event.Event(constants.MOUSEBUTTONDOWN, {'pos': newEvent.pos, 'button': -2})
+				return None
 		return event.Event(constants.MOUSEBUTTONDOWN, {'pos': (x_game, y_game), 'button': newEvent.button})

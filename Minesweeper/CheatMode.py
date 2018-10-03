@@ -2,9 +2,8 @@ from pygame import surface, display, constants
 from pygame.font import SysFont
 from pygame.locals import Color
 
-class EndScreen:
-	"""EndScreen manages post game conditions, tells the user whether they won or lost, and will restart the game.
-	The win state is passed in at construction time via the gameWon boolean parameter.
+class CheatMode:
+	"""CheatMode adds a blue screen on top while cheat mode is executed
 
 	**Class Variables**:
 		*gameSurf*: Surface A copy of the game screen to be used as a base for other transparent drawing
@@ -25,30 +24,27 @@ class EndScreen:
 
 		*textBackgroundPos*: Tuple (Int, Int) Holds the (x,y) coordinates of the text's background
 	"""
-	def __init__(self, gameWon):
-		self.gameSurf = display.get_surface().copy()
-		self.drawWindow = display.get_surface()
-		self.transparentSurf = surface.Surface(display.get_surface().get_size(), constants.SRCALPHA)
 
-		color = (0,255, 0, 127) if gameWon else (255, 0, 0, 127)
-		text = "You Won!" if gameWon else "You Lost..."
-		backgroundColor = (0,255,0) if gameWon else (255,0,0)
+	def __init__(self):
+		self.drawWindow = display.get_surface()
+
+		backgroundColor = (31, 97, 141, 200)
 		title = SysFont('lucidaconsole', 25)
 		subtitle = SysFont('lucidaconsole', 15)
 
-		#distance between title and subtitle text
+        #distance between title and subtitle text
 		textMargin = 10
-		#distance between edge of text and full opacity background
+        #distance between edge of text and full opacity background
 		textBackgroundMargin = 10
 
-		self.transparentSurf.fill(color)
-		self.titleSurf = title.render(text, True, Color('black'))
-		self.subtitleSurf = subtitle.render("Click to play again", True, Color('black'))
+		self.titleSurf = title.render("Cheat mode", True, Color('black'))
+		self.subtitleSurf = subtitle.render("Click to exit", True, Color('black'))
 
 		self.textBackgroundSurf = surface.Surface(
-			(self.subtitleSurf.get_width() + 2*textBackgroundMargin,
+			(self.subtitleSurf.get_width() + 2*textBackgroundMargin + 50,
 			self.titleSurf.get_height() + self.subtitleSurf.get_height() + textMargin + 2*textBackgroundMargin)
 		)
+
 
 		self.textBackgroundSurf.fill(backgroundColor)
 
@@ -65,28 +61,12 @@ class EndScreen:
 			self.drawWindow.get_height() / 2 - self.textBackgroundSurf.get_height() / 2
 		)
 
+
+
 	def render(self):
-		"""
-		Renders the ending screen. This includes message text and a transparent color
-
-		**Args**:
-				None.
-
-		**Preconditions**:
-				None.
-
-		**Postconditions**:
-				EndScreen's contents will be rendered to the main pygame display surface.
-
-		**Returns**:
-				None.
-		"""
-		self.drawWindow.blit(self.gameSurf, (0,0))
-		self.drawWindow.blit(self.transparentSurf, (0,0), None, constants.BLEND_RGBA_MULT)
 		self.drawWindow.blits([
-			(self.textBackgroundSurf, self.textBackgroundPos),
+    		(self.textBackgroundSurf, self.textBackgroundPos),
 			(self.titleSurf, self.titlePos),
-			(self.subtitleSurf, self.subtitlePos)
-		])
-
+    		(self.subtitleSurf, self.subtitlePos)
+    	])
 		display.flip()
